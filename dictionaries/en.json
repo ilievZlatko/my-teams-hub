@@ -1,0 +1,15 @@
+{
+  "navigation": {
+    "home": "Home",
+    "dashboard": "Dashboard"
+  },
+  "auth": {
+    "signin": "Sign In",
+    "signout": "Sign Out"
+  },
+  "page": {
+    "home": {
+      "title": "Welcome to the home page"
+    }
+  }
+}
