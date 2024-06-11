@@ -1,3 +1,5 @@
+'use client'
+
 import React, { createContext, useContext } from 'react'
 
 // TODO: This is just an example, please remove later when we have real context files in this folder

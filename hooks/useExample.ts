@@ -1,3 +1,5 @@
+'use client'
+
 import { useState, useEffect } from 'react'
 
 // This is an example custom hook that fetches data from an API
