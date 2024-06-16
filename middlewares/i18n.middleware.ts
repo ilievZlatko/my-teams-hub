@@ -1,23 +1,23 @@
-import { NextResponse } from 'next/server'
-import type { NextFetchEvent, NextRequest } from 'next/server'
-import { i18n } from '@/config/i18n.config'
-import { match as matchLocale } from '@formatjs/intl-localematcher'
-import Negotiator from 'negotiator'
-import { CustomMiddleware } from '@/middlewares/chain'
+import { NextResponse } from 'next/server';
+import type { NextFetchEvent, NextRequest } from 'next/server';
+import { i18n } from '@/config/i18n.config';
+import { match as matchLocale } from '@formatjs/intl-localematcher';
+import Negotiator from 'negotiator';
+import { CustomMiddleware } from '@/middlewares/chain';
 
 function getLocale(request: NextRequest): string | undefined {
-  const negotiatorHeaders: Record<string, string> = {}
-  request.headers.forEach((value, key) => (negotiatorHeaders[key] = value))
+  const negotiatorHeaders: Record<string, string> = {};
+  request.headers.forEach((value, key) => (negotiatorHeaders[key] = value));
 
   // @ts-ignore locales are readonly
-  const locales: string[] = i18n.locales
-  const languages = new Negotiator({ headers: negotiatorHeaders }).languages()
+  const locales: string[] = i18n.locales;
+  const languages = new Negotiator({ headers: negotiatorHeaders }).languages();
 
-  const locale = matchLocale(languages, locales, i18n.defaultLocale)
-  return locale
+  const locale = matchLocale(languages, locales, i18n.defaultLocale);
+  return locale;
 }
 
-export function middleware(request: NextRequest) {}
+export function middleware(request: NextRequest) { }
 
 export function withI18nMiddleware(middleware: CustomMiddleware) {
   return async (
@@ -25,24 +25,29 @@ export function withI18nMiddleware(middleware: CustomMiddleware) {
     event: NextFetchEvent,
     response: NextResponse,
   ) => {
+    // Define pattern for public files (assets, images...) in order not to add lang prefix
+    const PUBLIC_FILE = /\.(.*)$/;
+
     // do i18n stuff
-    const pathname = request.nextUrl.pathname
+    const pathname = request.nextUrl.pathname;
     const pathnameIsMissingLocale = i18n.locales.every(
       (locale: string) =>
-        !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`,
-    )
+        !pathname.startsWith(`/${locale}/`) &&
+        pathname !== `/${locale}` &&
+        !PUBLIC_FILE.test(request.nextUrl.pathname)
+    );
 
     // Redirect if there is no locale
     if (pathnameIsMissingLocale) {
-      const locale = getLocale(request)
+      const locale = getLocale(request);
       return NextResponse.redirect(
         new URL(
           `/${locale}${pathname.startsWith('/') ? '' : '/'}${pathname}`,
           request.url,
         ),
-      )
+      );
     }
 
-    return middleware(request, event, response)
-  }
+    return middleware(request, event, response);
+  };
 }
