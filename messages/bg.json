@@ -4,6 +4,10 @@
     "dashboard": "Дашборд"
   },
   "auth": {
+    "login": {
+      "title": "Добре дошли отново!",
+      "subtitle": "Впишете се във вашият <strong>My Teams Hub</strong> профил"
+    },
     "signin": "Вписване",
     "signout": "Изход"
   },

@@ -3,7 +3,7 @@ import Google from 'next-auth/providers/google'
 import Credentials from 'next-auth/providers/credentials'
 import { JWT } from 'next-auth/jwt'
 
-const config = {
+export const config = {
   providers: [
     Google,
     Credentials({
