@@ -2,6 +2,7 @@ import NextAuth, { NextAuthConfig } from 'next-auth'
 import Google from 'next-auth/providers/google'
 import Credentials from 'next-auth/providers/credentials'
 import { JWT } from 'next-auth/jwt'
+import routes from '@/api-routes'
 
 export const config = {
   providers: [
@@ -13,7 +14,7 @@ export const config = {
       },
       async authorize(credentials) {
         const response = await fetch(
-          process.env.API_BASE_URL! + '/auth/login',
+          process.env.API_BASE_URL! + routes.login.post,
           {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
