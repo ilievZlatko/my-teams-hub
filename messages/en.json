@@ -4,6 +4,10 @@
     "dashboard": "Dashboard"
   },
   "auth": {
+    "login": {
+      "title": "Welcome back!",
+      "subtitle": "Login to your <strong>My Teams Hub</strong> account"
+    },
     "signin": "Sign In",
     "signout": "Sign Out"
   },

@@ -1,0 +1,48 @@
+<svg viewBox="0 0 567 119"
+     fill="none"
+     xmlns="http://www.w3.org/2000/svg">
+
+  <style type="text/css">
+    @font-face {
+      font-family: 'Open Sans', sans-serif;
+    }
+  </style>
+  <text fill="#62929E"
+        xml:space="preserve"
+        style="white-space: pre"
+        font-family="'Open Sans', sans-serif"
+        font-size="64"
+        font-weight="700"
+        letter-spacing="0em">
+    <tspan x="97.0625"
+           y="63.3281">My Teams Hub</tspan>
+  </text>
+  <path d="M15.2997 58.9725L23.5009 30.5938H34.3057L38.4713 36.7989L33.6548 63.8325L40.9447 68.6491L48.0177 63.8325L43.2011 36.7989L47.2367 30.5938H57.7811L66.1992 58.9725L42.3767 74.6807C41.8126 74.9989 40.2418 75.3576 38.4713 74.2467L15.2997 58.9725Z"
+        fill="#63929E" />
+  <circle cx="40.7278"
+          cy="13.6706"
+          r="12.6706"
+          fill="#2E3A44" />
+  <circle cx="66.6766"
+          cy="18.2703"
+          r="7.37675"
+          fill="#63929E" />
+  <circle cx="14.779"
+          cy="18.2703"
+          r="7.37675"
+          fill="#63929E" />
+  <path d="M15.4184 59.063L23.5009 30.5938C17.3391 30.4202 4.43843 31.5124 3.74574 33.201C3.05305 34.8896 1.70934 40.3152 0.404512 44.8736C0.0688324 46.0849 -0.610876 47.807 1.22897 49.6468L15.4184 59.063Z"
+        fill="#CFDDE1" />
+  <path d="M66.0805 59.0811L57.7377 30.5938C63.8994 30.4202 77.0604 31.5305 77.7531 33.2191C78.4458 34.9077 79.7895 40.3333 81.0944 44.8917C81.43 46.103 82.1098 47.8251 80.2699 49.6649L66.0805 59.0811Z"
+        fill="#CFDDE1" />
+  <text fill="#96B6BE"
+        xml:space="preserve"
+        style="white-space: pre"
+        font-family="'Open Sans', sans-serif"
+        font-size="24"
+        font-weight="600"
+        letter-spacing="0.015em">
+    <tspan x="115.383"
+           y="112.811">not your regular HR platform</tspan>
+  </text>
+</svg>
