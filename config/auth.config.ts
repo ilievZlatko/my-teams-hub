@@ -10,7 +10,11 @@ export const config = {
     Google,
     Credentials({
       credentials: {
-        email: { label: 'Email' },
+        email: {
+          label: 'Email',
+          type: 'email',
+          placeholder: 'john.doe@mail.com',
+        },
         password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials, req) {
