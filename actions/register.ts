@@ -22,7 +22,7 @@ export const register = async (values: RegisterFormData) => {
           firstName: name.split(' ')[0],
           lastName: name.split(' ')[1],
           email,
-          phone,
+          phoneNumber: phone,
           password,
         }),
         cache: 'no-cache',
