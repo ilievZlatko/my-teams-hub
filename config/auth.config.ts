@@ -12,18 +12,25 @@ export const config = {
         email: { label: 'Email' },
         password: { label: 'Password', type: 'password' },
       },
-      async authorize(credentials) {
-        const response = await fetch(
-          process.env.API_BASE_URL! + routes.login.post,
-          {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(credentials),
-            cache: 'no-cache',
-          },
-        )
-        if (!response.ok) return null
-        return (await response.json()) ?? null
+      async authorize(credentials, req) {
+        try {
+          const response = await fetch(
+            process.env.API_BASE_URL! + routes.login.post,
+            {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(credentials),
+              cache: 'no-cache',
+            },
+          )
+          if (!response.ok) return null
+
+          const user = await response.json()
+
+          return user
+        } catch (error) {
+          console.error('Error logging in: ', error)
+        }
       },
     }),
   ],

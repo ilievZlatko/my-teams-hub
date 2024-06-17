@@ -7,7 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import Link from 'next/link'
 import { EnvelopeClosedIcon } from '@radix-ui/react-icons'
 import { EyeIcon, EyeOffIcon } from 'lucide-react'
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 
 import { LoginSchema } from '@/schemas/login.schema'
 
@@ -36,6 +36,7 @@ export const LoginForm = () => {
   const [success, setSuccess] = useState<string | undefined>('')
   const [isPending, startTransition] = useTransition()
   const t = useTranslations('auth.login')
+  const locale = useLocale()
 
   const [showPassword, setShowPassword] = useState(false)
 
@@ -52,7 +53,7 @@ export const LoginForm = () => {
       await signIn(PROVIDERS.CREDENTIALS, {
         email: values.email,
         password: values.password,
-        callbackUrl: '/',
+        callbackUrl: `/${locale}/`,
         redirect: false,
       })
     })
