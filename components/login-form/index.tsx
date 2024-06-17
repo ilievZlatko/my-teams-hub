@@ -35,7 +35,7 @@ export const LoginForm = () => {
   const [error, setError] = useState<string | undefined>('')
   const [success, setSuccess] = useState<string | undefined>('')
   const [isPending, startTransition] = useTransition()
-  const t = useTranslations('auth.login')
+  const t = useTranslations('auth')
   const locale = useLocale()
 
   const [showPassword, setShowPassword] = useState(false)
@@ -63,10 +63,10 @@ export const LoginForm = () => {
     <Card className='max-sm:w-[310px] w-[400px] h-fit bg-transparent border-0 shadow-none text-[#3C4B57]'>
       <CardHeader className='flex flex-col gap-y-3 justify-center items-center w-full'>
         <h1 className='text-[32px] leading-[38.4px] font-medium font-roboto'>
-          {t('title')}
+          {t('login.title')}
         </h1>
         <p
-          dangerouslySetInnerHTML={{ __html: t.raw('subtitle') }}
+          dangerouslySetInnerHTML={{ __html: t.raw('login.subtitle') }}
           className='text-[12px] leading-[14.4px] font-poppins'
         />
       </CardHeader>
@@ -169,18 +169,18 @@ export const LoginForm = () => {
               disabled={isPending}
               className='w-full rounded-lg'
             >
-              Sign In
+              {t('signin')}
             </Button>
           </form>
         </Form>
       </CardContent>
 
       <CardFooter className='flex flex-col gap-2 justify-center items-center'>
-        <Social label='Sign In with Google' />
+        <Social label={t('signingoogle')} />
         <BackButton
           questionLabel="Don't have an account?"
           actionLabel='Register'
-          href='/auth/register'
+          href={`/${locale}/register`}
         />
       </CardFooter>
     </Card>
