@@ -1,9 +1,8 @@
 'use client'
 
 import Link from 'next/link'
+import { locales } from '@/navigation'
 import { usePathname } from 'next/navigation'
-
-import { i18n } from '@/config/i18n.config'
 
 export function LocaleSwitcher() {
   const pathName = usePathname()
@@ -17,7 +16,7 @@ export function LocaleSwitcher() {
 
   return (
     <ul className='flex gap-x-3'>
-      {i18n.locales.map(locale => {
+      {locales.map(locale => {
         return (
           <li key={locale}>
             <Link

@@ -1,0 +1,77 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body,
+:root {
+  height: 100%;
+  font-weight: normal;
+  font-size: 16px;
+  --font-opensans: var(--font-opensans);
+  --font-poppins: var(--font-poppins);
+  --font-roboto: var(--font-roboto);
+}
+
+@layer base {
+  :root {
+    --background: 207 100% 100%;
+    --foreground: 207 5% 10%;
+    --card: 207 50% 100%;
+    --card-foreground: 207 5% 15%;
+    --popover: 207 100% 100%;
+    --popover-foreground: 207 100% 10%;
+    --primary: 207 18.4% 28.8%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 207 30% 90%;
+    --secondary-foreground: 0 0% 0%;
+    --muted: 169 30% 95%;
+    --muted-foreground: 207 5% 40%;
+    --accent: 169 30% 90%;
+    --accent-foreground: 207 5% 15%;
+    --destructive: 0 100% 50%;
+    --destructive-foreground: 207 5% 100%;
+    --border: 207 30% 82%;
+    --input: 207 30% 50%;
+    --ring: 207 18.4% 28.8%;
+    --radius: 0.5rem;
+  }
+  .dark {
+    --background: 207 50% 10%;
+    --foreground: 207 5% 100%;
+    --card: 207 50% 10%;
+    --card-foreground: 207 5% 100%;
+    --popover: 207 50% 5%;
+    --popover-foreground: 207 5% 100%;
+    --primary: 207 18.4% 28.8%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 207 30% 20%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 169 30% 25%;
+    --muted-foreground: 207 5% 65%;
+    --accent: 169 30% 25%;
+    --accent-foreground: 207 5% 95%;
+    --destructive: 0 100% 50%;
+    --destructive-foreground: 207 5% 100%;
+    --border: 207 30% 50%;
+    --input: 207 30% 50%;
+    --ring: 207 18.4% 28.8%;
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+    @apply font-poppins;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  form label {
+    @apply !text-xs;
+  }
+}
