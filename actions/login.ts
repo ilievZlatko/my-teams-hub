@@ -28,7 +28,7 @@ export const login = async (values: LoginFormData) => {
         case 'CredentialsSignin':
           return { error: 'Invalid credentials!' }
         default:
-          return { error: 'An error has occurred!' }
+          return { error: error?.message || 'An error has occurred!' }
       }
     }
 

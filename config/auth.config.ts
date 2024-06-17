@@ -4,6 +4,7 @@ import Credentials from 'next-auth/providers/credentials'
 import { JWT } from 'next-auth/jwt'
 import routes from '@/api-routes'
 import { LoginSchema } from '@/schemas/login.schema'
+import { PROVIDERS } from '@/consts/providers'
 
 export const config = {
   providers: [
@@ -23,31 +24,48 @@ export const config = {
         const validatedFields = LoginSchema.safeParse(credentials)
 
         if (validatedFields.success) {
-          const session = await auth()
-
           try {
+            const loginResponse = await fetch(
+              process.env.API_BASE_URL! + routes.login.post,
+              {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  email: credentials.email,
+                  password: credentials.password,
+                }),
+                cache: 'no-cache',
+              },
+            )
+            const userInfo = await loginResponse.json()
+
+            if (!userInfo) throw new Error('User not found')
+
             const response = await fetch(
               process.env.API_BASE_URL! + routes.me.get,
               {
                 method: 'GET',
                 headers: {
                   'Content-Type': 'application/json',
-                  Authorization: `Bearer ${session?.access_token}`,
+                  Authorization: `Bearer ${userInfo?.data?.accessToken}`,
                 },
                 cache: 'no-cache',
               },
             )
-            if (!response.ok) throw new Error('Login failed')
-
             const user = await response.json()
 
             if (!user) throw new Error('User not found')
 
-            return user
+            return {
+              ...userInfo.data,
+              ...user.data,
+            }
           } catch (error: any) {
             console.error('Error logging in: ', error)
             throw new Error('LoginError: ', error?.message)
           }
+        } else {
+          throw new Error('Fields validation failed!')
         }
       },
     }),
@@ -60,7 +78,20 @@ export const config = {
       return !!auth
     },
     async jwt({ token, user, account }): Promise<JWT | null> {
-      if (user && account) {
+      if (account?.type === PROVIDERS.CREDENTIALS) {
+        return {
+          ...token,
+          id: String(user.id),
+          user_id: user.userId,
+          access_token: String(user.accessToken),
+          issued_at: Date.now(),
+          expires_at: Date.now() + Number(account.expires_in) * 1000,
+          refresh_token: user.refreshToken,
+          email: user.email,
+          first_name: user.firstName,
+          last_name: user.lastName,
+        }
+      } else if (user && account) {
         return {
           ...token,
           access_token: String(account.access_token),
@@ -72,6 +103,9 @@ export const config = {
         return token
       } else {
         console.log('Access token expired, getting new one')
+
+        if (!token.refresh_token) return { ...token }
+
         try {
           const response = await fetch('https://oauth2.googleapis.com/token', {
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
