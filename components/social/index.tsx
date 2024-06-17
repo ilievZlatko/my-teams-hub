@@ -10,7 +10,7 @@ export const Social = ({ label }: { label?: string }) => {
   return (
     <div className='flex items-center gap-x-2 w-full'>
       <Button
-        variant='outline'
+        variant='primary-outline'
         className='w-full gap-2 rounded-lg border-[#3C4B57]'
         onClick={() =>
           signIn(PROVIDERS.GOOGLE, {

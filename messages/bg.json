@@ -13,7 +13,9 @@
       "subtitle": "Направете си нов <strong>My Teams Hub</strong> профил"
     },
     "signin": "Вписване",
-    "signout": "Изход"
+    "signup": "Регистрация",
+    "signout": "Изход",
+    "signingoogle": "Вписване с Google"
   },
   "page": {
     "home": {

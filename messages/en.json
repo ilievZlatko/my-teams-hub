@@ -13,7 +13,9 @@
       "subtitle": "Create a new <strong>My Teams Hub</strong> account"
     },
     "signin": "Sign In",
-    "signout": "Sign Out"
+    "signup": "Sign Up",
+    "signout": "Sign Out",
+    "signingoogle": "Sign in with Google"
   },
   "page": {
     "home": {
