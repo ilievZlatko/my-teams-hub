@@ -34,10 +34,12 @@ export const register = async (values: RegisterFormData) => {
 
     if (!user) throw new Error('User not found')
 
-    return user
-  } catch (error) {
+    return { success: "You've successfully registered!", user }
+  } catch (error: any) {
     console.error('Error register in: ', error)
+    if (error?.message) {
+      return { error: error.message }
+    }
+    return { error: 'An error has occurred!' }
   }
-
-  return { success: 'Confirmation email sent!' }
 }

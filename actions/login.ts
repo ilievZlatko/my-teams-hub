@@ -23,7 +23,6 @@ export const login = async (values: LoginFormData) => {
     })
     return { success: "You've successfully logged in!" }
   } catch (error: any) {
-    console.error(error)
     if (error instanceof AuthError) {
       switch (error.type) {
         case 'CredentialsSignin':

@@ -3,6 +3,7 @@ import Google from 'next-auth/providers/google'
 import Credentials from 'next-auth/providers/credentials'
 import { JWT } from 'next-auth/jwt'
 import routes from '@/api-routes'
+import { LoginSchema } from '@/schemas/login.schema'
 
 export const config = {
   providers: [
@@ -15,26 +16,34 @@ export const config = {
       async authorize(credentials, req) {
         if (!credentials || !credentials?.email || !credentials?.password)
           return null
-        try {
-          const response = await fetch(
-            process.env.API_BASE_URL! + routes.login.post,
-            {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify(credentials),
-              cache: 'no-cache',
-            },
-          )
-          if (!response.ok) throw new Error('Login failed')
+        const validatedFields = LoginSchema.safeParse(credentials)
 
-          const user = await response.json()
+        if (validatedFields.success) {
+          const session = await auth()
 
-          if (!user) throw new Error('User not found')
+          try {
+            const response = await fetch(
+              process.env.API_BASE_URL! + routes.me.get,
+              {
+                method: 'GET',
+                headers: {
+                  'Content-Type': 'application/json',
+                  Authorization: `Bearer ${session?.access_token}`,
+                },
+                cache: 'no-cache',
+              },
+            )
+            if (!response.ok) throw new Error('Login failed')
 
-          return user
-        } catch (error: any) {
-          console.error('Error logging in: ', error)
-          throw new Error('LoginError: ', error?.message)
+            const user = await response.json()
+
+            if (!user) throw new Error('User not found')
+
+            return user
+          } catch (error: any) {
+            console.error('Error logging in: ', error)
+            throw new Error('LoginError: ', error?.message)
+          }
         }
       },
     }),
