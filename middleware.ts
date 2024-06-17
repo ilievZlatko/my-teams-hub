@@ -1,7 +1,7 @@
 import createIntlMiddleware from 'next-intl/middleware'
 import { NextRequest, NextResponse } from 'next/server'
 import { auth } from './config/auth.config'
-import { locales } from './navigation'
+import { defaultLocale, locales } from './navigation'
 import { PROTECTED_ROUTES, PUBLIC_ROUTES } from './consts/protectedRoutes'
 
 const intlMiddleware = createIntlMiddleware({
@@ -18,7 +18,10 @@ const authMiddleware = auth(async function middleware(req: NextRequest) {
   )
 
   if (!session && isProtectedRoute) {
-    const absoluteURL = new URL(`/${locale}/login`, req.nextUrl.origin)
+    let absoluteURL = null
+    absoluteURL = locale
+      ? new URL(`/${locale}/login`, req.nextUrl.origin)
+      : new URL(`/${defaultLocale}/login`, req.nextUrl.origin)
     return NextResponse.redirect(absoluteURL.toString())
   }
 
