@@ -13,6 +13,8 @@ export const config = {
         password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials, req) {
+        if (!credentials || !credentials?.email || !credentials?.password)
+          return null
         try {
           const response = await fetch(
             process.env.API_BASE_URL! + routes.login.post,
@@ -23,13 +25,16 @@ export const config = {
               cache: 'no-cache',
             },
           )
-          if (!response.ok) return null
+          if (!response.ok) throw new Error('Login failed')
 
           const user = await response.json()
 
+          if (!user) throw new Error('User not found')
+
           return user
-        } catch (error) {
+        } catch (error: any) {
           console.error('Error logging in: ', error)
+          throw new Error('LoginError: ', error?.message)
         }
       },
     }),

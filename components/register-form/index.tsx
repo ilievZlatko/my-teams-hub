@@ -1,5 +1,4 @@
 'use client'
-import routes from '@/api-routes'
 
 import { useState, useTransition } from 'react'
 import { useLocale, useTranslations } from 'next-intl'
@@ -10,13 +9,11 @@ import { EyeIcon, EyeOffIcon } from 'lucide-react'
 import { HiOutlinePhone } from 'react-icons/hi2'
 import { GoPerson } from 'react-icons/go'
 
-import * as z from 'zod'
-
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import Link from 'next/link'
 
-import { RegisterSchema } from '@/schemas/register.schema'
+import { RegisterFormData, RegisterSchema } from '@/schemas/register.schema'
 import {
   Form,
   FormControl,
@@ -34,6 +31,7 @@ import { Button } from '../ui/button'
 import { Checkbox } from '../ui/checkbox'
 import { FormError } from '../form-error'
 import { FormSuccess } from '../form-success'
+import { register } from '@/actions/register'
 
 export const RegisterForm = () => {
   const [error, setError] = useState<string | undefined>('')
@@ -45,7 +43,7 @@ export const RegisterForm = () => {
 
   const [showPassword, setShowPassword] = useState(false)
 
-  const form = useForm<z.infer<typeof RegisterSchema>>({
+  const form = useForm<RegisterFormData>({
     resolver: zodResolver(RegisterSchema),
     defaultValues: {
       name: '',
@@ -56,7 +54,7 @@ export const RegisterForm = () => {
     },
   })
 
-  const onSubmit = (values: z.infer<typeof RegisterSchema>) => {
+  const onSubmit = (values: RegisterFormData) => {
     setError('')
     setSuccess('')
 
@@ -65,39 +63,11 @@ export const RegisterForm = () => {
       return
     }
 
-    let fullName = values.name.split(' ')
-    let firstName = fullName[0]
-    let lastName = fullName[1]
-
-    let data = {
-      firstName: firstName,
-      lastName: lastName,
-      email: values.email,
-      phoneNumber: values.phone,
-      password: values.password,
-    }
-
-    startTransition(async () => {
-      try {
-        const response = await fetch(
-          process.env.API_BASE_URL! + routes.register.post,
-          {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data),
-            cache: 'no-cache',
-          },
-        )
-        if (!response.ok) return null
-
-        const user = await response.json()
-
-        // console.log(user);
-
-        return user
-      } catch (error) {
-        console.error('Error register in: ', error)
-      }
+    startTransition(() => {
+      register(values).then(data => {
+        setError(data?.error)
+        setSuccess(data?.success)
+      })
     })
 
     router.push('/login')
