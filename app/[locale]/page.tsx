@@ -11,12 +11,11 @@ export default async function Home({
   const { page } = await getDictionary(locale)
   const session = await auth()
 
-  console.log('SESSION: ', session)
-
   return (
     <main>
       <div>
         {page.home.title}
+        <h1>{`${session?.token?.first_name} ${session?.token?.last_name}`}</h1>
         <SignOutButton />
       </div>
     </main>

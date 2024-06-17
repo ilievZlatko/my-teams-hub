@@ -94,13 +94,14 @@ export const config = {
       } else if (user && account) {
         return {
           ...token,
+          ...user,
           access_token: String(account.access_token),
           issued_at: Date.now(),
           expires_at: Date.now() + Number(account.expires_in) * 1000,
           refresh_token: String(account.refresh_token),
         }
       } else if (Date.now() < Number(token.expires_at)) {
-        return token
+        return { ...token, ...user }
       } else {
         console.log('Access token expired, getting new one')
 
@@ -127,6 +128,7 @@ export const config = {
 
           return {
             ...token,
+            ...user,
             access_token: tokens.access_token,
             expires_at: Date.now() + Number(tokens.expires_in) * 1000,
             refresh_token: tokens.refresh_token ?? token.refresh_token,
@@ -138,7 +140,7 @@ export const config = {
       }
     },
     async session({ session, user, token }) {
-      session.user = user
+      session.user = { ...token, ...user }
       session.token = token
       session.refresh_token = token.refresh_token
       session.access_token = token.access_token
