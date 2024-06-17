@@ -294,7 +294,7 @@ export const RegisterForm = () => {
                 <BackButton
                     questionLabel="Already have an account?"
                     actionLabel='Sign in'
-                    href='/auth/login'
+                    href='/login'
                 />
             </CardFooter>
         </Card>
