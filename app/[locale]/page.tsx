@@ -1,3 +1,4 @@
+import { SignOutButton } from '@/components/signout-button'
 import { getDictionary } from '@/lib/dictionary'
 import { Locale } from '@/navigation'
 
@@ -10,7 +11,10 @@ export default async function Home({
 
   return (
     <main>
-      <div>{page.home.title}</div>
+      <div>
+        {page.home.title}
+        <SignOutButton />
+      </div>
     </main>
   )
 }

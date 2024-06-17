@@ -29,6 +29,7 @@ import { BackButton } from '@/components/back-button'
 import { FormError } from '@/components/form-error'
 import { FormSuccess } from '@/components/form-success'
 import { signIn } from 'next-auth/react'
+import { PROVIDERS } from '@/consts/providers'
 
 export const LoginForm = () => {
   const [error, setError] = useState<string | undefined>('')
@@ -48,7 +49,7 @@ export const LoginForm = () => {
     setSuccess('')
 
     startTransition(async () => {
-      await signIn('credentials', {
+      await signIn(PROVIDERS.CREDENTIALS, {
         email: values.email,
         password: values.password,
         callbackUrl: '/',

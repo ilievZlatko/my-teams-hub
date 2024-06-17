@@ -1,41 +1,35 @@
-// import { chain } from '@/middlewares/chain'
-// import { withAuthMiddleware } from '@/middlewares/auth.middleware'
-// import { withI18nMiddleware } from '@/middlewares/i18n.middleware'
-
-// export default chain([withAuthMiddleware, withI18nMiddleware])
-
-// export const config = {
-//   matcher: [
-//     '/((?!api|_next/static|_next/image|favicon.ico).*)',
-//     '/',
-//     '/(bg|en)/:path*',
-//   ],
-// }
-
 import createIntlMiddleware from 'next-intl/middleware'
-import { NextRequest } from 'next/server'
-import { config as authConfig } from './config/auth.config'
-import NextAuth from 'next-auth'
+import { NextRequest, NextResponse } from 'next/server'
+import { auth } from './config/auth.config'
 import { locales } from './navigation'
-
-const publicPages = ['/', '/login', '/register']
+import { PROTECTED_ROUTES, PUBLIC_ROUTES } from './consts/protectedRoutes'
 
 const intlMiddleware = createIntlMiddleware({
   locales,
   defaultLocale: 'en',
 })
 
-const { auth } = NextAuth(authConfig)
-
 const authMiddleware = auth(async function middleware(req: NextRequest) {
+  const session = await auth()
+  const [, locale, ...segments] = req.nextUrl.pathname.split('/')
+
+  const isProtectedRoute = PROTECTED_ROUTES.some(prefix =>
+    req.nextUrl.pathname.startsWith(prefix),
+  )
+
+  if (!session && isProtectedRoute) {
+    const absoluteURL = new URL(`/${locale}/login`, req.nextUrl.origin)
+    return NextResponse.redirect(absoluteURL.toString())
+  }
+
   return intlMiddleware(req)
 })
 
 export default function middleware(req: NextRequest) {
   const publicPathnameRegex = RegExp(
-    `^(/(${locales.join('|')}))?(${publicPages
-      .flatMap(p => (p === '/' ? ['', '/'] : p))
-      .join('|')})/?$`,
+    `^(/(${locales.join('|')}))?(${PUBLIC_ROUTES.flatMap(p =>
+      p === '/' ? ['', '/'] : p,
+    ).join('|')})/?$`,
     'i',
   )
   const isPublicPage = publicPathnameRegex.test(req.nextUrl.pathname)
@@ -48,5 +42,5 @@ export default function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/((?!api|_next|.*\\..*).*)'],
+  matcher: ['/(bg|en)/:path*', '/((?!api|_next|.*\\..*).*)'],
 }
