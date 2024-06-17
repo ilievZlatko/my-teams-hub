@@ -34,7 +34,7 @@ export const register = async (values: RegisterFormData) => {
 
     if (!user) throw new Error('User not found')
 
-    return { success: "You've successfully registered!", user }
+    return { success: "You've successfully registered!", user: user.data }
   } catch (error: any) {
     console.error('Error register in: ', error)
     if (error?.message) {
