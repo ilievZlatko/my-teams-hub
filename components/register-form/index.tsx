@@ -264,7 +264,7 @@ export const RegisterForm = () => {
 
         <BackButton
           questionLabel='Already have an account?'
-          actionLabel={t('signingoogle')}
+          actionLabel={t('signin')}
           href={`/${locale}/login`}
         />
       </CardFooter>
