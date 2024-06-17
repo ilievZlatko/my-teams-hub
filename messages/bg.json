@@ -8,6 +8,10 @@
       "title": "Добре дошли отново!",
       "subtitle": "Впишете се във вашият <strong>My Teams Hub</strong> профил"
     },
+    "register": {
+      "title": "Да започваме",
+      "subtitle": "Направете си нов <strong>My Teams Hub</strong> профил"
+    },
     "signin": "Вписване",
     "signout": "Изход"
   },
