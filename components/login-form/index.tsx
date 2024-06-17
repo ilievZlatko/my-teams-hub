@@ -141,6 +141,7 @@ export const LoginForm = () => {
                     <FormItem className='flex flex-row items-start space-x-3 space-y-0 border-0 p-4 pl-0'>
                       <FormControl>
                         <Checkbox
+                          className='rounded-xs'
                           checked={field.value}
                           onCheckedChange={field.onChange}
                         />

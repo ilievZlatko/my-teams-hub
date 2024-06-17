@@ -258,6 +258,7 @@ export const RegisterForm = () => {
                   <FormItem className='flex flex-row items-start space-x-2 space-y-0 rounded-md border-none py-2'>
                     <FormControl>
                       <Checkbox
+                        className='rounded-xs'
                         checked={field.value}
                         onCheckedChange={field.onChange}
                       />
