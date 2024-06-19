@@ -25,7 +25,7 @@ export function ThemeSwitcher() {
     <Button
       onClick={toggleTheme}
       size='icon'
-      variant='primary-outline'
+      variant='outline'
     >
       {resolvedTheme === 'light' && (
         <Moon className='h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0' />

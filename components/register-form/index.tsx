@@ -46,9 +46,10 @@ export const RegisterForm = () => {
   const form = useForm<RegisterFormData>({
     resolver: zodResolver(RegisterSchema),
     defaultValues: {
-      name: '',
+      firstName: '',
+      lastName: '',
       email: '',
-      phone: '',
+      phoneNumber: '',
       password: '',
       rePassword: '',
     },
@@ -93,14 +94,36 @@ export const RegisterForm = () => {
             <div className='space-y-2'>
               <FormField
                 control={form.control}
-                name='name'
+                name='firstName'
                 render={({ field }) => (
                   <FormItem className='relative'>
-                    <FormLabel className='text-xs'>Name</FormLabel>
+                    <FormLabel className='text-xs'>First name</FormLabel>
                     <FormControl className=''>
                       <Input
                         {...field}
-                        placeholder='John Doe'
+                        placeholder='John'
+                        type='text'
+                        className='form-input'
+                        disabled={isPending}
+                      />
+                    </FormControl>
+                    <span className='absolute end-0 inset-y-[44px] flex items-center justify-center px-3'>
+                      <GoPerson className='size-5 text-[#63929e]' />
+                    </span>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              ></FormField>
+                            <FormField
+                control={form.control}
+                name='lastName'
+                render={({ field }) => (
+                  <FormItem className='relative'>
+                    <FormLabel className='text-xs'>Last name</FormLabel>
+                    <FormControl className=''>
+                      <Input
+                        {...field}
+                        placeholder='Doe'
                         type='text'
                         className='form-input'
                         disabled={isPending}
@@ -137,7 +160,7 @@ export const RegisterForm = () => {
               ></FormField>
               <FormField
                 control={form.control}
-                name='phone'
+                name='phoneNumber'
                 render={({ field }) => (
                   <FormItem className='relative'>
                     <FormLabel className='text-xs'>Phone number</FormLabel>
