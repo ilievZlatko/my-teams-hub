@@ -45,5 +45,10 @@ export default function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/(bg|en)/:path*', '/((?!api|_next|.*\\..*).*)'],
+  matcher: [
+    '/(bg|en)/:path*',
+    '/((?!api|_next|.*\\..*).*)',
+    '/login',
+    '/register',
+  ],
 }

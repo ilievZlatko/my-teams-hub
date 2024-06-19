@@ -17,6 +17,9 @@ declare module 'next-auth' {
     lastName: string
     phoneNumber: string
     photo?: string
+    accessToken?: string
+    refreshToken?: string
+    userId?: string
   }
 }
 
@@ -24,7 +27,7 @@ declare module 'next-auth/jwt' {
   interface JWT extends DefaultJWT {
     id: string
     token: string
-    refresh_token: string
+    refresh_token: string | null | undefined
     access_token: string
   }
 }

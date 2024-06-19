@@ -1,15 +1,13 @@
 'use client'
 
-import * as z from 'zod'
+import Link from 'next/link'
 import { useTransition, useState } from 'react'
+import { useLocale, useTranslations } from 'next-intl'
+import { EyeIcon, EyeOffIcon } from 'lucide-react'
+import { EnvelopeClosedIcon } from '@radix-ui/react-icons'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import Link from 'next/link'
-import { EnvelopeClosedIcon } from '@radix-ui/react-icons'
-import { EyeIcon, EyeOffIcon } from 'lucide-react'
-import { useLocale, useTranslations } from 'next-intl'
-
-import { LoginSchema } from '@/schemas/login.schema'
+import { LoginFormData, LoginSchema } from '@/schemas/login.schema'
 
 import {
   Form,
@@ -28,8 +26,7 @@ import { Social } from '@/components/social'
 import { BackButton } from '@/components/back-button'
 import { FormError } from '@/components/form-error'
 import { FormSuccess } from '@/components/form-success'
-import { signIn } from 'next-auth/react'
-import { PROVIDERS } from '@/consts/providers'
+import { login } from '@/actions/login'
 
 export const LoginForm = () => {
   const [error, setError] = useState<string | undefined>('')
@@ -40,21 +37,19 @@ export const LoginForm = () => {
 
   const [showPassword, setShowPassword] = useState(false)
 
-  const form = useForm<z.infer<typeof LoginSchema>>({
+  const form = useForm<LoginFormData>({
     resolver: zodResolver(LoginSchema),
     defaultValues: { email: '', password: '', rememberMe: false },
   })
 
-  const onSubmit = (values: z.infer<typeof LoginSchema>) => {
+  const onSubmit = (values: LoginFormData) => {
     setError('')
     setSuccess('')
 
-    startTransition(async () => {
-      await signIn(PROVIDERS.CREDENTIALS, {
-        email: values.email,
-        password: values.password,
-        callbackUrl: `/${locale}/`,
-        redirect: false,
+    startTransition(() => {
+      login(values).then(data => {
+        setError(data?.error)
+        setSuccess(data?.success)
       })
     })
   }
