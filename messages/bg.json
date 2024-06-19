@@ -20,6 +20,11 @@
   "page": {
     "home": {
       "title": "Добре дошли в нашата страница"
-    }
+    },
+    "organisation": {
+      "title": "Избери организация!",
+      "subtitle": "Избери твоята <strong>My Teams Hub</strong> организация"
+    },
+    "continue": "Продължи"
   }
 }

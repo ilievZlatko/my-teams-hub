@@ -20,6 +20,11 @@
   "page": {
     "home": {
       "title": "Welcome to the home page"
-    }
+    },
+    "create": {
+      "title": "Select Organisation!",
+      "subtitle": "Select your <strong>My Teams Hub</strong> organisation"
+    },
+    "continue": "Continue"
   }
 }

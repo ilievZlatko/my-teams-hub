@@ -5,6 +5,7 @@ import { JWT } from 'next-auth/jwt'
 import routes from '@/api-routes'
 
 export const config = {
+  
   providers: [
     Google,
     Credentials({
@@ -94,8 +95,10 @@ export const config = {
 
       return session
     },
+    
   },
   session: { strategy: 'jwt' },
+  
 } satisfies NextAuthConfig
 
 export const {
@@ -105,3 +108,4 @@ export const {
   signOut,
   unstable_update: update,
 } = NextAuth(config)
+
