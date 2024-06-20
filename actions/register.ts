@@ -2,6 +2,7 @@
 
 import { RegisterFormData, RegisterSchema } from '@/schemas/register.schema'
 import routes from '@/api-routes'
+import { error } from 'console'
 
 export const register = async (values: RegisterFormData) => {
   const validatedFields = RegisterSchema.safeParse(values)
@@ -10,7 +11,7 @@ export const register = async (values: RegisterFormData) => {
     return { error: 'Invalid fields!' }
   }
 
-  const { email, phone, password, name } = validatedFields.data
+  const { email, phoneNumber, password, firstName, lastName } = validatedFields.data
 
   try {
     const response = await fetch(
@@ -19,16 +20,21 @@ export const register = async (values: RegisterFormData) => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          firstName: name.split(' ')[0],
-          lastName: name.split(' ')[1],
+          firstName,
+          lastName,
           email,
-          phoneNumber: phone,
+          phoneNumber,
           password,
         }),
         cache: 'no-cache',
       },
-    )
-    if (!response.ok) throw new Error('Register failed')
+    );
+
+    if (!response.ok) {
+        throw new Error(`Response status: ${response.status} ${response.statusText}`);
+      }
+
+    // if (!response.ok) throw new Error('Register failed')
 
     const user = await response.json()
 
