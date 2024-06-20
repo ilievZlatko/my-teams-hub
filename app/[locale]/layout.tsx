@@ -64,7 +64,7 @@ export default async function RootLayout({
                 <main className='flex p-6'>{children}</main>
               </>
             ) : (
-              <main className='flex'>{children}</main>
+              <main className='flex min-h-screen'>{children}</main>
             )}
           </NextIntlClientProvider>
         </Providers>
