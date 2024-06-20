@@ -68,10 +68,12 @@ export const RegisterForm = () => {
       register(values).then(data => {
         setError(data?.error)
         setSuccess(data?.success)
+        if (data?.success) {
+          form.reset()
+          router.push('/login')
+        }
       })
     })
-
-    router.push('/login')
   }
 
   return (
@@ -114,7 +116,7 @@ export const RegisterForm = () => {
                   </FormItem>
                 )}
               ></FormField>
-                            <FormField
+              <FormField
                 control={form.control}
                 name='lastName'
                 render={({ field }) => (
