@@ -13,6 +13,7 @@ import { z } from "zod"
 import { FormError } from "../form-error"
 import { error } from "console"
 import { FormSuccess } from "../form-success"
+import { useRouter } from "next/router"
 
 
 export const SelectForm = () => {
@@ -43,12 +44,21 @@ export const SelectForm = () => {
             </CardHeader>
 
             <CardContent>
+
                 <Form {...form}>
                     <form
-                        onSubmit={form.handleSubmit(onSubmit)}
                         className='space-y-6'
                     >
-                        
+                        <div className="mb-6">
+                            <label htmlFor="organisation" className="block text-sm font-medium text-gray-700">Organisation</label>
+                            <select id="organisation" name="organisation" className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                <option>option 1</option>
+                                <option>option 2</option>
+                                <option>option 3</option>
+                                <option>option 4</option>
+                                
+                            </select>
+                        </div>
 
                         <Button
                             type='submit'
