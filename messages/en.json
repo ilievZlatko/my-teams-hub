@@ -21,9 +21,13 @@
     "home": {
       "title": "Welcome to the home page"
     },
-    "create": {
+    "select": {
       "title": "Select Organisation!",
       "subtitle": "Select your <strong>My Teams Hub</strong> organisation"
+    },
+    "create": {
+      "title": "Create Organisation!",
+      "subtitle": "Create your <strong>My Teams Hub</strong> organisation"
     },
     "continue": "Continue"
   }

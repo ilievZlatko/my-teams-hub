@@ -21,9 +21,13 @@
     "home": {
       "title": "Добре дошли в нашата страница"
     },
-    "create": {
+    "select": {
       "title": "Избери организация!",
       "subtitle": "Избери твоята <strong>My Teams Hub</strong> организация"
+    },
+    "create": {
+      "title": "Създай организация!",
+      "subtitle": "Създай твоята <strong>My Teams Hub</strong> организация"
     },
     "continue": "Продължи"
   }
