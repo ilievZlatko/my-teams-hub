@@ -1,6 +1,6 @@
 import createIntlMiddleware from 'next-intl/middleware'
 import { NextRequest, NextResponse } from 'next/server'
-import { auth } from './config/auth.config'
+import { auth } from './config/auth'
 import { defaultLocale, locales } from './navigation'
 import { PROTECTED_ROUTES, PUBLIC_ROUTES } from './consts/protectedRoutes'
 

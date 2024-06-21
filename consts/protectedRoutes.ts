@@ -11,4 +11,4 @@ export const PUBLIC_ROUTES = [
   '/404',
   '/500',
 ]
-export const DEFAULT_LOGIN_REDIRECT = '/en/'
+export const DEFAULT_LOGIN_REDIRECT = '/en/select-org'

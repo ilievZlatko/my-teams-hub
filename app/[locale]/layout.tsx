@@ -1,10 +1,7 @@
 import type { Metadata } from 'next'
 import { Open_Sans, Poppins, Roboto_Slab } from 'next/font/google'
-import Header from '@/components/header'
+import { Toaster } from 'sonner'
 import Providers from '@/providers'
-import { auth } from '@/config/auth.config'
-import { NextIntlClientProvider } from 'next-intl'
-import { getMessages } from 'next-intl/server'
 import { Locale, locales } from '@/navigation'
 import './globals.css'
 
@@ -45,9 +42,6 @@ export default async function RootLayout({
   children: React.ReactNode
   params: { locale: Locale }
 }>) {
-  const session = await auth()
-  const messages = await getMessages()
-
   return (
     <html
       lang={params.locale}
@@ -57,16 +51,8 @@ export default async function RootLayout({
         className={`${openSans.variable} ${roboto.variable} ${poppins.variable} font-sans`}
       >
         <Providers>
-          <NextIntlClientProvider messages={messages}>
-            {session && session.user ? (
-              <>
-                <Header locale={params.locale} />
-                <main className='flex p-6'>{children}</main>
-              </>
-            ) : (
-              <main className='flex'>{children}</main>
-            )}
-          </NextIntlClientProvider>
+          <Toaster />
+          {children}
         </Providers>
       </body>
     </html>

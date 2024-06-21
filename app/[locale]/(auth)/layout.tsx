@@ -34,7 +34,7 @@ export default function AuthLayout({
           priority
         />
       </div>
-      <div className='my-auto'>{children}</div>
+      <main className='my-auto'>{children}</main>
     </div>
   )
 }
