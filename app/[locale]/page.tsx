@@ -1,7 +1,7 @@
 import { SignOutButton } from '@/components/signout-button'
 import { getDictionary } from '@/lib/dictionary'
 import { Locale } from '@/navigation'
-import { auth } from '@/config/auth.config'
+import { auth } from '@/config/auth'
 
 export default async function Home({
   params: { locale },

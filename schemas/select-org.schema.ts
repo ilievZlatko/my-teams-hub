@@ -1,8 +1,7 @@
 import * as z from 'zod'
 
-export const SelectSchema = z.object({
+export const SelectOrgSchema = z.object({
   organisation: z.string({
     message: 'Organisation is required',
   }),
-
 })

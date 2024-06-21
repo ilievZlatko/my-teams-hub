@@ -9,7 +9,7 @@ export const SignOutButton = () => {
   const locale = useLocale()
   return (
     <Button onClick={() => logout(locale)}>
-      <LogOutIcon className='h-5 w-5' />
+      <LogOutIcon className='h-5 w-5 mr-2' />
       Sign out
     </Button>
   )

@@ -2,7 +2,7 @@
 
 import { AuthError } from 'next-auth'
 import { LoginFormData, LoginSchema } from '@/schemas/login.schema'
-import { signIn } from '@/config/auth.config'
+import { signIn } from '@/config/auth'
 import { DEFAULT_LOGIN_REDIRECT } from '@/consts/protectedRoutes'
 import { PROVIDERS } from '@/consts/providers'
 
