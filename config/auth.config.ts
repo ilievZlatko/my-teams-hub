@@ -63,7 +63,7 @@ export const config = {
             }
           } catch (error: any) {
             console.error('Error logging in: ', error)
-            throw new Error('LoginError: ', error?.message)
+            throw new Error(`LoginError: ${error?.message}`)
           }
         } else {
           throw new Error('Fields validation failed!')
