@@ -11,7 +11,7 @@ export default function AuthLayout({
   return (
     <div
       className={cn(
-        'flex w-full lg:flex-row flex-col 3xl:h-screen justify-evenly lg:items-end items-center bg-[radial-gradient(circle_at_left_bottom,_var(--tw-gradient-stops))] from-[#CFDDE1] from-20% via-[#FDFDFF] via-50% to-[#EFF4F5] to-90%',
+        'flex w-screen h-screen lg:flex-row flex-col 3xl:h-screen justify-evenly lg:items-end items-center bg-[radial-gradient(circle_at_left_bottom,_var(--tw-gradient-stops))] from-[#CFDDE1] from-20% via-[#FDFDFF] via-50% to-[#EFF4F5] to-90%',
       )}
     >
       <div className='flex flex-col items-start gap-14 pt-8 md:pt-10 max-md:max-w-[500px] lg:max-w-[600px]'>
