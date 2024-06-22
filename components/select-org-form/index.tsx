@@ -1,5 +1,6 @@
 'use client'
 
+
 import {
   Select,
   SelectContent,
@@ -13,37 +14,43 @@ import { useTranslations } from 'next-intl'
 import { Organisation } from '@/types/organisation.types'
 import { useOrganisation } from '@/cotntext/useOrganisation'
 import { useRouter } from 'next/navigation'
+import { CreateForm } from '../create-organisation'
+
 
 interface SelectOrgFormProps {
   organisations?: Organisation[]
 }
 
+
 export const SelectOrgForm = ({ organisations }: SelectOrgFormProps) => {
   const t = useTranslations('page')
   const { currentOrg, setCurrentOrg } = useOrganisation()
   const router = useRouter()
+  // console.log(organisations)
+
 
   return (
     <Card className='max-sm:w-[310px] w-[400px] h-fit bg-transparent border-0 shadow-none text-[#3C4B57]'>
       <CardHeader className='flex flex-col gap-y-3 justify-center items-center w-full'>
         <h1 className='text-[32px] leading-[38.4px] font-medium font-roboto'>
-          {t('select.title')}
+          {organisations && organisations?.length > 0 ? t('select.title') : t('create.title')}
         </h1>
         <p
-          dangerouslySetInnerHTML={{ __html: t.raw('select.subtitle') }}
+          dangerouslySetInnerHTML={{ __html: t('create.subtitle') }}
           className='text-[12px] leading-[14.4px] font-poppins'
         />
+        
       </CardHeader>
 
       <CardContent>
-        {organisations && (
+        {organisations && organisations?.length > 0 && (
           <div className='flex flex-col gap-y-2'>
             <label className='text-xs'>Select organisation</label>
             <Select
               onValueChange={val =>
                 setCurrentOrg(
                   organisations?.find(org => org.organizationId === val) ??
-                    null,
+                  null,
                 )
               }
             >
@@ -71,36 +78,12 @@ export const SelectOrgForm = ({ organisations }: SelectOrgFormProps) => {
               Continue
             </Button>
           </div>
-        )}
-        {/* <Form {...form}>
-          <form className='space-y-6'>
-            <div className='mb-6'>
-              <label
-                htmlFor='organisation'
-                className='block text-sm font-medium text-gray-700'
-              >
-                Organisation
-              </label>
-              <select
-                id='organisation'
-                name='organisation'
-                className='mt-1 relative w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'
-              >
-                <option>option 1</option>
-                <option>option 2</option>
-                <option>option 3</option>
-                <option>option 4</option>
-              </select>
-            </div>
+        ) ||
+          (
+            <CreateForm />
+          )
+        }
 
-            <Button
-              type='submit'
-              className='w-full rounded-lg'
-            >
-              {t('continue')}
-            </Button>
-          </form>
-        </Form> */}
       </CardContent>
     </Card>
   )

@@ -1,8 +1,8 @@
 import * as z from 'zod'
 
 export const CreateSchema = z.object({
-  name: z.string({
-    message: 'Name is required',
+  name: z.string().min(1, {
+    message: "Name must be at least 1 characters.",
   }),
   description: z.string({
     message: 'Description is required',
