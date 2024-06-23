@@ -17,8 +17,8 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form'
-import { GoPerson } from 'react-icons/go'
 import { Building2 } from 'lucide-react'
+import { createOrg } from '@/actions/organization.actions'
 
 export const CreateOrganizationForm = () => {
   const t = useTranslations('page')
@@ -28,8 +28,10 @@ export const CreateOrganizationForm = () => {
     defaultValues: { name: '', description: '' },
   })
 
-  const onSubmit = (values: z.infer<typeof CreateOrganizationSchema>) => {
-    console.log(values)
+  const onSubmit = async (values: z.infer<typeof CreateOrganizationSchema>) => {
+    await createOrg(values).then(() => {
+      form.reset()
+    })
   }
 
   return (

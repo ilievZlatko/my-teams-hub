@@ -1,5 +1,5 @@
 import { SelectOrganization } from '@/components/select-organization'
-import { getOrgs } from '@/actions/getOrgs'
+import { getOrgs } from '@/actions/organization.actions'
 import { Organisation } from '@/types/organisation.types'
 
 export default async function SelectOrgPage() {

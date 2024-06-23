@@ -8,3 +8,5 @@ export const CreateOrganizationSchema = z.object({
     message: 'Description is required',
   }),
 })
+
+export type CreateOrganizationType = z.infer<typeof CreateOrganizationSchema>

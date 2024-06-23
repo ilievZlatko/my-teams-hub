@@ -11,9 +11,10 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { Button } from '../ui/button'
 import { useTranslations } from 'next-intl'
 import { Organisation } from '@/types/organisation.types'
-import { useOrganisation } from '@/cotntext/useOrganisation'
+import { useOrganisations } from '@/cotntext/useOrganisations'
 import { useRouter } from 'next/navigation'
 import { CreateOrganizationForm } from '../create-organisation'
+import { useEffect, useState } from 'react'
 
 interface SelectOrgFormProps {
   organisations?: Organisation[]
@@ -21,8 +22,21 @@ interface SelectOrgFormProps {
 
 export const SelectOrganization = ({ organisations }: SelectOrgFormProps) => {
   const t = useTranslations('page')
-  const { activeOrg, setActiveOrg } = useOrganisation()
+  const { activeOrg, setActiveOrg, setOrganizations } = useOrganisations()
+  const [showCreateOrg, setShowCreateOrg] = useState(false)
   const router = useRouter()
+
+  useEffect(() => {
+    if (organisations && organisations?.length > 0) {
+      setShowCreateOrg(true)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (organisations && organisations?.length > 0) {
+      setOrganizations(organisations)
+    }
+  }, [organisations, setOrganizations])
 
   return (
     <Card className='max-sm:w-[310px] w-[400px] h-fit bg-transparent border-0 shadow-none text-[#3C4B57]'>
@@ -39,7 +53,7 @@ export const SelectOrganization = ({ organisations }: SelectOrgFormProps) => {
       </CardHeader>
 
       <CardContent>
-        {organisations && organisations?.length ? (
+        {showCreateOrg ? (
           <div className='flex flex-col gap-y-2'>
             <label className='text-xs'>Select organisation</label>
             <Select
@@ -54,7 +68,7 @@ export const SelectOrganization = ({ organisations }: SelectOrgFormProps) => {
                 <SelectValue placeholder='Select organisation' />
               </SelectTrigger>
               <SelectContent>
-                {organisations.map(org => (
+                {organisations?.map(org => (
                   <SelectItem
                     key={org.organizationId}
                     value={org.organizationId}
@@ -77,6 +91,34 @@ export const SelectOrganization = ({ organisations }: SelectOrgFormProps) => {
         ) : (
           <CreateOrganizationForm />
         )}
+        <div className='flex items-center justify-center gap-2'>
+          {showCreateOrg ? (
+            <>
+              <span className='text-xs'>Don&apos;t have organisation?</span>
+              <Button
+                type='button'
+                variant='link'
+                className='text-[#63929E] text-xs p-0'
+                onClick={() => setShowCreateOrg(false)}
+              >
+                Create organisation
+              </Button>
+            </>
+          ) : (
+            <>
+              <span className='text-xs'>Already have an organization?</span>
+              <Button
+                type='button'
+                variant='link'
+                className='text-[#63929E] p-0 text-xs'
+                disabled={!organisations || organisations?.length === 0}
+                onClick={() => setShowCreateOrg(true)}
+              >
+                Select organisation
+              </Button>
+            </>
+          )}
+        </div>
       </CardContent>
     </Card>
   )

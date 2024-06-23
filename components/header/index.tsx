@@ -4,6 +4,7 @@ import { LocaleSwitcher } from '@/components/locale-switcher'
 import { ThemeSwitcher } from '@/components/theme-switcher'
 import { Locale } from '@/navigation'
 import { SignOutButton } from '../signout-button'
+import OrganizationSwitcher from '../organization-switcher'
 
 export default async function Header({ locale }: { locale: Locale }) {
   const { navigation } = await getDictionary(locale)
@@ -20,9 +21,9 @@ export default async function Header({ locale }: { locale: Locale }) {
           </li>
         </ul>
 
-        <div className='flex items-center gap-x-8'>
+        <div className='flex items-center gap-x-4'>
           <LocaleSwitcher />
-          <ThemeSwitcher />
+          <OrganizationSwitcher />
           <SignOutButton />
         </div>
       </nav>
