@@ -13,7 +13,7 @@ import { useTranslations } from 'next-intl'
 import { Organisation } from '@/types/organisation.types'
 import { useOrganisation } from '@/cotntext/useOrganisation'
 import { useRouter } from 'next/navigation'
-import { CreateForm } from '../create-organisation'
+import { CreateOrganizationForm } from '../create-organisation'
 
 interface SelectOrgFormProps {
   organisations?: Organisation[]
@@ -21,7 +21,7 @@ interface SelectOrgFormProps {
 
 export const SelectOrganization = ({ organisations }: SelectOrgFormProps) => {
   const t = useTranslations('page')
-  const { currentOrg, setCurrentOrg } = useOrganisation()
+  const { activeOrg, setActiveOrg } = useOrganisation()
   const router = useRouter()
 
   return (
@@ -33,18 +33,18 @@ export const SelectOrganization = ({ organisations }: SelectOrgFormProps) => {
             : t('create.title')}
         </h1>
         <p
-          dangerouslySetInnerHTML={{ __html: t('create.subtitle') }}
+          dangerouslySetInnerHTML={{ __html: t.raw('create.subtitle') }}
           className='text-[12px] leading-[14.4px] font-poppins'
         />
       </CardHeader>
 
       <CardContent>
-        {(organisations && organisations?.length > 0 && (
+        {organisations && organisations?.length ? (
           <div className='flex flex-col gap-y-2'>
             <label className='text-xs'>Select organisation</label>
             <Select
               onValueChange={val =>
-                setCurrentOrg(
+                setActiveOrg(
                   organisations?.find(org => org.organizationId === val) ??
                     null,
                 )
@@ -68,13 +68,15 @@ export const SelectOrganization = ({ organisations }: SelectOrgFormProps) => {
             <Button
               type='button'
               className='w-full rounded-lg mt-4'
-              disabled={!currentOrg}
+              disabled={!activeOrg}
               onClick={() => router.push('/dashboard')}
             >
               Continue
             </Button>
           </div>
-        )) || <CreateForm />}
+        ) : (
+          <CreateOrganizationForm />
+        )}
       </CardContent>
     </Card>
   )

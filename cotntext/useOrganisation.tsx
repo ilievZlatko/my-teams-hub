@@ -4,13 +4,13 @@ import { Organisation } from '@/types/organisation.types'
 import { createContext, useContext } from 'react'
 
 type OrganisationContextType = {
-  currentOrg: Organisation | null
-  setCurrentOrg: (org: Organisation | null) => void
+  activeOrg: Organisation | null
+  setActiveOrg: (org: Organisation | null) => void
 }
 
 const orgInitialValues: OrganisationContextType = {
-  currentOrg: null,
-  setCurrentOrg: () => {},
+  activeOrg: null,
+  setActiveOrg: () => {},
 }
 
 export const OrganisationContext =

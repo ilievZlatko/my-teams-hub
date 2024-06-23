@@ -9,13 +9,13 @@ export const OrganisationProvider = ({
 }: {
   children: React.ReactNode
 }) => {
-  const [currentOrg, setCurrentOrg] = useState<Organisation | null>(null)
+  const [activeOrg, setActiveOrg] = useState<Organisation | null>(null)
 
   return (
     <OrganisationContext.Provider
       value={{
-        currentOrg,
-        setCurrentOrg,
+        activeOrg,
+        setActiveOrg,
       }}
     >
       {children}
