@@ -45,7 +45,6 @@ export async function getOrgs(): Promise<Organisation[] | { error: string }> {
     const res = await fetch(url, {
       method: 'GET',
       headers,
-      cache: 'no-store',
       next: {
         tags: ['organizations'],
       },
