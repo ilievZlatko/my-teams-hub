@@ -219,7 +219,7 @@ export const RegisterForm = () => {
                 name='rePassword'
                 render={({ field }) => (
                   <FormItem className='relative'>
-                    <FormLabel className='text-xs'>Password</FormLabel>
+                    <FormLabel className='text-xs'>Rpeat password</FormLabel>
                     <FormControl>
                       <Input
                         {...field}

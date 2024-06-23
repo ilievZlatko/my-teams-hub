@@ -27,6 +27,7 @@ import { BackButton } from '@/components/back-button'
 import { FormError } from '@/components/form-error'
 import { FormSuccess } from '@/components/form-success'
 import { login } from '@/actions/login'
+import { useRouter } from 'next/router'
 
 export const LoginForm = () => {
   const [error, setError] = useState<string | undefined>('')
@@ -34,9 +35,9 @@ export const LoginForm = () => {
   const [isPending, startTransition] = useTransition()
   const t = useTranslations('auth')
   const locale = useLocale()
-
   const [showPassword, setShowPassword] = useState(false)
-
+  // const router = useRouter()
+  
   const form = useForm<LoginFormData>({
     resolver: zodResolver(LoginSchema),
     defaultValues: { email: '', password: '', rememberMe: false },
@@ -52,6 +53,8 @@ export const LoginForm = () => {
         setSuccess(data?.success)
       })
     })
+
+
   }
 
   return (
