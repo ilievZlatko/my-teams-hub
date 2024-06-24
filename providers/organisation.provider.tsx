@@ -3,8 +3,6 @@
 import { getOrgs } from '@/actions/organization.actions'
 import { OrganisationContext } from '@/cotntext/useOrganisations'
 import { Organisation } from '@/types/organisation.types'
-import { useLocale } from 'next-intl'
-import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
 export const OrganisationProvider = ({
@@ -12,8 +10,6 @@ export const OrganisationProvider = ({
 }: {
   children: React.ReactNode
 }) => {
-  const locale = useLocale()
-  const router = useRouter()
   const [activeOrg, setActiveOrg] = useState<Organisation | null>(null)
   const [organizations, setOrganizations] = useState<Organisation[] | null>(
     null,
@@ -24,8 +20,6 @@ export const OrganisationProvider = ({
       getOrgs().then(orgs => {
         if (Array.isArray(orgs)) {
           setOrganizations(orgs)
-        } else {
-          router.push(`/${locale}/select-org`)
         }
       })
     }
