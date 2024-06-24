@@ -34,9 +34,15 @@ const OrganizationSwitcher = () => {
     <Select
       onValueChange={handleUpdateSession}
       defaultValue={activeOrg ?? undefined}
+      value={activeOrg ?? undefined}
     >
       <SelectTrigger>
-        <SelectValue placeholder='Select organisation' />
+        <SelectValue placeholder='Select organisation'>
+          {
+            organizations?.find(org => org.organizationId === activeOrg)
+              ?.organizationName
+          }
+        </SelectValue>
       </SelectTrigger>
       <SelectContent>
         {organizations?.map(org => (
