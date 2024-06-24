@@ -1,8 +1,8 @@
 import { SelectOrganization } from '@/components/select-organization'
 import { getOrgs } from '@/actions/organization.actions'
-import { Organisation } from '@/types/organisation.types'
+import { Organization } from '@/types/organization.types'
 
 export default async function SelectOrgPage() {
-  const organisations = await getOrgs()
-  return <SelectOrganization organisations={organisations as Organisation[]} />
+  const organizations = await getOrgs()
+  return <SelectOrganization organizations={organizations as Organization[]} />
 }

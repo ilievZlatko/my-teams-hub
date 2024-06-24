@@ -1,5 +1,6 @@
 import NextAuth, { DefaultSession, User } from 'next-auth'
 import { DefaultJWT } from 'next-auth/jwt'
+import { Organization } from '@/types/organization.types'
 
 declare module 'next-auth' {
   interface Session extends DefaultSession {
@@ -7,6 +8,8 @@ declare module 'next-auth' {
     refresh_token: JWT['token']
     access_token: string
     user: User
+    organizations: Organization[]
+    activeOrg: Organization | null
   }
 
   interface User {
@@ -20,6 +23,7 @@ declare module 'next-auth' {
     accessToken?: string
     refreshToken?: string
     userId?: string
+    error?: { error: Array<{ code: string }> } | string
   }
 }
 

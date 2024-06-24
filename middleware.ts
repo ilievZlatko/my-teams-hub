@@ -1,8 +1,11 @@
+import NextAuth from 'next-auth'
 import createIntlMiddleware from 'next-intl/middleware'
 import { NextRequest, NextResponse } from 'next/server'
-import { auth } from './config/auth'
 import { defaultLocale, locales } from './navigation'
+import authConfig from './config/auth.config'
 import { PROTECTED_ROUTES, PUBLIC_ROUTES } from './consts/protectedRoutes'
+
+const { auth } = NextAuth(authConfig)
 
 const intlMiddleware = createIntlMiddleware({
   locales,
@@ -45,5 +48,6 @@ export default function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/(bg|en)/:path*', '/((?!api|_next|.*\\..*).*)'],
+  // Skip all paths that should not be internationalized
+  matcher: ['/((?!api|_next|.*\\..*).*)'],
 }

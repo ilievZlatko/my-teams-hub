@@ -2,8 +2,10 @@ import type { Metadata } from 'next'
 import { Open_Sans, Poppins, Roboto_Slab } from 'next/font/google'
 import { Toaster } from 'sonner'
 import Providers from '@/providers'
-import { Locale, locales } from '@/navigation'
+import { Locale } from '@/navigation'
+import { NextIntlClientProvider } from 'next-intl'
 import './globals.css'
+import { getMessages } from 'next-intl/server'
 
 const openSans = Open_Sans({
   weight: ['300', '400', '500', '600', '700', '800'],
@@ -31,17 +33,15 @@ export const metadata: Metadata = {
   description: 'My Teams Hub, manage all your teams.',
 }
 
-export async function generateStaticParams() {
-  return locales.map(locale => ({ locale: locale }))
-}
-
 export default async function RootLayout({
   children,
   params,
 }: Readonly<{
   children: React.ReactNode
-  params: { locale: Locale }
+  params: { locale: string }
 }>) {
+  const messages = await getMessages()
+
   return (
     <html
       lang={params.locale}
@@ -50,10 +50,15 @@ export default async function RootLayout({
       <body
         className={`${openSans.variable} ${roboto.variable} ${poppins.variable} font-sans`}
       >
-        <Providers>
-          <Toaster />
-          {children}
-        </Providers>
+        <NextIntlClientProvider
+          locale={params.locale}
+          messages={messages}
+        >
+          <Providers>
+            <Toaster />
+            {children}
+          </Providers>
+        </NextIntlClientProvider>
       </body>
     </html>
   )

@@ -2,7 +2,8 @@
 
 import { getOrgs } from '@/actions/organization.actions'
 import { OrganisationContext } from '@/cotntext/useOrganisations'
-import { Organisation } from '@/types/organisation.types'
+import { Organization } from '@/types/organization.types'
+import { useSession } from 'next-auth/react'
 import { useLocale } from 'next-intl'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
@@ -12,24 +13,30 @@ export const OrganisationProvider = ({
 }: {
   children: React.ReactNode
 }) => {
+  const session = useSession()
   const locale = useLocale()
   const router = useRouter()
-  const [activeOrg, setActiveOrg] = useState<Organisation | null>(null)
-  const [organizations, setOrganizations] = useState<Organisation[] | null>(
+  const [activeOrg, setActiveOrg] = useState<Organization | null>(null)
+  const [organizations, setOrganizations] = useState<Organization[] | null>(
     null,
   )
 
   useEffect(() => {
-    if (!organizations) {
-      getOrgs().then(orgs => {
-        if (Array.isArray(orgs)) {
-          setOrganizations(orgs)
-        } else {
-          router.push(`/${locale}/select-org`)
-        }
-      })
+    const fetchOrgs = async () => {
+      const orgs = await getOrgs()
+      if (Array.isArray(orgs)) {
+        setOrganizations(orgs)
+      }
     }
-  }, [])
+
+    if (!session || session.status !== 'authenticated') {
+      return router.push(`/${locale}/login`)
+    }
+
+    if (!organizations && session.status === 'authenticated') {
+      fetchOrgs()
+    }
+  }, [locale, organizations, router, session])
 
   return (
     <OrganisationContext.Provider

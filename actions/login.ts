@@ -5,6 +5,7 @@ import { LoginFormData, LoginSchema } from '@/schemas/login.schema'
 import { signIn } from '@/config/auth'
 import { DEFAULT_LOGIN_REDIRECT } from '@/consts/protectedRoutes'
 import { PROVIDERS } from '@/consts/providers'
+import { redirect } from 'next/navigation'
 
 export const login = async (values: LoginFormData) => {
   const validatedFields = LoginSchema.safeParse(values)
@@ -16,22 +17,19 @@ export const login = async (values: LoginFormData) => {
   try {
     const { email, password } = validatedFields.data
 
-    await signIn(PROVIDERS.CREDENTIALS, {
+    const response = await signIn(PROVIDERS.CREDENTIALS, {
       email,
       password,
-      redirectTo: DEFAULT_LOGIN_REDIRECT,
+      redirect: false,
     })
-    return { success: "You've successfully logged in!" }
-  } catch (error: any) {
-    if (error instanceof AuthError) {
-      switch (error.type) {
-        case 'CredentialsSignin':
-          return { error: 'Invalid credentials!' }
-        default:
-          return { error: error?.message || 'An error has occurred!' }
-      }
-    }
 
-    throw error
+    if (response?.error) {
+      return { error: JSON.parse(response.error) }
+    } else {
+      redirect(DEFAULT_LOGIN_REDIRECT)
+    }
+  } catch (error: any) {
+    console.log('CATCH ERROR: ', JSON.parse(error))
+    return { error: error }
   }
 }

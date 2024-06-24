@@ -1,13 +1,13 @@
 'use client'
 
-import { Organisation } from '@/types/organisation.types'
+import { Organization } from '@/types/organization.types'
 import { createContext, useContext } from 'react'
 
 type OrganisationContextType = {
-  organizations: Organisation[] | null
-  activeOrg: Organisation | null
-  setActiveOrg: (org: Organisation | null) => void
-  setOrganizations: (orgs: Organisation[] | null) => void
+  organizations: Organization[] | null
+  activeOrg: Organization | null
+  setActiveOrg: (org: Organization | null) => void
+  setOrganizations: (orgs: Organization[] | null) => void
 }
 
 const orgInitialValues: OrganisationContextType = {

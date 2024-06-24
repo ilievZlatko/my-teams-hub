@@ -8,7 +8,6 @@ import { EnvelopeClosedIcon } from '@radix-ui/react-icons'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { LoginFormData, LoginSchema } from '@/schemas/login.schema'
-
 import {
   Form,
   FormControl,
@@ -21,40 +20,59 @@ import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Button } from '@/components/ui/button'
-
 import { Social } from '@/components/social'
 import { BackButton } from '@/components/back-button'
 import { FormError } from '@/components/form-error'
-import { FormSuccess } from '@/components/form-success'
-import { login } from '@/actions/login'
-import { useRouter } from 'next/router'
+import { PROVIDERS } from '@/consts/providers'
+import { useRouter } from 'next/navigation'
+import { DEFAULT_LOGIN_REDIRECT } from '@/consts/protectedRoutes'
+import { signIn } from 'next-auth/react'
 
 export const LoginForm = () => {
-  const [error, setError] = useState<string | undefined>('')
-  const [success, setSuccess] = useState<string | undefined>('')
+  const router = useRouter()
+  const [error, setError] = useState<string | undefined>(undefined)
   const [isPending, startTransition] = useTransition()
   const t = useTranslations('auth')
   const locale = useLocale()
   const [showPassword, setShowPassword] = useState(false)
-  // const router = useRouter()
-  
+
   const form = useForm<LoginFormData>({
     resolver: zodResolver(LoginSchema),
     defaultValues: { email: '', password: '', rememberMe: false },
   })
 
-  const onSubmit = (values: LoginFormData) => {
-    setError('')
-    setSuccess('')
+  const onSubmit = async (values: LoginFormData) => {
+    setError(undefined)
 
-    startTransition(() => {
-      login(values).then(data => {
-        setError(data?.error)
-        setSuccess(data?.success)
+    const validatedFields = LoginSchema.safeParse(values)
+    if (!validatedFields.success) {
+      setError('invalid_fields')
+      return
+    }
+
+    try {
+      const { email, password } = validatedFields.data
+
+      const response = await signIn(PROVIDERS.CREDENTIALS, {
+        email,
+        password,
+        redirect: false,
       })
-    })
 
+      console.log('RESPONSE: ', response)
+    } catch (error: any) {
+      console.log('ERROR: ', error)
+      setError(error)
+    }
 
+    // .then(data => {
+    //   console.log('DATA: ', data)
+    //   router.push(DEFAULT_LOGIN_REDIRECT)
+    //   setError(data?.error)
+    // })
+    // .catch(error => {
+    //   setError(error)
+    // })
   }
 
   return (
@@ -160,8 +178,10 @@ export const LoginForm = () => {
               </div>
             </div>
 
-            <FormError message={error} />
-            <FormSuccess message={success} />
+            <FormError
+              key={error}
+              message={error}
+            />
 
             <Button
               type='submit'

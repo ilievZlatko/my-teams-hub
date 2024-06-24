@@ -3,12 +3,12 @@
 import routes from '@/api-routes'
 import { auth } from '@/config/auth'
 import { CreateOrganizationType } from '@/schemas/create-organization.schema'
-import { Organisation } from '@/types/organisation.types'
+import { Organization } from '@/types/organization.types'
 import { revalidateTag } from 'next/cache'
 
 export async function createOrg(
   data: CreateOrganizationType,
-): Promise<Organisation | { error: string }> {
+): Promise<Organization | { error: string }> {
   try {
     const session = await auth()
     const headers = new Headers()
@@ -33,7 +33,7 @@ export async function createOrg(
   }
 }
 
-export async function getOrgs(): Promise<Organisation[] | { error: string }> {
+export async function getOrgs(): Promise<Organization[] | { error: string }> {
   try {
     const session = await auth()
     const headers = new Headers()
@@ -49,6 +49,7 @@ export async function getOrgs(): Promise<Organisation[] | { error: string }> {
         tags: ['organizations'],
       },
     })
+
     const orgs = await res.json()
     return orgs.data
   } catch (error: any) {

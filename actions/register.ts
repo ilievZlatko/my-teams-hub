@@ -30,24 +30,14 @@ export const register = async (values: RegisterFormData) => {
       },
     )
 
-    if (!response.ok) {
-      throw new Error(
-        `Response status: ${response.status} ${response.statusText}`,
-      )
-    }
-
-    // if (!response.ok) throw new Error('Register failed')
-
     const user = await response.json()
 
-    if (!user) throw new Error('User not found')
+    if (!response.ok) {
+      return { error: user.errors }
+    }
 
     return { success: "You've successfully registered!", user: user.data }
-  } catch (error: any) {
-    console.error('Error register in: ', error)
-    if (error?.message) {
-      return { error: error.message }
-    }
-    return { error: 'An error has occurred!' }
+  } catch (err) {
+    return { error: [{ code: 'generic_error' }] }
   }
 }

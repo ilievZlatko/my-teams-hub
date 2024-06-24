@@ -1,8 +1,8 @@
 import routes from '@/api-routes'
-import { LoginSchema } from '@/schemas/login.schema'
-import { NextConfig } from 'next'
+import { NextAuthConfig } from 'next-auth'
 import Credentials from 'next-auth/providers/credentials'
 import Google from 'next-auth/providers/google'
+import { LoginSchema } from '@/schemas/login.schema'
 
 export default {
   providers: [
@@ -18,7 +18,7 @@ export default {
       },
       async authorize(credentials, req) {
         if (!credentials || !credentials?.email || !credentials?.password)
-          return null
+          return { error: [{ code: 'missing_credentials' }] }
         const validatedFields = LoginSchema.safeParse(credentials)
 
         if (validatedFields.success) {
@@ -37,9 +37,11 @@ export default {
             )
             const userInfo = await loginResponse.json()
 
-            if (!userInfo) throw new Error('User not found')
+            if (!loginResponse.ok) {
+              throw new Error(userInfo?.errors?.[0]?.code)
+            }
 
-            const response = await fetch(
+            const userResponse = await fetch(
               process.env.API_BASE_URL! + routes.me.get,
               {
                 method: 'GET',
@@ -50,21 +52,23 @@ export default {
                 cache: 'no-cache',
               },
             )
-            const user = await response.json()
+            const user = await userResponse.json()
 
-            if (!user) throw new Error('User not found')
+            if (!userResponse.ok) {
+              throw new Error(user?.errors?.[0]?.code)
+            }
 
             return {
               ...userInfo.data,
               ...user.data,
             }
           } catch (error: any) {
-            throw new Error('LoginError: ', error?.message)
+            return { error: [{ code: 'generic_error' }] }
           }
         } else {
-          throw new Error('Fields validation failed!')
+          return { error: [{ code: 'generic_error' }] }
         }
       },
     }),
   ],
-} satisfies NextConfig
+} satisfies NextAuthConfig
