@@ -1,6 +1,11 @@
 import React from 'react'
 import Header from '@/components/header'
-import { Locale } from '@/navigation'
+import { Locale, locales } from '@/navigation'
+import { unstable_setRequestLocale } from 'next-intl/server'
+
+export async function generateStaticParams() {
+  return locales.map(locale => ({ locale: locale }))
+}
 
 const DashboardLayout = ({
   children,
@@ -9,6 +14,8 @@ const DashboardLayout = ({
   children: React.ReactNode
   params: { locale: Locale }
 }) => {
+  unstable_setRequestLocale(params.locale)
+
   return (
     <>
       <Header locale={params.locale} />

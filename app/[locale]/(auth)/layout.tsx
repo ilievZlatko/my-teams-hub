@@ -1,13 +1,22 @@
-import { Poppins, Open_Sans } from 'next/font/google'
 import Image from 'next/image'
 
 import { cn } from '@/lib/utils'
+import { Locale, locales } from '@/navigation'
+import { unstable_setRequestLocale } from 'next-intl/server'
+
+export async function generateStaticParams() {
+  return locales.map(locale => ({ locale: locale }))
+}
 
 export default function AuthLayout({
   children,
+  params,
 }: Readonly<{
   children: React.ReactNode
+  params: { locale: Locale }
 }>) {
+  unstable_setRequestLocale(params.locale)
+
   return (
     <div
       className={cn(

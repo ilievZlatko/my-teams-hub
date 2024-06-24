@@ -4,6 +4,7 @@ import { Toaster } from 'sonner'
 import Providers from '@/providers'
 import { Locale, locales } from '@/navigation'
 import './globals.css'
+import { unstable_setRequestLocale } from 'next-intl/server'
 
 const openSans = Open_Sans({
   weight: ['300', '400', '500', '600', '700', '800'],
@@ -42,6 +43,8 @@ export default async function RootLayout({
   children: React.ReactNode
   params: { locale: Locale }
 }>) {
+  unstable_setRequestLocale(params.locale)
+
   return (
     <html
       lang={params.locale}
