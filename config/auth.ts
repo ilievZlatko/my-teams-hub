@@ -11,31 +11,49 @@ export const config = {
     authorized({ auth }) {
       return !!auth
     },
-    async jwt({ token, user, account }): Promise<JWT | null> {
-      if (account?.type === PROVIDERS.CREDENTIALS) {
-        return {
+    async jwt({ token, user, session, account, trigger }): Promise<JWT | null> {
+      if (trigger === 'update' && session) {
+        console.log('SESSION: ', session)
+        console.log('TOKEN: ', token)
+        token = {
           ...token,
-          id: String(user.id),
-          user_id: user.userId,
-          access_token: String(user.accessToken),
-          issued_at: Date.now(),
-          expires_at: Date.now() + Number(account.expires_in) * 1000,
-          refresh_token: user.refreshToken,
-          email: user.email,
-          first_name: user.firstName,
-          last_name: user.lastName,
+          activeOrg: session?.user?.activeOrg,
         }
-      } else if (user && account) {
-        return {
-          ...token,
-          ...user,
-          access_token: String(account.access_token),
-          issued_at: Date.now(),
-          expires_at: Date.now() + Number(account.expires_in) * 1000,
-          refresh_token: String(account.refresh_token),
+        return token
+      }
+
+      if (user) {
+        if (account?.type === PROVIDERS.CREDENTIALS) {
+          const token = {
+            ...user,
+            id: String(user.id),
+            user_id: user.userId,
+            access_token: String(user.accessToken),
+            issued_at: Date.now(),
+            expires_at: Date.now() + Number(account.expires_in) * 1000,
+            refresh_token: user.refreshToken,
+            email: user.email,
+            first_name: user.firstName,
+            last_name: user.lastName,
+          }
+          return token
+        }
+
+        if (account?.type === 'oauth') {
+          const token = {
+            ...user,
+            id: String(user.id),
+            access_token: String(account.access_token),
+            issued_at: Date.now(),
+            expires_at: Date.now() + Number(account.expires_in) * 1000,
+            refresh_token: String(account.refresh_token),
+          }
+
+          return token
         }
       }
-      return { ...token, ...user }
+
+      return token
     },
     async session({ session, user, token }) {
       session.user = { ...token, ...user }

@@ -36,10 +36,9 @@ export default {
               },
             )
             const userInfo = await loginResponse.json()
+            if (!loginResponse.ok) throw new Error(userInfo?.errors[0]?.code)
 
-            if (!userInfo) throw new Error('User not found')
-
-            const response = await fetch(
+            const userMeJson = await fetch(
               process.env.API_BASE_URL! + routes.me.get,
               {
                 method: 'GET',
@@ -50,14 +49,29 @@ export default {
                 cache: 'no-cache',
               },
             )
-            const user = await response.json()
+            const parsedUser = await userMeJson.json()
+            if (!userMeJson.ok) throw new Error(parsedUser?.errors[0]?.code)
 
-            if (!user) throw new Error('User not found')
+            const url = `${process.env.API_BASE_URL}${routes.allOrgsUrl.get}`
+            const orgsJson = await fetch(url, {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${userInfo?.data?.accessToken}`,
+              },
+            })
+            const orgs = await orgsJson.json()
 
-            return {
+            if (!orgsJson.ok) throw new Error(orgs?.errors[0]?.code)
+
+            const user = {
+              ...parsedUser.data,
               ...userInfo.data,
-              ...user.data,
+              organizations: orgs.data,
+              activeOrg: null,
             }
+
+            return user
           } catch (error: any) {
             throw new Error('LoginError: ', error?.message)
           }

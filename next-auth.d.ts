@@ -20,6 +20,8 @@ declare module 'next-auth' {
     accessToken?: string
     refreshToken?: string
     userId?: string
+    organizations: Organization[]
+    activeOrg: string | null
   }
 }
 

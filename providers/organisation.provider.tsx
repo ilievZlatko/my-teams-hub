@@ -11,27 +11,12 @@ export const OrganisationProvider = ({
   children: React.ReactNode
 }) => {
   const [activeOrg, setActiveOrg] = useState<Organisation | null>(null)
-  const [organizations, setOrganizations] = useState<Organisation[] | null>(
-    null,
-  )
-
-  useEffect(() => {
-    if (!organizations) {
-      getOrgs().then(orgs => {
-        if (Array.isArray(orgs)) {
-          setOrganizations(orgs)
-        }
-      })
-    }
-  }, [])
 
   return (
     <OrganisationContext.Provider
       value={{
-        organizations,
         activeOrg,
         setActiveOrg,
-        setOrganizations,
       }}
     >
       {children}
