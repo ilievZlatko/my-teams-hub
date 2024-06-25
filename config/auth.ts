@@ -16,6 +16,7 @@ export const config = {
         token = {
           ...token,
           activeOrg: session?.user?.activeOrg,
+          organizations: session?.user?.organizations || token?.organizations,
         }
         return token
       }

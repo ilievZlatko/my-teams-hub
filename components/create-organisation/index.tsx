@@ -2,7 +2,6 @@
 
 import { useForm } from 'react-hook-form'
 import { Button } from '../ui/button'
-import { useTranslations } from 'next-intl'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 import { z } from 'zod'
@@ -18,20 +17,33 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Building2 } from 'lucide-react'
-import { createOrg } from '@/actions/organization.actions'
+import { createOrg, getOrgs } from '@/actions/organization.actions'
+import { useSession } from 'next-auth/react'
 
 export const CreateOrganizationForm = () => {
-  const t = useTranslations('page')
-
+  const { data: session, update } = useSession()
   const form = useForm<z.infer<typeof CreateOrganizationSchema>>({
     resolver: zodResolver(CreateOrganizationSchema),
     defaultValues: { name: '', description: '' },
   })
 
   const onSubmit = async (values: z.infer<typeof CreateOrganizationSchema>) => {
-    await createOrg(values).then(() => {
-      form.reset()
-    })
+    await createOrg(values)
+    const organizations = await getOrgs()
+
+    const updatedSession = {
+      ...session,
+      user: {
+        ...session?.user,
+        organizations,
+      },
+      token: {
+        ...session?.token,
+        organizations,
+      },
+    }
+    await update(updatedSession)
+    form.reset()
   }
 
   return (
