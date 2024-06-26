@@ -49,7 +49,7 @@ export const SelectOrganization = () => {
     <Card className='max-sm:w-[310px] w-[400px] h-fit bg-transparent border-0 shadow-none text-[#3C4B57]'>
       <CardHeader className='flex flex-col gap-y-3 justify-center items-center w-full'>
         <h1 className='text-[32px] leading-[38.4px] font-medium font-roboto'>
-          {organizations && organizations?.length > 0
+          {!!showCreateOrg
             ? t('select.title')
             : t('create.title')}
         </h1>
@@ -64,8 +64,8 @@ export const SelectOrganization = () => {
           <div className='flex flex-col gap-y-2'>
             <label className='text-xs'>Select organisation</label>
             <Select onValueChange={handleUpdateSession}>
-              <SelectTrigger className='w-full'>
-                <SelectValue placeholder='Select organisation' />
+              <SelectTrigger className='w-full bg-transparent'>
+                <SelectValue placeholder='Select organization' />
               </SelectTrigger>
               <SelectContent>
                 {organizations?.map(org => (

@@ -51,7 +51,7 @@ export default async function RootLayout({
       suppressHydrationWarning
     >
       <body
-        className={`${openSans.variable} ${roboto.variable} ${poppins.variable} font-sans`}
+        className={`${openSans.variable} ${roboto.variable} ${poppins.variable} font-sans min-h-screen`}
       >
         <Providers>
           <Toaster />
