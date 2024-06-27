@@ -19,7 +19,7 @@ const DashboardLayout = ({
 
   return (
     <>
-      <div className='flex'>
+      <div className='flex h-full'>
         <SideBar />
         <div className='w-full'>
           <Header locale={params.locale} />

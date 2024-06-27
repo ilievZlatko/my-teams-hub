@@ -2,7 +2,7 @@
 
 export const SideBar = () => {
   return (
-    <div className="bg-mth-grey-blue-300 w-[88px] h-[834px]">
+    <div className="bg-mth-grey-blue-300 w-[88px] h-full">
       <div className="flex flex-col items-center space-y-10">
         <span className="mt-[70px] cursor-pointer">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
