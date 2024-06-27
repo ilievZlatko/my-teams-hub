@@ -82,7 +82,7 @@ export const SelectOrganization = () => {
               type='button'
               className='w-full rounded-lg mt-4'
               disabled={!activeOrg}
-              onClick={() => router.push(`/${locale}/dashboard`)}
+              onClick={() => router.push(`/${locale}`)}
             >
               Continue
             </Button>
