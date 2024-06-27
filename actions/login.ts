@@ -5,9 +5,11 @@ import { LoginFormData, LoginSchema } from '@/schemas/login.schema'
 import { signIn } from '@/config/auth'
 import { DEFAULT_LOGIN_REDIRECT } from '@/consts/protectedRoutes'
 import { PROVIDERS } from '@/consts/providers'
+import { getLocale } from 'next-intl/server'
 
 export const login = async (values: LoginFormData) => {
   const validatedFields = LoginSchema.safeParse(values)
+  const locale = await getLocale()
 
   if (!validatedFields.success) {
     return { error: 'Invalid fields!' }
@@ -19,7 +21,7 @@ export const login = async (values: LoginFormData) => {
     await signIn(PROVIDERS.CREDENTIALS, {
       email,
       password,
-      redirectTo: DEFAULT_LOGIN_REDIRECT,
+      redirectTo: `/${locale}/${DEFAULT_LOGIN_REDIRECT}`,
     })
     return { success: "You've successfully logged in!" }
   } catch (error: any) {

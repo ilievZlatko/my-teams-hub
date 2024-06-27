@@ -3,9 +3,13 @@
 import Link from 'next/link'
 import { locales } from '@/navigation'
 import { usePathname } from 'next/navigation'
+import { cn } from '@/lib/utils';
 
-export function LocaleSwitcher() {
+type LocaleSwitcherProps = React.HTMLAttributes<HTMLElement>;
+
+export function LocaleSwitcher({ className }: LocaleSwitcherProps) {
   const pathName = usePathname()
+  
 
   const redirectedPathName = (locale: string) => {
     if (!pathName) return '/'
@@ -21,7 +25,7 @@ export function LocaleSwitcher() {
           <li key={locale}>
             <Link
               href={redirectedPathName(locale)}
-              className='rounded-md border bg-black px-3 py-2 text-white'
+              className={cn('rounded-md border bg-black px-3 py-2 text-white' , className)}
             >
               {locale}
             </Link>

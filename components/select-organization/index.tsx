@@ -9,13 +9,14 @@ import {
 } from '@/components/ui/select'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { Button } from '../ui/button'
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 import { useRouter } from 'next/navigation'
 import { CreateOrganizationForm } from '../create-organisation'
 import { useEffect, useState } from 'react'
 import { useSession } from 'next-auth/react'
 
 export const SelectOrganization = () => {
+  const locale = useLocale()
   const t = useTranslations('page')
   const [showCreateOrg, setShowCreateOrg] = useState(false)
   const router = useRouter()
@@ -49,9 +50,7 @@ export const SelectOrganization = () => {
     <Card className='max-sm:w-[310px] w-[400px] h-fit bg-transparent border-0 shadow-none text-[#3C4B57]'>
       <CardHeader className='flex flex-col gap-y-3 justify-center items-center w-full'>
         <h1 className='text-[32px] leading-[38.4px] font-medium font-roboto'>
-          {organizations && organizations?.length > 0
-            ? t('select.title')
-            : t('create.title')}
+          {!!showCreateOrg ? t('select.title') : t('create.title')}
         </h1>
         <p
           dangerouslySetInnerHTML={{ __html: t.raw('create.subtitle') }}
@@ -64,8 +63,8 @@ export const SelectOrganization = () => {
           <div className='flex flex-col gap-y-2'>
             <label className='text-xs'>Select organisation</label>
             <Select onValueChange={handleUpdateSession}>
-              <SelectTrigger className='w-full'>
-                <SelectValue placeholder='Select organisation' />
+              <SelectTrigger className='w-full bg-transparent'>
+                <SelectValue placeholder='Select organization' />
               </SelectTrigger>
               <SelectContent>
                 {organizations?.map(org => (
@@ -83,7 +82,7 @@ export const SelectOrganization = () => {
               type='button'
               className='w-full rounded-lg mt-4'
               disabled={!activeOrg}
-              onClick={() => router.push('/dashboard')}
+              onClick={() => router.push(`/${locale}/dashboard`)}
             >
               Continue
             </Button>
