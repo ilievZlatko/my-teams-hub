@@ -20,15 +20,17 @@ export default function AuthLayout({
   unstable_setRequestLocale(params.locale)
 
   return (
-    <div className={cn(
-      'flex flex-col min-h-screen bg-[radial-gradient(circle_at_left_bottom,_var(--tw-gradient-stops))] from-[#CFDDE1] from-20% via-[#FDFDFF] via-50% to-[#EFF4F5] to-90%',
-    )}>
+    <div
+      className={cn(
+        'flex flex-col min-h-screen bg-[radial-gradient(circle_at_left_bottom,_var(--tw-gradient-stops))] from-[#CFDDE1] from-20% via-[#FDFDFF] via-50% to-[#EFF4F5] to-90%',
+      )}
+    >
       <div className='ml-auto mr-10 mt-6'>
-        <SelectLocale className='bg-transparent'/>
+        <SelectLocale className='bg-transparent' />
       </div>
       <div
         className={cn(
-          'flex w-screen min-h-full lg:flex-row flex-col 3xl:h-screen justify-evenly lg:items-end items-center',
+          'flex w-screen my-auto lg:flex-row flex-col 3xl:h-screen justify-evenly lg:items-end items-center',
         )}
       >
         <div className='flex flex-col items-start gap-14 pt-8 md:pt-10 max-md:max-w-[500px] lg:max-w-[600px]'>

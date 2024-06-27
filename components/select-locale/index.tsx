@@ -1,6 +1,6 @@
 'use client'
 
-import { GB, BG } from 'country-flag-icons/react/3x2'
+import { US, BG } from 'country-flag-icons/react/3x2'
 
 import {
   Select,
@@ -17,19 +17,19 @@ import { cn } from '@/lib/utils'
 
 import { useRouter } from 'next/navigation'
 
-type LocaleSwitcherProps = React.HTMLAttributes<HTMLElement>;
+type LocaleSwitcherProps = React.HTMLAttributes<HTMLElement>
 
 export const SelectLocale = ({ className }: LocaleSwitcherProps) => {
-  const pathName = usePathname();
-  const router = useRouter();
+  const pathName = usePathname()
+  const router = useRouter()
 
-  const locale = useLocale() as Locale;
+  const locale = useLocale() as Locale
 
-  const [language, setLanguage] = useState(locale);
+  const [language, setLanguage] = useState(locale)
 
   useEffect(() => {
     router.push(redirectedPathName(language))
-  }, [language]);
+  }, [language])
 
   const handleStringToInt = (event: any) => {
     setLanguage(event)
@@ -44,33 +44,38 @@ export const SelectLocale = ({ className }: LocaleSwitcherProps) => {
 
   return (
     <div className='flex flex-col gap-y-2'>
-      <Select value={locale} onValueChange={handleStringToInt}>
-        <SelectTrigger className='w-full bg-transparent text-black'>
+      <Select
+        value={locale}
+        onValueChange={handleStringToInt}
+      >
+        <SelectTrigger className='bg-transparent text-primar'>
           <SelectValue placeholder='Select language' />
         </SelectTrigger>
-        <SelectContent className='w-full bg-black text-white'>
+        <SelectContent className='background-background text-primary'>
           <SelectItem
             key={locales[0]}
             value={locales[0]}
-            className='w-full bg-black text-white'
+            className='background-background text-primary'
           >
-            <div
-              className={cn('w-full block flex gap-2', className)}
-            >
-              <GB title='Great Britain' className='w-6 h-auto' />
-              <p>English</p>
+            <div className={cn('flex items-center gap-1', className)}>
+              <US
+                title='Great Britain'
+                className='w-6 h-auto'
+              />
+              <span>EN</span>
             </div>
           </SelectItem>
           <SelectItem
             key={locales[1]}
             value={locales[1]}
-            className='w-full bg-black text-white'
+            className='background-background text-primary'
           >
-            <div
-              className={cn('w-full block flex gap-2', className)}
-            >
-              <BG title='Bulgarian' className='w-6 h-auto' />
-              <p>Bulgarian</p>
+            <div className={cn('flex items-center gap-1', className)}>
+              <BG
+                title='Bulgarian'
+                className='w-6 h-auto'
+              />
+              <span>BG</span>
             </div>
           </SelectItem>
         </SelectContent>
