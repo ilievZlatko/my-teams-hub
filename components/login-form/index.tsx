@@ -27,7 +27,6 @@ import { BackButton } from '@/components/back-button'
 import { FormError } from '@/components/form-error'
 import { FormSuccess } from '@/components/form-success'
 import { login } from '@/actions/login'
-import { useRouter } from 'next/router'
 
 export const LoginForm = () => {
   const [error, setError] = useState<string | undefined>('')
@@ -36,7 +35,6 @@ export const LoginForm = () => {
   const t = useTranslations('auth')
   const locale = useLocale()
   const [showPassword, setShowPassword] = useState(false)
-  // const router = useRouter()
   
   const form = useForm<LoginFormData>({
     resolver: zodResolver(LoginSchema),
@@ -53,8 +51,6 @@ export const LoginForm = () => {
         setSuccess(data?.success)
       })
     })
-
-
   }
 
   return (
@@ -81,20 +77,20 @@ export const LoginForm = () => {
                 name='email'
                 render={({ field }) => (
                   <FormItem className='relative'>
-                    <FormLabel>Email</FormLabel>
+                    <FormLabel>{t('login.email_label')}</FormLabel>
                     <FormControl>
                       <Input
                         {...field}
                         type='email'
                         placeholder='john.doe@example.com'
-                        className='form-input'
+                        className='form-input placeholder:text-xs'
                         disabled={isPending}
                       />
                     </FormControl>
                     <span className='absolute end-0 inset-y-[44px] flex items-center justify-center px-3'>
                       <EnvelopeClosedIcon className='size-5 text-[#63929e]' />
                     </span>
-                    <FormMessage className='text-xs' />
+                    <FormMessage className='text-xs' defaultValue={t('login.schema_msg_email_require')} />
                   </FormItem>
                 )}
               />
@@ -103,13 +99,13 @@ export const LoginForm = () => {
                 name='password'
                 render={({ field }) => (
                   <FormItem className='relative'>
-                    <FormLabel>Password</FormLabel>
+                    <FormLabel>{t('login.password_label')}</FormLabel>
                     <FormControl>
                       <Input
                         {...field}
                         type={showPassword ? 'text' : 'password'}
-                        placeholder='6 characters'
-                        className='form-input'
+                        placeholder={t('login.password_placeholder')}
+                        className='form-input placeholder:text-xs'
                         disabled={isPending}
                       />
                     </FormControl>
@@ -126,7 +122,7 @@ export const LoginForm = () => {
                         />
                       )}
                     </span>
-                    <FormMessage className='text-xs' />
+                    <FormMessage className='text-xs' defaultValue={t('login.schema_msg_password_require')} />
                   </FormItem>
                 )}
               />
@@ -145,7 +141,7 @@ export const LoginForm = () => {
                         />
                       </FormControl>
                       <FormLabel className='text-xs font-normal'>
-                        Remember me
+                        {t('login.remember_me_label')}
                       </FormLabel>
                     </FormItem>
                   )}
@@ -155,7 +151,7 @@ export const LoginForm = () => {
                   href='#'
                   className='text-xs font-normal'
                 >
-                  Forgot Password?
+                  {t('login.forgot_password_link')}
                 </Link>
               </div>
             </div>
@@ -177,8 +173,8 @@ export const LoginForm = () => {
       <CardFooter className='flex flex-col gap-2 justify-center items-center'>
         <Social label={t('signingoogle')} />
         <BackButton
-          questionLabel="Don't have an account?"
-          actionLabel='Register'
+          questionLabel={t('login.not_member_question')}
+          actionLabel={t('signup')}
           href={`/${locale}/register`}
         />
       </CardFooter>

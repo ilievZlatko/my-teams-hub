@@ -6,11 +6,39 @@
   "auth": {
     "login": {
       "title": "Welcome back!",
-      "subtitle": "Login to your <strong>My Teams Hub</strong> account"
+      "subtitle": "Login to your <strong>My Teams Hub</strong> account",
+      "email_label": "Email",
+      "password_label": "Password",
+      "password_placeholder": "6 characters",
+      "remember_me_label": "Remember me",
+      "forgot_password_link": "Forgot password?",
+      "not_member_question": "Don't have an account?",
+      "schema_msg_email_require": "Email is required!",
+      "schema_msg_password_require": "Password is required!",
+      "schema_msg_password_invalid": "Password is not valid!"
     },
     "register": {
       "title": "Let's get started",
-      "subtitle": "Create a new <strong>My Teams Hub</strong> account"
+      "subtitle": "Create a new <strong>My Teams Hub</strong> account",
+      "fname_label": "First name",
+      "fname_placeholder": "John",
+      "lname_label": "Last name",
+      "lname_placeholder": "Doe",
+      "email_label": "Email",
+      "phone_label": "Phone number",
+      "password_label": "Password",
+      "password_placeholder": "6 characters",
+      "repassword_label": "Repreat password",
+      "accept_terms_label_1": "I accept the",
+      "accept_terms_label_2": "Terms and Conditions.",
+      "already_member_question": "Already have an account?",
+      "schema_msg_fname_require": "First name is required!",
+      "schema_msg_lname_require": "Last name is required!",
+      "schema_msg_email_require": "Email is required!",
+      "schema_msg_phone_require": "Phone number is required!",
+      "schema_msg_password_require_6": "Password must be at least 6 characters!",
+      "schema_msg_password_mismatch": "Passwords must match!",
+      "schema_msg_agree_terms": "You have to agree!"
     },
     "signin": "Sign In",
     "signup": "Sign Up",
@@ -22,13 +50,74 @@
       "title": "Welcome to the home page"
     },
     "select": {
-      "title": "Select Organisation!",
-      "subtitle": "Select your <strong>My Teams Hub</strong> organisation"
+      "title": "Select Organization",
+      "subtitle": "Select your <strong>My Teams Hub</strong> organization",
+      "organization_placeholder": "Select organization",
+      "no_organization_question": "Don&apos;t have organization?",
+      "create_organization_btn": "Create organization",
+      "already_have_organization_question": "Already have an organization?",
+      "select_organization_btn": "Select organization",
+      "schema_msg_require": "Organization is not selected!"
     },
     "create": {
-      "title": "Create Organisation!",
-      "subtitle": "Create your <strong>My Teams Hub</strong> organisation"
+      "title": "Create Organization",
+      "subtitle": "Create your <strong>My Teams Hub</strong> organization",
+      "name_label": "Name",
+      "name_placeholder": "Acme Inc.",
+      "desc_label": "Description",
+      "desc_placeholder": "Describe shortly . . .",
+      "schema_msg_name_required": "Organization name is required!",
+      "schema_msg_desc_required": "Please, provide a short description!"
     },
-    "continue": "Continue"
+    "team": {
+      "index": {
+        "title": "All Teams"
+      },
+      "create": {
+        "title": "Create Team",
+        "saveBtn": "Save"
+      },
+      "edit": {
+        "title": "Edit Team",
+        "teamNameLabel": "Team Name",
+        "teamDescriptionLabel": "Team Description",
+        "teamMembersLabel": "Team Members",
+        "teamMembersPlaceholder": "View team members",
+        "noTeamMembers": "No team members yet",
+        "inviteTeamMemberLabel": "Invite Team Member",
+        "memberToInvitePlaceholder": "Select from the list",
+        "noUsersToSelect": "No users available",
+        "inviteBtn": "Invite",
+        "removeTeamMemberLabel": "Remove Team Member",
+        "memberToRemovePlaceholder": "Select a member to remove",
+        "removeBtn": "Remove",
+        "saveBtn": "Save",
+        "successMessage": "Team updated successfuly!"
+      },
+      "details": {
+        "title": "Team Details"
+      }
+    },
+    "continue": "Continue",
+    "save": "Save",
+    "organization_switcher_placeholder": "Select organization"
+  },
+  "apierrors": {
+    "invalid_firstname": "First name is not valid!",
+    "invalid_lastname": "Last name is not valid!",
+    "invalid_email": "Provided email is not valid!",
+    "invalid_phonenumber": "Phone number is not valid!",
+    "invalid_password": "Password is not valid!",
+    "invalid_organization_name": "Organization name is not valid!",
+    "invalid_organization_description": "Organization description is not valid!",
+    "invalid_organization": "Invalid organization!",
+    "invalid_team_name": "Team name is not valid!",
+    "invalid_team_description": "Team description is not valid!",
+    "team_already_exists": "Team already exists!",
+    "invalid_user": "Invalid user!",
+    "invalid_team_id": "Team ID number is not valid!",
+    "organization_already_exists": "Organization already exists!",
+    "team_not_found": "Team was not found!",
+    "invalid_username_or_password": "Username or password is not correct!"
   }
 }
