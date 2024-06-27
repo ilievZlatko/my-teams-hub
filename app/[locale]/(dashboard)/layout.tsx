@@ -19,10 +19,10 @@ const DashboardLayout = ({
 
   return (
     <>
-      <div className='flex h-full'>
-        <SideBar />
-        <div className='w-full'>
+      <div className='h-full'>
           <Header locale={params.locale} />
+        <div className='w-full h-full flex'>
+          <SideBar />
           <main className='flex flex-col p-8'>{children}</main>
         </div>
       </div>

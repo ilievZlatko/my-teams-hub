@@ -139,6 +139,9 @@ const config = {
         roboto: ['var(--font-roboto)', ...fontFamily.serif],
         poppins: ['var(--font-poppins)', ...fontFamily.sans],
       },
+      width: {
+        '22': '88px',
+      },
     },
   },
   plugins: [require('tailwindcss-animate')],
