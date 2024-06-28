@@ -143,9 +143,15 @@ FormDescription.displayName = "FormDescription"
 const FormMessage = React.forwardRef<
   HTMLParagraphElement,
   React.HTMLAttributes<HTMLParagraphElement>
->(({ className, children, ...props }, ref) => {
+  >(({ className, children, defaultValue, ...props }, ref) => {
   const { error, formMessageId } = useFormField()
-  const body = error ? String(error?.message) : children
+  let body: React.ReactNode;
+
+  if (error && error.message && defaultValue) {
+    body = String(defaultValue)
+  } else {
+    body = error ? String(error?.message) : children
+  }
 
   if (!body) {
     return null

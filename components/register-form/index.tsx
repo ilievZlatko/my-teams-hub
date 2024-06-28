@@ -32,6 +32,7 @@ import { Checkbox } from '../ui/checkbox'
 import { FormError } from '../form-error'
 import { FormSuccess } from '../form-success'
 import { register } from '@/actions/register'
+import { cn } from '@/lib/utils'
 
 export const RegisterForm = () => {
   const [error, setError] = useState<string | undefined>('')
@@ -60,7 +61,7 @@ export const RegisterForm = () => {
     setSuccess('')
 
     if (values.password !== values.rePassword) {
-      setError('Password and re-password is not the same!')
+      setError(t('register.schema_msg_password_mismatch'))
       return
     }
 
@@ -77,17 +78,17 @@ export const RegisterForm = () => {
   }
 
   return (
-    <Card className='max-sm:w-[310px] w-[400px] h-fit bg-transparent border-0 shadow-none text-[#3C4B57]'>
+    <Card className='max-sm:w-full w-[400px] h-fit bg-transparent border-0 shadow-none text-[#3C4B57] max-sm:m-auto'>
       <CardHeader className='flex flex-col gap-y-3 justify-center items-center w-full'>
-        <h1 className='text-[32px] leading-[38.4px] font-medium font-roboto'>
+        <h1 className='text-[32px] leading-[38.4px] font-medium font-roboto max-md:font-medium max-md:max-w-[80%] max-sm:text-xl'>
           {t('register.title')}
         </h1>
         <p
           dangerouslySetInnerHTML={{ __html: t.raw('register.subtitle') }}
-          className='text-[12px] leading-[14.4px] font-poppins'
+          className='text-[12px] leading-[14.4px] font-poppins max-sm:text-xs'
         />
       </CardHeader>
-      <CardContent>
+      <CardContent className='max-sm:m-auto'>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
@@ -99,105 +100,108 @@ export const RegisterForm = () => {
                 name='firstName'
                 render={({ field }) => (
                   <FormItem className='relative'>
-                    <FormLabel className='text-xs'>First name</FormLabel>
+                    <FormLabel className='text-xs'>{t('register.fname_label')}</FormLabel>
                     <FormControl className=''>
                       <Input
                         {...field}
-                        placeholder='John'
+                        placeholder={t('register.fname_placeholder')}
                         type='text'
-                        className='form-input'
+                        className='form-input placeholder:text-xs'
                         disabled={isPending}
                       />
                     </FormControl>
                     <span className='absolute end-0 inset-y-[44px] flex items-center justify-center px-3'>
                       <GoPerson className='size-5 text-[#63929e]' />
                     </span>
-                    <FormMessage />
+                    <FormMessage className='text-xs' defaultValue={t('register.schema_msg_fname_require')} />
                   </FormItem>
                 )}
-              ></FormField>
+              />
               <FormField
                 control={form.control}
                 name='lastName'
                 render={({ field }) => (
                   <FormItem className='relative'>
-                    <FormLabel className='text-xs'>Last name</FormLabel>
+                    <FormLabel className='text-xs'>{t('register.lname_label')}</FormLabel>
                     <FormControl className=''>
                       <Input
                         {...field}
-                        placeholder='Doe'
+                        placeholder={t('register.lname_placeholder')}
                         type='text'
-                        className='form-input'
+                        className='form-input placeholder:text-xs'
                         disabled={isPending}
                       />
                     </FormControl>
                     <span className='absolute end-0 inset-y-[44px] flex items-center justify-center px-3'>
                       <GoPerson className='size-5 text-[#63929e]' />
                     </span>
-                    <FormMessage />
+                    <FormMessage className='text-xs' defaultValue={t('register.schema_msg_lname_require')} />
                   </FormItem>
                 )}
-              ></FormField>
+              />
               <FormField
                 control={form.control}
                 name='email'
                 render={({ field }) => (
                   <FormItem className='relative'>
-                    <FormLabel className='text-xs'>Email</FormLabel>
+                    <FormLabel className='text-xs'>{t('register.email_label')}</FormLabel>
                     <FormControl>
                       <Input
                         {...field}
                         placeholder='john.doe@mail.com'
                         type='email'
-                        className='form-input'
+                        className='form-input placeholder:text-xs'
                         disabled={isPending}
                       />
                     </FormControl>
                     <span className='absolute end-0 inset-y-[44px] flex items-center justify-center px-3'>
                       <EnvelopeClosedIcon className='size-5 text-[#63929e]' />
                     </span>
-                    <FormMessage />
+                    <FormMessage className='text-xs' defaultValue={t('register.schema_msg_email_require')} />
                   </FormItem>
                 )}
-              ></FormField>
+              />
               <FormField
                 control={form.control}
                 name='phoneNumber'
                 render={({ field }) => (
                   <FormItem className='relative'>
-                    <FormLabel className='text-xs'>Phone number</FormLabel>
+                    <FormLabel className='text-xs'>{t('register.phone_label')}</FormLabel>
                     <FormControl>
                       <Input
                         {...field}
                         placeholder='+(123) 456 - 789'
                         type='text'
-                        className='form-input'
+                        className='form-input placeholder:text-xs'
                         disabled={isPending}
                       />
                     </FormControl>
                     <span className='absolute end-0 inset-y-[44px] flex items-center justify-center px-3'>
                       <HiOutlinePhone className='size-5 text-[#63929e]' />
                     </span>
-                    <FormMessage />
+                    <FormMessage className='text-xs' defaultValue={t('register.schema_msg_phone_require')} />
                   </FormItem>
                 )}
-              ></FormField>
+              />
               <FormField
                 control={form.control}
                 name='password'
                 render={({ field }) => (
                   <FormItem className='relative'>
-                    <FormLabel className='text-xs'>Password</FormLabel>
+                    <FormLabel className='text-xs'>{t('register.password_label')}</FormLabel>
                     <FormControl>
                       <Input
                         {...field}
-                        placeholder='6 characters'
+                        placeholder={t('register.password_placeholder')}
                         type={showPassword ? 'text' : 'password'}
-                        className='form-input'
+                        className='form-input placeholder:text-xs'
                         disabled={isPending}
                       />
                     </FormControl>
-                    <span className='absolute end-0 inset-y-[44px] flex items-center justify-center px-3'>
+                    <span className={
+                      cn('absolute end-0 flex items-center justify-center px-3',
+                        form.control.getFieldState('password').error ? 'top-[33.5px]' : 'inset-y-[44px]')}
+                    >
                       {showPassword ? (
                         <EyeIcon
                           className='size-5 text-[#63929e] cursor-pointer select-none'
@@ -210,22 +214,22 @@ export const RegisterForm = () => {
                         />
                       )}
                     </span>
-                    <FormMessage />
+                    <FormMessage className='text-xs' defaultValue={t('register.schema_msg_password_require_6')} />
                   </FormItem>
                 )}
-              ></FormField>
+              />
               <FormField
                 control={form.control}
                 name='rePassword'
                 render={({ field }) => (
                   <FormItem className='relative'>
-                    <FormLabel className='text-xs'>Rpeat password</FormLabel>
+                    <FormLabel className='text-xs'>{t('register.repassword_label')}</FormLabel>
                     <FormControl>
                       <Input
                         {...field}
-                        placeholder='6 characters'
+                        placeholder={t('register.password_placeholder')}
                         type={showPassword ? 'text' : 'password'}
-                        className='form-input'
+                        className='form-input placeholder:text-xs'
                         disabled={isPending}
                       />
                     </FormControl>
@@ -242,10 +246,10 @@ export const RegisterForm = () => {
                         />
                       )}
                     </span>
-                    <FormMessage />
+                    <FormMessage className='text-xs' defaultValue={t('register.schema_msg_password_mismatch')} />
                   </FormItem>
                 )}
-              ></FormField>
+              />
               <FormField
                 control={form.control}
                 name='check'
@@ -260,20 +264,24 @@ export const RegisterForm = () => {
                     </FormControl>
                     <div className='space-y-1 leading-none'>
                       <FormLabel className='text-xs'>
-                        I accept the{' '}
+                        {t('register.accept_terms_label_1')}{' '}
                         <Link
                           className='font-bold'
                           href='#'
                         >
-                          Terms and conditions
+                          {t('register.accept_terms_label_2')}
                         </Link>
                       </FormLabel>
                     </div>
-                    <FormMessage />
+                    <FormMessage className='text-xs' defaultValue={t('register.schema_msg_agree_terms')} />
                   </FormItem>
                 )}
-              ></FormField>
+              />
             </div>
+
+            <FormError message={error} />
+            <FormSuccess message={success} />
+
             <Button
               type='submit'
               className='w-full'
@@ -283,12 +291,9 @@ export const RegisterForm = () => {
           </form>
         </Form>
       </CardContent>
-      <CardFooter className='flex flex-col gap-2 justify-center items-center'>
-        <FormError message={error} />
-        <FormSuccess message={success} />
-
+      <CardFooter className='flex flex-col justify-center items-center'>
         <BackButton
-          questionLabel='Already have an account?'
+          questionLabel={t('register.already_member_question')}
           actionLabel={t('signin')}
           href={`/${locale}/login`}
         />

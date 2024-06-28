@@ -47,24 +47,26 @@ export const SelectOrganization = () => {
   }
 
   return (
-    <Card className='max-sm:w-[310px] w-[400px] h-fit bg-transparent border-0 shadow-none text-[#3C4B57]'>
+    <Card className='max-sm:w-full w-[400px] h-fit bg-transparent border-0 shadow-none text-[#3C4B57]'>
       <CardHeader className='flex flex-col gap-y-3 justify-center items-center w-full'>
-        <h1 className='text-[32px] leading-[38.4px] font-medium font-roboto'>
-          {!!showCreateOrg ? t('select.title') : t('create.title')}
+        <h1 className='text-[32px] leading-[38.4px] px-0 text-center font-medium font-roboto max-md:max-w-[80%] max-sm:max-w-full max-md:text-2xl max-sm:text-xl'>
+          {organizations && organizations?.length > 0
+            ? t('select.title') : t('create.title')}
         </h1>
-        <p
-          dangerouslySetInnerHTML={{ __html: t.raw('create.subtitle') }}
-          className='text-[12px] leading-[14.4px] font-poppins'
+        <p dangerouslySetInnerHTML={
+          organizations && organizations?.length > 0
+            ? { __html: t.raw('select.subtitle') }
+            : { __html: t.raw('create.subtitle') }}
+          className='text-[12px] leading-[14.4px] font-poppins text-center px-4 max-md:text-xs'
         />
       </CardHeader>
 
       <CardContent>
         {showCreateOrg ? (
           <div className='flex flex-col gap-y-2'>
-            <label className='text-xs'>Select organisation</label>
             <Select onValueChange={handleUpdateSession}>
               <SelectTrigger className='w-full bg-transparent'>
-                <SelectValue placeholder='Select organization' />
+                <SelectValue placeholder={t('select.organization_placeholder')} />
               </SelectTrigger>
               <SelectContent>
                 {organizations?.map(org => (
@@ -84,28 +86,31 @@ export const SelectOrganization = () => {
               disabled={!activeOrg}
               onClick={() => router.push(`/${locale}`)}
             >
-              Continue
+              {t('continue')}
             </Button>
           </div>
         ) : (
           <CreateOrganizationForm />
         )}
-        <div className='flex items-center justify-center gap-2'>
+        <div className='flex items-center justify-center'>
           {showCreateOrg ? (
-            <>
-              <span className='text-xs'>Don&apos;t have organisation?</span>
+            <div className='mt-4 flex gap-1 items-center max-sm:flex-wrap max-sm:justify-center'>
+              <span
+                dangerouslySetInnerHTML={{ __html: t.raw('select.no_organization_question') }}
+                className='text-xs'
+              />
               <Button
                 type='button'
                 variant='link'
-                className='text-[#63929E] text-xs p-0'
+                className='text-[#63929E] h-fit text-xs p-0'
                 onClick={() => setShowCreateOrg(false)}
               >
-                Create organisation
+                {t('select.create_organization_btn')}
               </Button>
-            </>
+            </div>
           ) : (
-            <>
-              <span className='text-xs'>Already have an organization?</span>
+            <div className='mt-1 flex gap-1 items-center'>
+              <span className='text-xs'>{t('select.already_have_organization_question')}</span>
               <Button
                 type='button'
                 variant='link'
@@ -113,9 +118,9 @@ export const SelectOrganization = () => {
                 disabled={!organizations || organizations?.length === 0}
                 onClick={() => setShowCreateOrg(true)}
               >
-                Select organisation
+                {t('select.select_organization_btn')}
               </Button>
-            </>
+            </div>
           )}
         </div>
       </CardContent>

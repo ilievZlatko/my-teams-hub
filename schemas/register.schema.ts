@@ -1,21 +1,21 @@
 import * as z from 'zod'
 
 export const RegisterSchema = z.object({
-  firstName: z.string().min(1, { message: "First Name is required" }),
-  lastName: z.string().min(1, { message: "Last Name is required" }),
-  email: z.string().email(),
-  phoneNumber: z.string().min(1, { message: "Phone number is required" }),
-  password: z.string().min(6),
-  rePassword: z.string().min(6),
+  firstName: z.string().min(1, { message: 'schema_msg_fname_require' }),
+  lastName: z.string().min(1, { message: 'schema_msg_lname_require' }),
+  email: z.string().email().min(1, { message: 'schema_msg_email_require' }),
+  phoneNumber: z.string().min(1, { message: 'schema_msg_phone_require' }),
+  password: z.string().min(6, { message: 'schema_msg_password_require_6' }),
+  rePassword: z.string(),
   check: z.literal<boolean>(true, {
-    errorMap: () => ({ message: 'You have to agree!' }),
+    errorMap: () => ({ message: 'schema_msg_agree_terms' }),
   }),
 }).refine(
   (values) => {
     return values.password === values.rePassword;
   },
   {
-    message: "Passwords must match!",
+    message: 'schema_msg_password_mismatch',
     path: ["rePassword"],
   }
 );

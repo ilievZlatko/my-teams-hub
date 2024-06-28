@@ -6,11 +6,39 @@
   "auth": {
     "login": {
       "title": "Добре дошли отново!",
-      "subtitle": "Впишете се във вашият <strong>My Teams Hub</strong> профил"
+      "subtitle": "Впишете се във вашия <strong>My Teams Hub</strong> профил",
+      "email_label": "Имейл",
+      "password_label": "Парола",
+      "password_placeholder": "6 символа",
+      "remember_me_label": "Запомни ме",
+      "forgot_password_link": "Забравена парола?",
+      "not_member_question": "Все още нямате акаунт?",
+      "schema_msg_email_require": "Имейлът е задължителен!",
+      "schema_msg_password_require": "Паролата е задължителна!",
+      "schema_msg_password_invalid": "Невалидна парола!"
     },
     "register": {
       "title": "Да започваме",
-      "subtitle": "Направете си нов <strong>My Teams Hub</strong> профил"
+      "subtitle": "Направете си нов <strong>My Teams Hub</strong> профил",
+      "fname_label": "Име",
+      "fname_placeholder": "Джон",
+      "lname_label": "Фамилия",
+      "lname_placeholder": "Доу",
+      "email_label": "Имейл",
+      "phone_label": "Телефонен номер",
+      "password_label": "Парола",
+      "password_placeholder": "6 символа",
+      "repassword_label": "Повторете паролата",
+      "accept_terms_label_1": "Приемам",
+      "accept_terms_label_2": "Условията за ползване на сайта",
+      "already_member_question": "Вече имате акаунт?",
+      "schema_msg_fname_require": "Името е задължително!",
+      "schema_msg_lname_require": "Фамилията е задължителна!",
+      "schema_msg_email_require": "Имейлът е задължителен!",
+      "schema_msg_phone_require": "Телефонният номер е задължителен!",
+      "schema_msg_password_require_6": "Паролата е задължителна и поне 6 символа!",
+      "schema_msg_password_mismatch": "Паролите не съвпадат!",
+      "schema_msg_agree_terms": "Трябва да приемете!"
     },
     "signin": "Вписване",
     "signup": "Регистрация",
@@ -22,13 +50,74 @@
       "title": "Добре дошли в нашата страница"
     },
     "select": {
-      "title": "Избери организация!",
-      "subtitle": "Избери твоята <strong>My Teams Hub</strong> организация"
+      "title": "Избор на Организация",
+      "subtitle": "Изберете вашата <strong>My Teams Hub</strong> организация",
+      "organization_placeholder": "Избери организация",
+      "no_organization_question": "Все още нямате организация?",
+      "create_organization_btn": "Създайте сега",
+      "already_have_organization_question": "Вече имате организация?",
+      "select_organization_btn": "Изберете",
+      "schema_msg_require": "Не е избрана организация!"
     },
     "create": {
-      "title": "Създай организация!",
-      "subtitle": "Създай твоята <strong>My Teams Hub</strong> организация"
+      "title": "Създаване на Организация",
+      "subtitle": "Създайте вашата <strong>My Teams Hub</strong> организация",
+      "name_label": "Име",
+      "name_placeholder": "Acme Inc.",
+      "desc_label": "Описание",
+      "desc_placeholder": "Опишете накратко . . .",
+      "schema_msg_name_required": "Името на организацията е задължително!",
+      "schema_msg_desc_required": "Моля, напишете кратко описание на организацията!"
     },
-    "continue": "Продължи"
+    "team": {
+      "index": {
+        "title": "Всички Екипи"
+      },
+      "create": {
+        "title": "Създаване на Екип",
+        "saveBtn": "Запази"
+      },
+      "edit": {
+        "title": "Редакция на Екип",
+        "teamNameLabel": "Име на екипа",
+        "teamDescriptionLabel": "Описание на екипа",
+        "teamMembersLabel": "Членове на екипа",
+        "teamMembersPlaceholder": "Разгледай",
+        "noTeamMembers": "Няма добавени членове",
+        "inviteTeamMemberLabel": "Покани член в екипа",
+        "memberToInvitePlaceholder": "Избери от списъка",
+        "noUsersToSelect": "Няма налични потребители",
+        "inviteBtn": "Покани",
+        "removeTeamMemberLabel": "Премахни член от екипа",
+        "memberToRemovePlaceholder": "Избери от списъка",
+        "removeBtn": "Премахни",
+        "saveBtn": "Запази",
+        "successMessage": "Екипът беше редактиран успешно!"
+      },
+      "details": {
+        "title": "Детайли за Екипа"
+      }
+    },
+    "continue": "Продължи",
+    "save": "Запази",
+    "organization_switcher_placeholder": "Избери организация"
+  },
+  "apierrors": {
+    "invalid_firstname": "Некоректно име!",
+    "invalid_lastname": "Некоректна фамилия!",
+    "invalid_email": "Имейлът е невалиден!",
+    "invalid_phonenumber": "Телефонният номер е невалиден!",
+    "invalid_password": "Некоректна парола!",
+    "invalid_organization_name": "Името на организацията е некоректно!",
+    "invalid_organization_description": "Описанието на организацията е некоректно!",
+    "invalid_organization": "Невалидана организация!",
+    "invalid_team_name": "Името на екипа е некоректно!",
+    "invalid_team_description": "Описанието на екипа е некоректно!",
+    "team_already_exists": "Екипът вече съществува!",
+    "invalid_user": "Невалиден потребител!",
+    "invalid_team_id": "ИД номерът на екипа е невалиден!",
+    "organization_already_exists": "Организацията вече съществува!",
+    "team_not_found": "Екипът не беше намерен!",
+    "invalid_username_or_password": "Некоректно потребителско име или парола"
   }
 }
