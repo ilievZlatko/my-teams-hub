@@ -47,9 +47,9 @@ export const SelectOrganization = () => {
   }
 
   return (
-    <Card className='max-sm:w-[310px] w-[400px] h-fit bg-transparent border-0 shadow-none text-[#3C4B57]'>
+    <Card className='max-sm:w-full w-[400px] h-fit bg-transparent border-0 shadow-none text-[#3C4B57]'>
       <CardHeader className='flex flex-col gap-y-3 justify-center items-center w-full'>
-        <h1 className='text-[32px] leading-[38.4px] px-0 text-center font-medium font-roboto'>
+        <h1 className='text-[32px] leading-[38.4px] px-0 text-center font-medium font-roboto max-md:max-w-[80%] max-sm:max-w-full max-md:text-2xl max-sm:text-xl'>
           {organizations && organizations?.length > 0
             ? t('select.title') : t('create.title')}
         </h1>
@@ -57,7 +57,7 @@ export const SelectOrganization = () => {
           organizations && organizations?.length > 0
             ? { __html: t.raw('select.subtitle') }
             : { __html: t.raw('create.subtitle') }}
-          className='text-[12px] leading-[14.4px] font-poppins text-center px-4'
+          className='text-[12px] leading-[14.4px] font-poppins text-center px-4 max-md:text-xs'
         />
       </CardHeader>
 
