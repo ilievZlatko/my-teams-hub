@@ -1,11 +1,15 @@
 'use client'
 
+import { useSession } from 'next-auth/react'
 import { useForm } from 'react-hook-form'
 import { Button } from '../ui/button'
 import { zodResolver } from '@hookform/resolvers/zod'
-
 import { z } from 'zod'
+import { Building2 } from 'lucide-react'
+import { useTranslations } from 'next-intl'
+
 import { CreateOrganizationSchema } from '@/schemas/create-organization.schema'
+import { createOrg, getOrgs } from '@/actions/organization.actions'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import {
@@ -16,11 +20,9 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form'
-import { Building2 } from 'lucide-react'
-import { createOrg, getOrgs } from '@/actions/organization.actions'
-import { useSession } from 'next-auth/react'
 
 export const CreateOrganizationForm = () => {
+  const t = useTranslations('page')
   const { data: session, update } = useSession()
   const form = useForm<z.infer<typeof CreateOrganizationSchema>>({
     resolver: zodResolver(CreateOrganizationSchema),
@@ -58,19 +60,19 @@ export const CreateOrganizationForm = () => {
             name='name'
             render={({ field }) => (
               <FormItem className='relative'>
-                <FormLabel className='text-xs'>Name</FormLabel>
+                <FormLabel className='text-xs'>{t('create.name_label')}</FormLabel>
                 <FormControl>
                   <Input
                     {...field}
-                    placeholder='Acme Inc.'
+                    placeholder={t('create.name_placeholder')}
                     type='text'
-                    className='form-input'
+                    className='form-input placeholder:text-xs'
                   />
                 </FormControl>
                 <span className='absolute end-0 inset-y-[44px] flex items-center justify-center px-3'>
                   <Building2 className='size-5 text-[#63929e]' />
                 </span>
-                <FormMessage />
+                <FormMessage defaultValue={t('create.schema_msg_name_required')} className='text-xs' />
               </FormItem>
             )}
           />
@@ -80,15 +82,15 @@ export const CreateOrganizationForm = () => {
             name='description'
             render={({ field }) => (
               <FormItem className='relative'>
-                <FormLabel className='text-xs'>Description</FormLabel>
+                <FormLabel className='text-xs'>{t('create.desc_label')}</FormLabel>
                 <FormControl>
                   <Textarea
                     {...field}
-                    placeholder='Acme Inc description'
-                    className='form-input'
+                    placeholder={t('create.desc_placeholder')}
+                    className='form-input placeholder:text-xs'
                   />
                 </FormControl>
-                <FormMessage />
+                <FormMessage defaultValue={t('create.schema_msg_desc_required')} className='text-xs' />
               </FormItem>
             )}
           />
@@ -98,7 +100,7 @@ export const CreateOrganizationForm = () => {
           type='submit'
           className='w-full'
         >
-          Submit
+          {t('save')}
         </Button>
       </form>
     </Form>
