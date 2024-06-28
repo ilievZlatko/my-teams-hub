@@ -10,8 +10,11 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
+import { logout } from "@/actions/logout";
+import { useLocale } from "next-intl";
 
 export const UserMenu = () => {
+  const locale = useLocale()
 
   return (
     <DropdownMenu>
@@ -32,7 +35,7 @@ export const UserMenu = () => {
             </div>
             </DropdownMenuLabel>
         <DropdownMenuItem>Profile</DropdownMenuItem>
-        <DropdownMenuItem>Sign out</DropdownMenuItem>
+        <DropdownMenuItem onClick={() => logout(locale)}>Sign out</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
 

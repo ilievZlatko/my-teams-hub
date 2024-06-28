@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Header from '@/components/header'
 import { Locale, locales } from '@/navigation'
 import { unstable_setRequestLocale } from 'next-intl/server'
-import { SideBar } from '@/components/side-bar/side-bar'
+import { SideBar } from '@/components/side-bar/index'
 
 export async function generateStaticParams() {
   return locales.map(locale => ({ locale: locale }))

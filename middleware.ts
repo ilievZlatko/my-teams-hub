@@ -17,13 +17,13 @@ const authMiddleware = auth(async function middleware(req: NextRequest) {
     req.nextUrl.pathname.startsWith(prefix),
   )
 
-  if (!session && isProtectedRoute) {
-    let absoluteURL = null
-    absoluteURL = locale
-      ? new URL(`/${locale}/login`, req.nextUrl.origin)
-      : new URL(`/${defaultLocale}/login`, req.nextUrl.origin)
-    return NextResponse.redirect(absoluteURL.toString())
-  }
+  // if (!session && isProtectedRoute) {
+  //   let absoluteURL = null
+  //   absoluteURL = locale
+  //     ? new URL(`/${locale}/login`, req.nextUrl.origin)
+  //     : new URL(`/${defaultLocale}/login`, req.nextUrl.origin)
+  //   return NextResponse.redirect(absoluteURL.toString())
+  // }
 
   return intlMiddleware(req)
 })

@@ -28,7 +28,7 @@ export const login = async (values: LoginFormData) => {
     if (error instanceof AuthError) {
       switch (error.type) {
         case 'CredentialsSignin':
-          return { error: 'Invalid credentials!' }
+          return { error: 'Invalid email or password!' }
         default:
           return { error: error?.message || 'An error has occurred!' }
       }
