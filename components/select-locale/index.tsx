@@ -48,7 +48,7 @@ export const SelectLocale = ({ className }: LocaleSwitcherProps) => {
         value={locale}
         onValueChange={handleStringToInt}
       >
-        <SelectTrigger className='bg-transparent text-primar'>
+        <SelectTrigger className='bg-transparent text-primary'>
           <SelectValue placeholder='Select language' />
         </SelectTrigger>
         <SelectContent className='background-background text-primary'>

@@ -54,18 +54,18 @@ export const LoginForm = () => {
   }
 
   return (
-    <Card className='max-sm:w-[310px] w-[400px] h-fit bg-transparent border-0 shadow-none text-[#3C4B57]'>
+    <Card className='max-sm:w-full w-[400px] h-fit bg-transparent border-0 shadow-none text-[#3C4B57] max-sm:m-auto'>
       <CardHeader className='flex flex-col gap-y-3 justify-center items-center w-full'>
-        <h1 className='text-[32px] leading-[38.4px] font-medium font-roboto'>
+        <h1 className='text-[32px] leading-[38.4px] font-medium font-roboto max-md:font-medium max-md:max-w-[90%] max-sm:text-xl'>
           {t('login.title')}
         </h1>
         <p
           dangerouslySetInnerHTML={{ __html: t.raw('login.subtitle') }}
-          className='text-[12px] leading-[14.4px] font-poppins'
+          className='text-[12px] leading-[14.4px] font-poppins max-sm:text-xs'
         />
       </CardHeader>
 
-      <CardContent>
+      <CardContent className='max-sm:m-auto'>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
