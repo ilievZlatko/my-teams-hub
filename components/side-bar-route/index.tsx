@@ -47,16 +47,16 @@ export const SideBarRoute = ({ image, routeName, subRoutes, isOpen }: SideBarRou
         </p>
       </div>
       {subRoutes && (
-        <Accordion type="single" collapsible className="w-full">
+        <Accordion type="single" collapsible className="w-full py-5">
           {subRoutes.map((subRoute, index) => (
             <AccordionItem key={index} value={`item-${index}`}>
-              <AccordionTrigger className={`${isOpen ? "block" : "hidden"} mb-0 text-mth-silver-200 hover:text-mth-grey-blue-900 transition duration-300 ease-in-out pl-6`}>
+              <AccordionTrigger className={`${isOpen ? "block" : "hidden"} mb-3 ml-10 text-mth-silver-200 hover:text-mth-grey-blue-900 transition duration-300 ease-in-out pl-6`}>
                 {subRoute.routeName}
               </AccordionTrigger>
               {subRoute.subRoutes && (
                 <AccordionContent>
                   {subRoute.subRoutes.map((nestedSubRoute, nestedIndex) => (
-                    <div key={nestedIndex} className={`${isOpen ? "block" : "hidden"} mb-0 text-mth-silver-200 hover:text-mth-grey-blue-900 transition duration-300 ease-in-out pl-12`}>
+                    <div key={nestedIndex} className={`${isOpen ? "block" : "hidden"} mb-2 ml-12 text-mth-silver-200 hover:text-mth-grey-blue-900 transition duration-300 ease-in-out pl-12`}>
                       {nestedSubRoute.routeName}
                     </div>
                   ))}
