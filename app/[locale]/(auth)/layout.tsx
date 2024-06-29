@@ -53,7 +53,7 @@ export default function AuthLayout({
             priority
           />
         </div>
-        <main className='my-auto max-sm:w-[60%] max-sm:min-w-[300px] max-sm:max-w-[360px] max-sm:w-full'>{children}</main>
+        <main className='my-auto max-sm:min-w-[300px] max-sm:max-w-[360px] max-sm:w-full'>{children}</main>
       </div>
     </div>
   )

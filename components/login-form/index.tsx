@@ -35,7 +35,7 @@ export const LoginForm = () => {
   const t = useTranslations('auth')
   const locale = useLocale()
   const [showPassword, setShowPassword] = useState(false)
-  
+
   const form = useForm<LoginFormData>({
     resolver: zodResolver(LoginSchema),
     defaultValues: { email: '', password: '', rememberMe: false },
@@ -47,10 +47,22 @@ export const LoginForm = () => {
 
     startTransition(() => {
       login(values).then(data => {
-        setError(data?.error)
-        setSuccess(data?.success)
+        if (data?.error) {
+          setError(data.error)
+        } else if (data?.success) {
+          setSuccess(data.success)
+        }
+      }).catch((err) => {
+        setError('An error has occurred!')
       })
     })
+
+    // startTransition(() => {
+    //   login(values).then(data => {
+    //     setError(data?.error)
+    //     setSuccess(data?.success)
+    //   })
+    // })
   }
 
   return (
