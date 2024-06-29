@@ -98,7 +98,7 @@ const CountrySelect = ({
       <PopoverTrigger asChild>
         <Button
           type="button"
-          variant={"outline"}
+          variant={"secondary-outline"}
           className={cn("flex gap-1 rounded-e-none rounded-s-lg px-3 border border-mth-blue-500 bg-mth-white-50")}
           disabled={disabled}
         >
