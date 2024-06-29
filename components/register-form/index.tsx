@@ -9,6 +9,31 @@ import { EyeIcon, EyeOffIcon } from 'lucide-react'
 import { HiOutlinePhone } from 'react-icons/hi2'
 import { GoPerson } from 'react-icons/go'
 
+
+// import { CheckIcon, ChevronsUpDown } from "lucide-react";
+// import * as RPNInput from "react-phone-number-input";
+// import flags from "react-phone-number-input/flags";
+
+// import {
+//   Command,
+//   CommandEmpty,
+//   CommandGroup,
+//   CommandInput,
+//   CommandItem,
+//   CommandList,
+// } from "@/components/ui/command";
+// import { InputProps } from "@/components/ui/input";
+// import {
+//   Popover,
+//   PopoverContent,
+//   PopoverTrigger,
+// } from "@/components/ui/popover";
+
+// import { ScrollArea } from "@/components/ui/scroll-area";
+
+import { PhoneInput } from "@/components/phone-input";
+
+
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import Link from 'next/link'
@@ -32,7 +57,8 @@ import { Checkbox } from '../ui/checkbox'
 import { FormError } from '../form-error'
 import { FormSuccess } from '../form-success'
 import { register } from '@/actions/register'
-import { cn } from '@/lib/utils'
+import { cn } from '@/lib/utils';
+
 
 export const RegisterForm = () => {
   const [error, setError] = useState<string | undefined>('')
@@ -59,6 +85,9 @@ export const RegisterForm = () => {
   const onSubmit = (values: RegisterFormData) => {
     setError('')
     setSuccess('')
+
+    console.log(values);
+    
 
     if (values.password !== values.rePassword) {
       setError(t('register.schema_msg_password_mismatch'))
@@ -168,13 +197,12 @@ export const RegisterForm = () => {
                   <FormItem className='relative'>
                     <FormLabel className='text-xs'>{t('register.phone_label')}</FormLabel>
                     <FormControl>
-                      <Input
+                      <PhoneInput
                         {...field}
                         placeholder='+(123) 456 - 789'
-                        type='text'
                         className='form-input placeholder:text-xs'
                         disabled={isPending}
-                      />
+                        defaultCountry="BG" />
                     </FormControl>
                     <span className='absolute end-0 inset-y-[44px] flex items-center justify-center px-3'>
                       <HiOutlinePhone className='size-5 text-[#63929e]' />

@@ -30,7 +30,7 @@ export default function AuthLayout({
       </div>
       <div
         className={cn(
-          'flex my-auto md:flex-row max-md:flex-col 3xl:h-screen justify-evenly md:items-end items-center',
+          'flex my-auto mb-0 md:flex-row max-md:flex-col 3xl:h-screen justify-evenly md:items-end items-center',
         )}
       >
         <div className='flex flex-col items-start gap-14 pt-8 md:pt-10 max-md:w-[80%] max-md:pb-6 max-sm:pb-2 max-sm:max-w-[500px] max-sm:w-full lg:max-w-[600px]'>
