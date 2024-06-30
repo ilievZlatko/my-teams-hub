@@ -8,10 +8,7 @@ import { EyeIcon, EyeOffIcon } from 'lucide-react'
 
 import { HiOutlinePhone } from 'react-icons/hi2'
 import { GoPerson } from 'react-icons/go'
-
-import { PhoneInput } from "@/components/phone-input";
-
-
+import { PhoneInput } from '@/components/phone-input'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import Link from 'next/link'
@@ -36,7 +33,6 @@ import { FormError } from '../form-error'
 import { FormSuccess } from '../form-success'
 import { register } from '@/actions/register'
 import { cn } from '@/lib/utils'
-
 
 export const RegisterForm = () => {
   const [error, setError] = useState<string | undefined>('')
@@ -63,7 +59,6 @@ export const RegisterForm = () => {
   const onSubmit = (values: RegisterFormData) => {
     setError('')
     setSuccess('')
-    
 
     if (values.password !== values.rePassword) {
       setError(t('register.schema_msg_password_mismatch'))
@@ -105,7 +100,9 @@ export const RegisterForm = () => {
                 name='firstName'
                 render={({ field }) => (
                   <FormItem className='relative'>
-                    <FormLabel className='text-xs'>{t('register.fname_label')}</FormLabel>
+                    <FormLabel className='text-xs'>
+                      {t('register.fname_label')}
+                    </FormLabel>
                     <FormControl className=''>
                       <Input
                         {...field}
@@ -118,7 +115,10 @@ export const RegisterForm = () => {
                     <span className='absolute end-0 inset-y-[44px] flex items-center justify-center px-3'>
                       <GoPerson className='size-5 text-[#63929e]' />
                     </span>
-                    <FormMessage className='text-xs' defaultValue={t('register.schema_msg_fname_require')} />
+                    <FormMessage
+                      className='text-xs'
+                      defaultValue={t('register.schema_msg_fname_require')}
+                    />
                   </FormItem>
                 )}
               />
@@ -127,7 +127,9 @@ export const RegisterForm = () => {
                 name='lastName'
                 render={({ field }) => (
                   <FormItem className='relative'>
-                    <FormLabel className='text-xs'>{t('register.lname_label')}</FormLabel>
+                    <FormLabel className='text-xs'>
+                      {t('register.lname_label')}
+                    </FormLabel>
                     <FormControl className=''>
                       <Input
                         {...field}
@@ -140,7 +142,10 @@ export const RegisterForm = () => {
                     <span className='absolute end-0 inset-y-[44px] flex items-center justify-center px-3'>
                       <GoPerson className='size-5 text-[#63929e]' />
                     </span>
-                    <FormMessage className='text-xs' defaultValue={t('register.schema_msg_lname_require')} />
+                    <FormMessage
+                      className='text-xs'
+                      defaultValue={t('register.schema_msg_lname_require')}
+                    />
                   </FormItem>
                 )}
               />
@@ -149,7 +154,9 @@ export const RegisterForm = () => {
                 name='email'
                 render={({ field }) => (
                   <FormItem className='relative'>
-                    <FormLabel className='text-xs'>{t('register.email_label')}</FormLabel>
+                    <FormLabel className='text-xs'>
+                      {t('register.email_label')}
+                    </FormLabel>
                     <FormControl>
                       <Input
                         {...field}
@@ -162,7 +169,10 @@ export const RegisterForm = () => {
                     <span className='absolute end-0 inset-y-[44px] flex items-center justify-center px-3'>
                       <EnvelopeClosedIcon className='size-5 text-[#63929e]' />
                     </span>
-                    <FormMessage className='text-xs' defaultValue={t('register.schema_msg_email_require')} />
+                    <FormMessage
+                      className='text-xs'
+                      defaultValue={t('register.schema_msg_email_require')}
+                    />
                   </FormItem>
                 )}
               />
@@ -171,19 +181,25 @@ export const RegisterForm = () => {
                 name='phoneNumber'
                 render={({ field }) => (
                   <FormItem className='relative'>
-                    <FormLabel className='text-xs'>{t('register.phone_label')}</FormLabel>
+                    <FormLabel className='text-xs'>
+                      {t('register.phone_label')}
+                    </FormLabel>
                     <FormControl>
                       <PhoneInput
                         {...field}
                         placeholder='+(123) 456 - 789'
                         className='form-input placeholder:text-xs'
                         disabled={isPending}
-                        defaultCountry="BG" />
+                        defaultCountry='BG'
+                      />
                     </FormControl>
                     <span className='absolute end-0 inset-y-[44px] flex items-center justify-center px-3'>
                       <HiOutlinePhone className='size-5 text-[#63929e]' />
                     </span>
-                    <FormMessage className='text-xs' defaultValue={t('register.schema_msg_phone_require')} />
+                    <FormMessage
+                      className='text-xs'
+                      defaultValue={t('register.schema_msg_phone_require')}
+                    />
                   </FormItem>
                 )}
               />
@@ -192,7 +208,9 @@ export const RegisterForm = () => {
                 name='password'
                 render={({ field }) => (
                   <FormItem className='relative'>
-                    <FormLabel className='text-xs'>{t('register.password_label')}</FormLabel>
+                    <FormLabel className='text-xs'>
+                      {t('register.password_label')}
+                    </FormLabel>
                     <FormControl>
                       <Input
                         {...field}
@@ -202,9 +220,13 @@ export const RegisterForm = () => {
                         disabled={isPending}
                       />
                     </FormControl>
-                    <span className={
-                      cn('absolute end-0 flex items-center justify-center px-3',
-                        form.control.getFieldState('password').error ? 'top-[33.5px]' : 'inset-y-[44px]')}
+                    <span
+                      className={cn(
+                        'absolute end-0 flex items-center justify-center px-3',
+                        form.control.getFieldState('password').error
+                          ? 'top-[33.5px]'
+                          : 'inset-y-[44px]',
+                      )}
                     >
                       {showPassword ? (
                         <EyeIcon
@@ -218,7 +240,10 @@ export const RegisterForm = () => {
                         />
                       )}
                     </span>
-                    <FormMessage className='text-xs' defaultValue={t('register.schema_msg_password_require_6')} />
+                    <FormMessage
+                      className='text-xs'
+                      defaultValue={t('register.schema_msg_password_require_6')}
+                    />
                   </FormItem>
                 )}
               />
@@ -227,7 +252,9 @@ export const RegisterForm = () => {
                 name='rePassword'
                 render={({ field }) => (
                   <FormItem className='relative'>
-                    <FormLabel className='text-xs'>{t('register.repassword_label')}</FormLabel>
+                    <FormLabel className='text-xs'>
+                      {t('register.repassword_label')}
+                    </FormLabel>
                     <FormControl>
                       <Input
                         {...field}
@@ -250,7 +277,10 @@ export const RegisterForm = () => {
                         />
                       )}
                     </span>
-                    <FormMessage className='text-xs' defaultValue={t('register.schema_msg_password_mismatch')} />
+                    <FormMessage
+                      className='text-xs'
+                      defaultValue={t('register.schema_msg_password_mismatch')}
+                    />
                   </FormItem>
                 )}
               />
@@ -277,7 +307,10 @@ export const RegisterForm = () => {
                         </Link>
                       </FormLabel>
                     </div>
-                    <FormMessage className='text-xs' defaultValue={t('register.schema_msg_agree_terms')} />
+                    <FormMessage
+                      className='text-xs'
+                      defaultValue={t('register.schema_msg_agree_terms')}
+                    />
                   </FormItem>
                 )}
               />

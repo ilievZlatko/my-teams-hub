@@ -1,9 +1,7 @@
 import Image from 'next/image'
 
-import { cn } from '@/lib/utils'
 import { Locale, locales } from '@/navigation'
 import { unstable_setRequestLocale } from 'next-intl/server'
-import { LocaleSwitcher } from '@/components/locale-switcher'
 import { SelectLocale } from '@/components/select-locale'
 
 export async function generateStaticParams() {
@@ -20,40 +18,30 @@ export default function AuthLayout({
   unstable_setRequestLocale(params.locale)
 
   return (
-    <div
-      className={cn(
-        'flex flex-col min-h-screen bg-[radial-gradient(circle_at_left_bottom,_var(--tw-gradient-stops))] from-[#CFDDE1] from-20% via-[#FDFDFF] via-50% to-[#EFF4F5] to-90%',
-      )}
-    >
-      <div className='ml-auto mr-10 mt-6'>
+    <div className='flex flex-col h-screen lg:px-6 bg-gradient-to-tr from-[#CFDDE1] from-0% via-[#FDFDFF] via-50% to-[#EFF4F5] to-80%'>
+      <div className='flex h-auto m-4 justify-end'>
         <SelectLocale className='bg-transparent' />
       </div>
-      <div
-        className={cn(
-          'flex my-auto mb-0 md:flex-row max-md:flex-col 3xl:h-screen justify-evenly md:items-end items-center',
-        )}
-      >
-        <div className='flex flex-col items-start gap-14 pt-8 md:pt-10 max-md:w-[80%] max-md:pb-6 max-sm:pb-2 max-sm:max-w-[500px] max-sm:w-full lg:max-w-[600px]'>
+      <div className='flex flex-col lg:flex-row lg:gap-20 h-full'>
+        <aside className='flex flex-col px-6 gap-6 justify-center lg:h-full lg:justify-between lg:gap-[154px]'>
           <Image
             src='/assets/images/title-logo.svg'
-            className={cn(
-              'mx-auto w-11/12 max-w-screen-md max-sm:pl-2 max-sm:mt-2',
-            )}
+            className='w-full h-auto mx-auto object-contain max-w-[567px] lg:mt-[150px]'
             alt='MyTeamsHub logo'
-            width={560}
-            height={111}
+            width={100}
+            height={100}
             priority
           />
           <Image
             src='/assets/images/team.svg'
-            className='max-md:hidden'
+            className='hidden lg:flex lg:sticky bottom-0'
             alt='team'
             width={800}
             height={600}
             priority
           />
-        </div>
-        <main className='my-auto max-sm:w-[60%] max-sm:min-w-[300px] max-sm:max-w-[360px] max-sm:w-full'>{children}</main>
+        </aside>
+        <main className='flex justify-center lg:my-auto'>{children}</main>
       </div>
     </div>
   )
