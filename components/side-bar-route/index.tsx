@@ -37,12 +37,12 @@ export const SideBarRoute = ({ image, routeName, subRoutes,isOpen }: SideBarRout
         <p className={`${isOpen ? "block" : "hidden"} mb-0 text-mth-silver-200 hover:text-mth-grey-blue-900 transition duration-300 ease-in-out`}>
           {routeName}
         </p>
-        {subRoutes && (
+        {subRoutes && isOpen && (
           <div className="ml-3 pt-1">
-            {isAccordionItemOpen(routeName) ? (
-              <ChevronUp className="h-6 w-6 transition-transform duration-200 text-mth-silver-200" />
+            {isAccordionItemOpen(routeName)  ? (
+              <ChevronUp className="h-5 w-6 transition-transform duration-200 text-mth-silver-200" />
             ) : (
-              <ChevronDown className="h-6 w-6 transition-transform duration-200 text-mth-silver-200" />
+              <ChevronDown className="h-5 w-6 transition-transform duration-200 text-mth-silver-200" />
             )}
           </div>
         )}
