@@ -9,6 +9,9 @@ import { EyeIcon, EyeOffIcon } from 'lucide-react'
 import { HiOutlinePhone } from 'react-icons/hi2'
 import { GoPerson } from 'react-icons/go'
 
+import { PhoneInput } from "@/components/phone-input";
+
+
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import Link from 'next/link'
@@ -33,6 +36,7 @@ import { FormError } from '../form-error'
 import { FormSuccess } from '../form-success'
 import { register } from '@/actions/register'
 import { cn } from '@/lib/utils'
+
 
 export const RegisterForm = () => {
   const [error, setError] = useState<string | undefined>('')
@@ -59,6 +63,7 @@ export const RegisterForm = () => {
   const onSubmit = (values: RegisterFormData) => {
     setError('')
     setSuccess('')
+    
 
     if (values.password !== values.rePassword) {
       setError(t('register.schema_msg_password_mismatch'))
@@ -168,13 +173,12 @@ export const RegisterForm = () => {
                   <FormItem className='relative'>
                     <FormLabel className='text-xs'>{t('register.phone_label')}</FormLabel>
                     <FormControl>
-                      <Input
+                      <PhoneInput
                         {...field}
                         placeholder='+(123) 456 - 789'
-                        type='text'
                         className='form-input placeholder:text-xs'
                         disabled={isPending}
-                      />
+                        defaultCountry="BG" />
                     </FormControl>
                     <span className='absolute end-0 inset-y-[44px] flex items-center justify-center px-3'>
                       <HiOutlinePhone className='size-5 text-[#63929e]' />
