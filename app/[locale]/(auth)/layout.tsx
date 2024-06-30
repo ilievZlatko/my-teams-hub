@@ -18,7 +18,7 @@ export default function AuthLayout({
   unstable_setRequestLocale(params.locale)
 
   return (
-    <div className='flex flex-col h-screen lg:px-6 bg-gradient-to-tr from-[#CFDDE1] from-0% via-[#FDFDFF] via-50% to-[#EFF4F5] to-80%'>
+    <div className='flex flex-col min-h-full lg:px-6 lg:h-full bg-gradient-to-tr from-[#CFDDE1] from-0% via-[#FDFDFF] via-50% to-[#EFF4F5] to-80% bg-no-repeat'>
       <div className='flex h-auto m-4 justify-end'>
         <SelectLocale className='bg-transparent' />
       </div>
