@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { SideBarRoute } from "@/components/side-bar-route/index";
 import { useRouter } from "next/navigation";
 
-const routes = [
+export const routes = [
   {
     image: "/assets/images/overview.svg",
     routeName: "Overview",
@@ -69,7 +69,7 @@ export const SideBar = () => {
 
 
   return (
-    <div ref={sidebarRef} className={`bg-mth-grey-blue-600 h-full transition-width duration-300 ease-in-out ${isOpen ? "w-80" : "w-22"}`}>
+    <div ref={sidebarRef} className={`hidden md:block bg-mth-grey-blue-600 h-full transition-width duration-300 ease-in-out ${isOpen ? "w-80" : "w-22"}`}>
       <div className="flex flex-col items-start space-y-10 px-8">
         <Image
           src={"/assets/images/hamburger.svg"}

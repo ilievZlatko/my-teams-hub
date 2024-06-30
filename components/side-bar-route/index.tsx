@@ -15,13 +15,13 @@ type SideBarRouteProps = {
   image: string;
   routeName: string;
   subRoutes?: SubRoute[];
-  isOpen: boolean;
+  isOpen?: boolean;
   url?: string
-  onToggle: () => void;
-  onRouteClick: (url?: string) => void; 
+  onToggle?: () => void;
+  onRouteClick?: (url?: string) => void;
 };
 
-export const SideBarRoute: React.FC<SideBarRouteProps> = ({ image, routeName, subRoutes, isOpen,url, onToggle, onRouteClick }) => {
+export const SideBarRoute: React.FC<SideBarRouteProps> = ({ image, routeName, subRoutes, isOpen, url, onToggle, onRouteClick }) => {
   const [openAccordionItems, setOpenAccordionItems] = useState<string[]>([]);
 
   const toggleAccordionItem = (value: string) => {
@@ -36,13 +36,16 @@ export const SideBarRoute: React.FC<SideBarRouteProps> = ({ image, routeName, su
 
   return (
     <div className="flex flex-col items-start w-full">
-      <div className="flex items-center gap-6 cursor-pointer" onClick={() => toggleAccordionItem(routeName)}>
+      <div className="flex w-full items-center gap-6 cursor-pointer" onClick={() => toggleAccordionItem(routeName)}>
         <Image src={image} alt={"side-bar-image"} width={24} height={24} onClick={onToggle} />
         <p
           className={`${isOpen ? "block" : "hidden"} mb-0 text-mth-silver-200 hover:text-mth-grey-blue-900 transition duration-300 ease-in-out font-poppins`}
           onClick={(e) => {
-            onRouteClick(url)}
-          } 
+            if (onRouteClick) {
+              onRouteClick(url)
+            }
+          }
+          }
         >
           {routeName}
         </p>
@@ -64,7 +67,14 @@ export const SideBarRoute: React.FC<SideBarRouteProps> = ({ image, routeName, su
                 className="flex justify-between mb-3 ml-6 text-mth-silver-200 hover:text-mth-grey-blue-900 transition duration-300 ease-in-out pl-6"
                 onClick={() => toggleAccordionItem(`${routeName}-${index}`)}
               >
-                <p onClick={() => onRouteClick(subRoute.url)}>{subRoute.routeName}</p>
+                <p onClick={
+                  () => {
+                    if (onRouteClick) {
+                      onRouteClick(subRoute.url)
+                    }
+                  }}>
+                  {subRoute.routeName}
+                </p>
                 {subRoute.subRoutes && (
                   <div className="ml-3">
                     {isAccordionItemOpen(`${routeName}-${index}`) ? (
@@ -81,7 +91,12 @@ export const SideBarRoute: React.FC<SideBarRouteProps> = ({ image, routeName, su
                     <div
                       key={nestedIndex}
                       className="cursor-pointer mb-2 ml-8 text-mth-silver-200 hover:text-mth-grey-blue-900 transition duration-300 ease-in-out pl-12 text-sm font-normal font-poppins"
-                      onClick={() => onRouteClick(nestedSubRoute.url)}
+                      onClick={
+                        () => {
+                          if (onRouteClick) {
+                            onRouteClick(nestedSubRoute.url)
+                          }
+                        }}
                     >
                       {nestedSubRoute.routeName}
                     </div>
