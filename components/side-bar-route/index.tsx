@@ -48,7 +48,7 @@ export const SideBarRoute = ({ image, routeName, subRoutes,isOpen }: SideBarRout
         )}
       </div>
       {subRoutes && (
-        <Accordion type="single" collapsible className={`${isAccordionItemOpen(routeName) ? "block" : "hidden"} w-full py-5`}>
+        <Accordion type="multiple"  className={`${isAccordionItemOpen(routeName) ? "block" : "hidden"} w-full pt-5`}>
           {subRoutes.map((subRoute, index) => (
             <AccordionItem key={index} value={`${routeName}-${index}`}>
               <AccordionTrigger className="flex justify-between mb-3 ml-6 text-mth-silver-200 hover:text-mth-grey-blue-900 transition duration-300 ease-in-out pl-6" onClick={() => toggleAccordionItem(`${routeName}-${index}`)}>
@@ -66,7 +66,7 @@ export const SideBarRoute = ({ image, routeName, subRoutes,isOpen }: SideBarRout
               {subRoute.subRoutes && (
                 <AccordionContent>
                   {subRoute.subRoutes.map((nestedSubRoute, nestedIndex) => (
-                    <div key={nestedIndex} className="mb-2 ml-8 text-mth-silver-200 hover:text-mth-grey-blue-900 transition duration-300 ease-in-out pl-12">
+                    <div key={nestedIndex} className="cursor-pointer mb-2 ml-8 text-mth-silver-200 hover:text-mth-grey-blue-900 transition duration-300 ease-in-out pl-12">
                       {nestedSubRoute.routeName}
                     </div>
                   ))}
