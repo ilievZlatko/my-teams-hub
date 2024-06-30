@@ -52,7 +52,7 @@ const PhoneInput: React.ForwardRefExoticComponent<PhoneInputProps> =
            *
            * @param {E164Number | undefined} value - The entered value
            */
-          onChange={value => onChange?.(value || '')}
+          onChange={value => onChange?.(value as RPNInput.Value)}
           {...props}
         />
       )
@@ -98,9 +98,9 @@ const CountrySelect = ({
       <PopoverTrigger asChild>
         <Button
           type='button'
-          variant={'secondary-outline'}
+          variant='primary-outline'
           className={cn(
-            'flex gap-1 rounded-e-none rounded-s-lg px-3 border border-mth-blue-500 bg-mth-white-50',
+            'flex gap-1 rounded-e-none rounded-s-lg px-3 border border-mth-blue-500 bg-mth-white-50 border-r-0',
           )}
           disabled={disabled}
         >
