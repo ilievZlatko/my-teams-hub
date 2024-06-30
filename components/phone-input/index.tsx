@@ -30,7 +30,7 @@ type PhoneInputProps = Omit<
   'onChange' | 'value'
 > &
   Omit<RPNInput.Props<typeof RPNInput.default>, 'onChange'> & {
-    onChange?: (value: RPNInput.Value) => void
+    onChange?: (value: RPNInput.Value | string) => void
   }
 
 const PhoneInput: React.ForwardRefExoticComponent<PhoneInputProps> =
@@ -52,7 +52,7 @@ const PhoneInput: React.ForwardRefExoticComponent<PhoneInputProps> =
            *
            * @param {E164Number | undefined} value - The entered value
            */
-          onChange={value => onChange?.(value as RPNInput.Value)}
+          onChange={value => onChange?.(value || '')}
           {...props}
         />
       )
@@ -98,9 +98,9 @@ const CountrySelect = ({
       <PopoverTrigger asChild>
         <Button
           type='button'
-          variant='primary-outline'
+          variant={'secondary-outline'}
           className={cn(
-            'flex gap-1 rounded-e-none rounded-s-lg px-3 border border-mth-blue-500 bg-mth-white-50 border-r-0',
+            'flex gap-1 rounded-e-none rounded-s-lg px-3 border border-mth-blue-500 bg-mth-white-50',
           )}
           disabled={disabled}
         >
