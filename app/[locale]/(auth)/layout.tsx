@@ -28,7 +28,6 @@ export default function AuthLayout({
             src='/assets/images/title-logo.svg'
             className='w-full h-auto mx-auto object-contain max-w-[567px] lg:mt-[150px]'
             alt='MyTeamsHub logo'
-            objectFit='contain'
             width={100}
             height={100}
             priority
@@ -37,7 +36,6 @@ export default function AuthLayout({
             src='/assets/images/team.svg'
             className='hidden lg:flex lg:sticky bottom-0'
             alt='team'
-            objectFit='contain'
             width={800}
             height={600}
             priority
