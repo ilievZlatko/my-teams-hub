@@ -63,7 +63,7 @@ export const SideBar = () => {
   const handleRouteClick = (url?: string) => {
     if (url) {
       router.push(url);
-      // setIsOpen(false); 
+      setIsOpen(false); 
     }
   };
 

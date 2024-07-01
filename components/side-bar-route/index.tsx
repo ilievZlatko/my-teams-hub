@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@radix-ui/react-accordion";
 import Image from "next/image";
 
@@ -30,6 +30,14 @@ const SideBarRoute: React.FC<SideBarRouteProps> = ({
   onRouteClick
 }) => {
   const [openAccordionItems, setOpenAccordionItems] = useState<string[]>([]);
+
+  useEffect(() => {
+    if (isOpen && subRoutes) {
+      setOpenAccordionItems(subRoutes.map((_, index) => `${routeName}-${index}`));
+    } else {
+      setOpenAccordionItems([]);
+    }
+  }, [isOpen, routeName, subRoutes]);
 
   const toggleAccordionItem = (value: string) => {
     setOpenAccordionItems((prevOpenItems) =>
@@ -83,7 +91,7 @@ const SideBarRoute: React.FC<SideBarRouteProps> = ({
                   <p className="block" onClick={() => handleRouteClick(subRoute.url)}>{subRoute.routeName}</p>
                   {subRoute.subRoutes && (
                     <Image
-                      src={isAccordionItemOpen(`${routeName}-${index}`) ? "/assets/images/arrowup.svg" : "/assets/images/arrowdown.svg"}
+                      src={isAccordionItemOpen(`${routeName}-${index}`) ? "/assets/images/arrowdown.svg" : "/assets/images/arrowup.svg"}
                       alt={isAccordionItemOpen(`${routeName}-${index}`) ? "arrowdown" : "arrowup"}
                       className="block my-auto"
                       width={16}
