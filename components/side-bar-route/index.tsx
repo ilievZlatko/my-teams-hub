@@ -48,7 +48,7 @@ const SideBarRoute: React.FC<SideBarRouteProps> = ({
   };
 
   return (
-    <div className="flex flex-col items-start w-full">
+    <div className="flex flex-col justify-between w-full">
       <div className="flex w-full items-center gap-6 cursor-pointer" onClick={() => toggleAccordionItem(routeName)}>
         <Image src={image} alt="side-bar-image" width={24} height={24} onClick={onToggle} />
         <div className="flex w-40 justify-between">
@@ -63,7 +63,6 @@ const SideBarRoute: React.FC<SideBarRouteProps> = ({
               <Image
                 src={isAccordionItemOpen(routeName) ? "/assets/images/arrowup.svg" : "/assets/images/arrowdown.svg"}
                 alt={isAccordionItemOpen(routeName) ? "arrowup" : "arrowdown"}
-                className="items-center justify-center"
                 width={16}
                 height={16}
               />
@@ -75,17 +74,17 @@ const SideBarRoute: React.FC<SideBarRouteProps> = ({
       {subRoutes && isOpen && (
         <Accordion type="multiple" className={isAccordionItemOpen(routeName) ? "block w-full pt-5" : "hidden"}>
           {subRoutes.map((subRoute, index) => (
-            <AccordionItem key={index} value={`${routeName}-${index}`} className="pl-6 justify-between">
+            <AccordionItem key={index} value={`${routeName}-${index}`} className="pl-6">
               <AccordionTrigger
-                className="flex mb-3 pl-6 items-center justify-between text-mth-silver-200 hover:text-mth-grey-blue-900 transition duration-300 ease-in-out "
+                className="flex mb-3 pl-6 text-mth-silver-200 hover:text-mth-grey-blue-900 transition duration-300 ease-in-out "
                 onClick={() => toggleAccordionItem(`${routeName}-${index}`)}
               >
                   <p className="block" onClick={() => handleRouteClick(subRoute.url)}>{subRoute.routeName}</p>
                   {subRoute.subRoutes && (
                     <Image
                       src={isAccordionItemOpen(`${routeName}-${index}`) ? "/assets/images/arrowup.svg" : "/assets/images/arrowdown.svg"}
-                      alt={isAccordionItemOpen(`${routeName}-${index}`) ? "arrowup" : "arrowdown"}
-                      className="block"
+                      alt={isAccordionItemOpen(`${routeName}-${index}`) ? "arrowdown" : "arrowup"}
+                      className="block my-auto"
                       width={16}
                       height={16}
                     />

@@ -27,12 +27,20 @@ export const UserMenu = () => {
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuLabel>
-          <div>
-            <p>Name:</p>
-            <p className="text-xs">email</p>
-          </div>
+          My Profile
         </DropdownMenuLabel>
-        <DropdownMenuItem>Profile</DropdownMenuItem>
+        <DropdownMenuItem>
+          <div className="flex">
+            <p>Name:</p>
+            <p>Geotgi</p>
+          </div>
+        </DropdownMenuItem>
+        <DropdownMenuItem>
+          <div className="flex">
+            <p>Email:</p>
+            <p>geotgi@abv.bg</p>
+          </div>
+        </DropdownMenuItem>
         <DropdownMenuItem onClick={() => logout(locale)}>Sign out</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

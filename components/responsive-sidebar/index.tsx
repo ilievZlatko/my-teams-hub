@@ -35,9 +35,8 @@ export const ResponsiveSideBar = () => {
                     <SheetDescription></SheetDescription>
  
                     {routes.map((route, index) => (
-                        <div className="mb-4">
+                        <div className="mb-4" key={index}>
                         <SideBarRoute
-                            key={index}
                             image={route.image}
                             routeName={route.routeName}
                             subRoutes={route.subRoutes}
@@ -51,7 +50,7 @@ export const ResponsiveSideBar = () => {
                             <div className="w-7 h-7">
                                 <UserMenu />
                             </div>
-                            <p className="ml-5">My Profile</p>
+                            <p className="ml-5 text-mth-silver-200">My Profile</p>
                         </div>
                     </SheetFooter>
                 </SheetContent>
