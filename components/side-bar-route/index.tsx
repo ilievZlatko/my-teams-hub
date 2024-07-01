@@ -83,7 +83,6 @@ const SideBarRoute: React.FC<SideBarRouteProps> = ({
         <Accordion type="multiple" className={isAccordionItemOpen(routeName) ? "block w-full pt-5" : "hidden"}>
           {subRoutes.map((subRoute, index) => (
             <AccordionItem key={index} value={`${routeName}-${index}`} className="gap-6 w-full">
-              {/* <div className="w-6"></div> */}
               <AccordionTrigger
                 className="flex w-44 ml-12 justify-between mr-4 mb-3 text-mth-silver-200 hover:text-mth-grey-blue-900 transition duration-300 ease-in-out "
                 onClick={() => toggleAccordionItem(`${routeName}-${index}`)}
