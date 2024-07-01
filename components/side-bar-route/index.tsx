@@ -1,9 +1,8 @@
 "use client";
 
+import { useState } from "react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@radix-ui/react-accordion";
-import { ChevronDown, ChevronUp } from "lucide-react";
 import Image from "next/image";
-import React, { useState } from "react";
 
 interface SubRoute {
   routeName: string;
@@ -11,92 +10,95 @@ interface SubRoute {
   url?: string;
 }
 
-type SideBarRouteProps = {
+interface SideBarRouteProps {
   image: string;
   routeName: string;
   subRoutes?: SubRoute[];
   isOpen?: boolean;
-  url?: string
+  url?: string;
   onToggle?: () => void;
   onRouteClick?: (url?: string) => void;
-};
+}
 
-export const SideBarRoute: React.FC<SideBarRouteProps> = ({ image, routeName, subRoutes, isOpen, url, onToggle, onRouteClick }) => {
+const SideBarRoute: React.FC<SideBarRouteProps> = ({
+  image,
+  routeName,
+  subRoutes,
+  isOpen,
+  url,
+  onToggle,
+  onRouteClick
+}) => {
   const [openAccordionItems, setOpenAccordionItems] = useState<string[]>([]);
 
   const toggleAccordionItem = (value: string) => {
-    if (openAccordionItems.includes(value)) {
-      setOpenAccordionItems(openAccordionItems.filter(item => item !== value));
-    } else {
-      setOpenAccordionItems([...openAccordionItems, value]);
-    }
+    setOpenAccordionItems((prevOpenItems) =>
+      prevOpenItems.includes(value)
+        ? prevOpenItems.filter((item) => item !== value)
+        : [...prevOpenItems, value]
+    );
   };
 
   const isAccordionItemOpen = (value: string) => openAccordionItems.includes(value);
 
+  const handleRouteClick = (clickedUrl?: string) => {
+    if (onRouteClick) {
+      onRouteClick(clickedUrl);
+    }
+  };
+
   return (
     <div className="flex flex-col items-start w-full">
       <div className="flex w-full items-center gap-6 cursor-pointer" onClick={() => toggleAccordionItem(routeName)}>
-        <Image src={image} alt={"side-bar-image"} width={24} height={24} onClick={onToggle} />
-        <p
-          className={`${isOpen ? "block" : "hidden"} mb-0 text-mth-silver-200 hover:text-mth-grey-blue-900 transition duration-300 ease-in-out font-poppins`}
-          onClick={(e) => {
-            if (onRouteClick) {
-              onRouteClick(url)
-            }
-          }
-          }
-        >
-          {routeName}
-        </p>
-        {subRoutes && isOpen && (
-          <div className="ml-3 pt-1">
-            {isAccordionItemOpen(routeName) ? (
-              <ChevronUp className="h-5 w-6 transition-transform duration-200 text-mth-silver-200" />
-            ) : (
-              <ChevronDown className="h-5 w-6 transition-transform duration-200 text-mth-silver-200" />
-            )}
-          </div>
-        )}
+        <Image src={image} alt="side-bar-image" width={24} height={24} onClick={onToggle} />
+        <div className="flex w-40 justify-between">
+          <p
+            className={`mb-0 text-mth-silver-200 hover:text-mth-grey-blue-900 transition duration-300 ease-in-out font-poppins ${isOpen ? "block" : "hidden"}`}
+            onClick={() => handleRouteClick(url)}
+          >
+            {routeName}
+          </p>
+          {subRoutes && isOpen && (
+            <div className="ml-3 pt-1">
+              <Image
+                src={isAccordionItemOpen(routeName) ? "/assets/images/arrowup.svg" : "/assets/images/arrowdown.svg"}
+                alt={isAccordionItemOpen(routeName) ? "arrowup" : "arrowdown"}
+                className="items-center justify-center"
+                width={16}
+                height={16}
+              />
+            </div>
+          )}
+        </div>
       </div>
+
       {subRoutes && isOpen && (
-        <Accordion type="multiple" className={`${isAccordionItemOpen(routeName) ? "block" : "hidden"} w-full pt-5`}>
+        <Accordion type="multiple" className={isAccordionItemOpen(routeName) ? "block w-full pt-5" : "hidden"}>
           {subRoutes.map((subRoute, index) => (
-            <AccordionItem key={index} value={`${routeName}-${index}`}>
+            <AccordionItem key={index} value={`${routeName}-${index}`} className="pl-6 justify-between">
               <AccordionTrigger
-                className="flex justify-between mb-3 ml-6 text-mth-silver-200 hover:text-mth-grey-blue-900 transition duration-300 ease-in-out pl-6"
+                className="flex mb-3 pl-6 items-center justify-between text-mth-silver-200 hover:text-mth-grey-blue-900 transition duration-300 ease-in-out "
                 onClick={() => toggleAccordionItem(`${routeName}-${index}`)}
               >
-                <p onClick={
-                  () => {
-                    if (onRouteClick) {
-                      onRouteClick(subRoute.url)
-                    }
-                  }}>
-                  {subRoute.routeName}
-                </p>
-                {subRoute.subRoutes && (
-                  <div className="ml-3">
-                    {isAccordionItemOpen(`${routeName}-${index}`) ? (
-                      <ChevronUp className="h-5 w-6 transition-transform duration-200 text-mth-silver-200" />
-                    ) : (
-                      <ChevronDown className="h-5 w-6 transition-transform duration-200 text-mth-silver-200" />
-                    )}
-                  </div>
-                )}
+                  <p className="block" onClick={() => handleRouteClick(subRoute.url)}>{subRoute.routeName}</p>
+                  {subRoute.subRoutes && (
+                    <Image
+                      src={isAccordionItemOpen(`${routeName}-${index}`) ? "/assets/images/arrowup.svg" : "/assets/images/arrowdown.svg"}
+                      alt={isAccordionItemOpen(`${routeName}-${index}`) ? "arrowup" : "arrowdown"}
+                      className="block"
+                      width={16}
+                      height={16}
+                    />
+                  )}
               </AccordionTrigger>
+
               {subRoute.subRoutes && (
                 <AccordionContent>
                   {subRoute.subRoutes.map((nestedSubRoute, nestedIndex) => (
                     <div
                       key={nestedIndex}
                       className="cursor-pointer mb-2 ml-8 text-mth-silver-200 hover:text-mth-grey-blue-900 transition duration-300 ease-in-out pl-12 text-sm font-normal font-poppins"
-                      onClick={
-                        () => {
-                          if (onRouteClick) {
-                            onRouteClick(nestedSubRoute.url)
-                          }
-                        }}
+                      onClick={() => handleRouteClick(nestedSubRoute.url)}
                     >
                       {nestedSubRoute.routeName}
                     </div>
@@ -110,3 +112,5 @@ export const SideBarRoute: React.FC<SideBarRouteProps> = ({ image, routeName, su
     </div>
   );
 };
+
+export default SideBarRoute;

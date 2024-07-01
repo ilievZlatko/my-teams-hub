@@ -1,9 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
+import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "../ui/sheet";
 import { routes } from "../side-bar";
-import { SideBarRoute } from "../side-bar-route";
+import SideBarRoute from "../side-bar-route";
 
 
 export const ResponsiveSideBar = () => {
@@ -20,6 +20,8 @@ export const ResponsiveSideBar = () => {
                     />
                 </SheetTrigger>
                 <SheetContent className='bg-mth-grey-blue-600'>
+                    <SheetTitle></SheetTitle>
+                    <SheetDescription></SheetDescription>
                     {routes.map((route, index) => (
                         <SideBarRoute
                             key={index}

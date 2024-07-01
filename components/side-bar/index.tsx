@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { SideBarRoute } from "@/components/side-bar-route/index";
+import  SideBarRoute  from "@/components/side-bar-route/index";
 import { useRouter } from "next/navigation";
 
 export const routes = [
