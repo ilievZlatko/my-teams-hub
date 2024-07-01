@@ -51,7 +51,7 @@ const SideBarRoute: React.FC<SideBarRouteProps> = ({
     <div className="flex flex-col justify-between w-full">
       <div className="flex w-full items-center gap-6 cursor-pointer" onClick={() => toggleAccordionItem(routeName)}>
         <Image src={image} alt="side-bar-image" width={24} height={24} onClick={onToggle} />
-        <div className="flex w-40 justify-between">
+        <div className="flex w-44 justify-between">
           <p
             className={`mb-0 text-mth-silver-200 hover:text-mth-grey-blue-900 transition duration-300 ease-in-out font-poppins ${isOpen ? "block" : "hidden"}`}
             onClick={() => handleRouteClick(url)}
@@ -74,9 +74,10 @@ const SideBarRoute: React.FC<SideBarRouteProps> = ({
       {subRoutes && isOpen && (
         <Accordion type="multiple" className={isAccordionItemOpen(routeName) ? "block w-full pt-5" : "hidden"}>
           {subRoutes.map((subRoute, index) => (
-            <AccordionItem key={index} value={`${routeName}-${index}`} className="pl-6">
+            <AccordionItem key={index} value={`${routeName}-${index}`} className="gap-6 w-full">
+              {/* <div className="w-6"></div> */}
               <AccordionTrigger
-                className="flex mb-3 pl-6 text-mth-silver-200 hover:text-mth-grey-blue-900 transition duration-300 ease-in-out "
+                className="flex w-44 ml-12 justify-between mr-4 mb-3 text-mth-silver-200 hover:text-mth-grey-blue-900 transition duration-300 ease-in-out "
                 onClick={() => toggleAccordionItem(`${routeName}-${index}`)}
               >
                   <p className="block" onClick={() => handleRouteClick(subRoute.url)}>{subRoute.routeName}</p>
