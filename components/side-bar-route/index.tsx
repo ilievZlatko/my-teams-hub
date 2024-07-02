@@ -61,7 +61,7 @@ const SideBarRoute: React.FC<SideBarRouteProps> = ({
         <Image src={image} alt="side-bar-image" width={24} height={24} onClick={onToggle} />
         <div className="flex w-44 justify-between">
           <p
-            className={`mb-0 text-mth-silver-200 hover:text-mth-grey-blue-900 transition duration-300 ease-in-out font-poppins ${isOpen ? "block" : "hidden"}`}
+            className={`mb-0 text-mth-silver-200 text-20 leading-20 font-normal hover:text-mth-grey-blue-900 transition duration-300 ease-in-out font-poppins ${isOpen ? "block" : "hidden"}`}
             onClick={() => handleRouteClick(url)}
           >
             {routeName}
@@ -82,12 +82,12 @@ const SideBarRoute: React.FC<SideBarRouteProps> = ({
       {subRoutes && isOpen && (
         <Accordion type="multiple" className={isAccordionItemOpen(routeName) ? "block w-full pt-5" : "hidden"}>
           {subRoutes.map((subRoute, index) => (
-            <AccordionItem key={index} value={`${routeName}-${index}`} className="gap-6 w-full">
+            <AccordionItem key={index} value={`${routeName}-${index}`} className="w-full mb-6">
               <AccordionTrigger
-                className="flex w-44 ml-12 justify-between mr-4 mb-3 text-mth-silver-200 hover:text-mth-grey-blue-900 transition duration-300 ease-in-out "
+                className="flex w-44 ml-12 justify-between mr-4 mb-3 text-mth-silver-200 hover:text-mth-grey-blue-900 transition duration-300 ease-in-out gap-y-4"
                 onClick={() => toggleAccordionItem(`${routeName}-${index}`)}
               >
-                  <p className="block" onClick={() => handleRouteClick(subRoute.url)}>{subRoute.routeName}</p>
+                  <p className="text-base leading-20 font-normal" onClick={() => handleRouteClick(subRoute.url)}>{subRoute.routeName}</p>
                   {subRoute.subRoutes && (
                     <Image
                       src={isAccordionItemOpen(`${routeName}-${index}`) ? "/assets/images/arrowdown.svg" : "/assets/images/arrowup.svg"}
@@ -104,7 +104,7 @@ const SideBarRoute: React.FC<SideBarRouteProps> = ({
                   {subRoute.subRoutes.map((nestedSubRoute, nestedIndex) => (
                     <div
                       key={nestedIndex}
-                      className="cursor-pointer mb-2 ml-8 text-mth-silver-200 hover:text-mth-grey-blue-900 transition duration-300 ease-in-out pl-12 text-sm font-normal font-poppins"
+                      className="cursor-pointer mb-2 ml-8 text-mth-silver-200 hover:text-mth-grey-blue-900 transition duration-300 ease-in-out pl-12 text-sm leading-20 font-normal font-poppins"
                       onClick={() => handleRouteClick(nestedSubRoute.url)}
                     >
                       {nestedSubRoute.routeName}
