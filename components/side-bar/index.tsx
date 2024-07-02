@@ -15,21 +15,21 @@ export const routes = [
     image: "/assets/images/management.svg",
     routeName: "Management",
     subRoutes: [
-      { routeName: "Organisation’s chart", url:"/organisations" },
+      { routeName: "Organisation’s chart" },
       {
         routeName: "Teams",
         subRoutes: [
-          { routeName: "View All Teams", url:"/view-all-teams" },
-          { routeName: "Add Team", url:"/add-team" },
-          { routeName: "Edit Team", url:"/edit-team" },
+          { routeName: "View All Teams" },
+          { routeName: "Add Team" },
+          { routeName: "Edit Team" },
         ],
       },
       {
         routeName: "Users",
         subRoutes: [
-          { routeName: "View All Users", url:"/all-users" },
-          { routeName: "Add User", url:"/add-user" },
-          { routeName: "Edit User", url:"/edit-user" },
+          { routeName: "View All Users" },
+          { routeName: "Add User"},
+          { routeName: "Edit User" },
         ],
       },
     ],

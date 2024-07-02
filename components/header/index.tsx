@@ -9,10 +9,10 @@ export default async function Header({ locale }: { locale: Locale }) {
   const { navigation } = await getDictionary(locale);
 
   return (
-    <header className='py-4 bg-mth-grey-blue-600 w-full h-[64px]'>
-      <nav className='container flex items-center justify-between'>
-        <ResponsiveSideBar />
-        <div className='flex items-center gap-x-4 ml-auto'>
+    <header className='bg-mth-grey-blue-600 w-full'>
+      <nav className='container flex items-center justify-between py-3 px-4 lg:px-8'>
+        <ResponsiveSideBar/>
+        <div className='flex items-center gap-x-4 lg:ml-auto'>
           <OrganizationSwitcher />
           <SelectLocale />
           <div className='hidden md:block'>
@@ -23,3 +23,4 @@ export default async function Header({ locale }: { locale: Locale }) {
     </header>
   )
 }
+
