@@ -36,7 +36,7 @@ const OrganizationSwitcher = () => {
       defaultValue={activeOrg ?? undefined}
       value={activeOrg ?? undefined}
     >
-      <SelectTrigger className='bg-transparent border-transparent md:border-mth-silver-100 text-mth-silver-200 md:border-opacity-50'>
+      <SelectTrigger className='bg-transparent border-transparent lg:border-mth-silver-100 text-mth-silver-200 lg:border-opacity-50'>
         <SelectValue placeholder='Select organisation'>
           {
             organizations?.find(org => org.organizationId === activeOrg)

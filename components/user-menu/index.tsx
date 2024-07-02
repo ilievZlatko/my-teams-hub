@@ -20,7 +20,7 @@ export const UserMenu = () => {
         <Image
           src={"/assets/images/profile.svg"}
           alt="hamburger"
-          className="cursor-pointer relative md:top-1"
+          className="cursor-pointer relative lg:top-1"
           width={60}
           height={60}
         />

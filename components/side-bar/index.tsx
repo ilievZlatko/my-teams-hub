@@ -37,7 +37,6 @@ export const routes = [
   {
     image: "/assets/images/evaluation.svg",
     routeName: "Evaluation",
-    // url: "/"
   },
 ];
 
@@ -69,7 +68,7 @@ export const SideBar = () => {
 
 
   return (
-    <div ref={sidebarRef} className={`hidden md:block bg-mth-grey-blue-600 h-full transition-width duration-300 ease-in-out ${isOpen ? "w-80" : "w-22"}`}>
+    <div ref={sidebarRef} className={`hidden lg:block bg-mth-grey-blue-600 h-full transition-width duration-300 ease-in-out ${isOpen ? "w-80" : "w-22"}`}>
       <div className="flex flex-col items-start space-y-10 px-8">
         <Image
           src={"/assets/images/hamburger.svg"}

@@ -9,7 +9,7 @@ import { UserMenu } from "../user-menu";
 
 export const ResponsiveSideBar = () => {
     return (
-        <div className='block md:hidden h-full'>
+        <div className='block lg:hidden h-full'>
             <Sheet>
                 <SheetTrigger>
                     <Image

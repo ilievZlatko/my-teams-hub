@@ -15,7 +15,7 @@ export default async function Header({ locale }: { locale: Locale }) {
         <div className='flex items-center gap-x-4 lg:ml-auto'>
           <OrganizationSwitcher />
           <SelectLocale />
-          <div className='hidden md:block'>
+          <div className='hidden lg:block'>
             <UserMenu />
           </div>
         </div>

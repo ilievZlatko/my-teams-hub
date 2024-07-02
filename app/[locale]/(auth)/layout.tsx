@@ -41,10 +41,8 @@ export default function AuthLayout({
             priority
           />
         </aside> 
+      <main className='flex justify-center lg:my-auto'>{children}</main>
       </div>
-      <main className="my-auto max-sm:min-w-80 max-sm:max-w-90 max-sm:w-full">
-        {children}
-      </main>
     </div>
   );
 }
