@@ -6,4 +6,5 @@ node_modules
 next-env.d.ts
 next.config.ts
 yarn.lock
-components/ui
+**/components/ui/*
+app/[locale]/globals.css

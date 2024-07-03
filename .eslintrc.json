@@ -9,8 +9,9 @@
   },
   "env": {
     "browser": true,
-    "es2023": true,
-    "node": true
+    "es6": true,
+    "node": true,
+    "jest": true
   },
   "root": true,
   "extends": [
@@ -26,11 +27,12 @@
   "plugins": ["prettier", "@typescript-eslint", "react", "react-hooks"],
   "rules": {
     // JavaScript rules
-    "prefer-const": "warn",
+    "prefer-const": "error",
     "no-var": "warn",
     "no-unused-vars": "off",
     "object-shorthand": "warn",
     "quote-props": ["warn", "as-needed"],
+    "newline-before-return": "error",
     // TypeScript rules
     "@typescript-eslint/no-unused-vars": [
       "error",
@@ -69,7 +71,13 @@
     "react-hooks/exhaustive-deps": "off", // Checks effect dependencies
     "react/react-in-jsx-scope": "off",
     "react/prop-types": "off",
-    "prettier/prettier": "warn"
+    "prettier/prettier": "warn",
+    "no-console": [
+      "error",
+      {
+        "allow": ["warn", "error"]
+      }
+    ]
   },
   "settings": {
     "react": {
