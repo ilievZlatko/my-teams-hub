@@ -50,56 +50,60 @@ export const CreateOrganizationForm = () => {
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className='space-y-8'
-      >
-        <div className='space-y-2'>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        <div className="space-y-2">
           <FormField
             control={form.control}
-            name='name'
+            name="name"
             render={({ field }) => (
-              <FormItem className='relative'>
-                <FormLabel className='text-xs'>{t('create.name_label')}</FormLabel>
+              <FormItem className="relative">
+                <FormLabel className="text-xs">
+                  {t('create.name_label')}
+                </FormLabel>
                 <FormControl>
                   <Input
                     {...field}
                     placeholder={t('create.name_placeholder')}
-                    type='text'
-                    className='form-input placeholder:text-xs'
+                    type="text"
+                    className="form-input placeholder:text-xs"
                   />
                 </FormControl>
-                <span className='absolute end-0 inset-y-[44px] flex items-center justify-center px-3'>
-                  <Building2 className='size-5 text-[#63929e]' />
+                <span className="absolute inset-y-[44px] end-0 flex items-center justify-center px-3">
+                  <Building2 className="size-5 text-[#63929e]" />
                 </span>
-                <FormMessage defaultValue={t('create.schema_msg_name_required')} className='text-xs' />
+                <FormMessage
+                  defaultValue={t('create.schema_msg_name_required')}
+                  className="text-xs"
+                />
               </FormItem>
             )}
           />
 
           <FormField
             control={form.control}
-            name='description'
+            name="description"
             render={({ field }) => (
-              <FormItem className='relative'>
-                <FormLabel className='text-xs'>{t('create.desc_label')}</FormLabel>
+              <FormItem className="relative">
+                <FormLabel className="text-xs">
+                  {t('create.desc_label')}
+                </FormLabel>
                 <FormControl>
                   <Textarea
                     {...field}
                     placeholder={t('create.desc_placeholder')}
-                    className='form-input placeholder:text-xs'
+                    className="form-input placeholder:text-xs"
                   />
                 </FormControl>
-                <FormMessage defaultValue={t('create.schema_msg_desc_required')} className='text-xs' />
+                <FormMessage
+                  defaultValue={t('create.schema_msg_desc_required')}
+                  className="text-xs"
+                />
               </FormItem>
             )}
           />
         </div>
 
-        <Button
-          type='submit'
-          className='w-full'
-        >
+        <Button type="submit" className="w-full">
           {t('save')}
         </Button>
       </form>

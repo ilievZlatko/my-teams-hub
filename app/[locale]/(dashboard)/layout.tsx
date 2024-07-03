@@ -4,7 +4,7 @@ import { Locale, locales } from '@/navigation'
 import { unstable_setRequestLocale } from 'next-intl/server'
 
 export async function generateStaticParams() {
-  return locales.map(locale => ({ locale: locale }))
+  return locales.map((locale) => ({ locale }))
 }
 
 const DashboardLayout = ({
@@ -19,7 +19,7 @@ const DashboardLayout = ({
   return (
     <>
       <Header locale={params.locale} />
-      <main className='flex flex-col p-8'>{children}</main>
+      <main className="flex flex-col p-8">{children}</main>
     </>
   )
 }
