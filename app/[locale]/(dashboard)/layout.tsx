@@ -20,7 +20,6 @@ const DashboardLayout = ({
   return (
     <>
       <div className="h-full">
-        {/* <Header locale={params.locale} /> */}
         <Header />
         <div className="flex h-full w-full">
           <SideBar />

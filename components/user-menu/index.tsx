@@ -11,12 +11,12 @@ import {
 import { logout } from '@/actions/logout'
 import { useLocale } from 'next-intl'
 
-type UserMenuProps = {
-  name: string | undefined
-  email: string | undefined | null
+export type UserMenuProps = {
+  name?: string
+  email?: string | null
 }
 
-export const UserMenu = async ({ name, email }: UserMenuProps) => {
+export const UserMenu = ({ name, email }: UserMenuProps) => {
   const locale = useLocale()
 
   return (

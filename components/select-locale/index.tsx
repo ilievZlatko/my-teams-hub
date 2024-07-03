@@ -47,7 +47,10 @@ export const SelectLocale = ({
     <div className="flex flex-col gap-y-2 p-0">
       <Select value={locale} onValueChange={handleStringToInt}>
         <SelectTrigger
-          className={`leading-2 w-12 border-transparent bg-transparent p-0 font-poppins text-base font-normal ${isLoginPage ? 'text-black' : 'text-mth-silver-200'}`}
+          className={cn(
+            'leading-2 w-12 border-transparent bg-transparent p-0 font-poppins text-base font-normal',
+            isLoginPage ? 'text-black' : 'text-mth-silver-200',
+          )}
         >
           <SelectValue>{language}</SelectValue>
         </SelectTrigger>

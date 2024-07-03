@@ -12,9 +12,9 @@ import {
 } from '../ui/sheet'
 import { routes } from '../side-bar'
 import SideBarRoute from '../side-bar-route'
-import { UserMenu } from '../user-menu'
+import { UserMenu, UserMenuProps } from '../user-menu'
 
-export const ResponsiveSideBar = () => {
+export const ResponsiveSideBar = ({ name, email }: UserMenuProps) => {
   return (
     <div className="block h-full lg:hidden">
       <Sheet>
@@ -53,9 +53,9 @@ export const ResponsiveSideBar = () => {
             </div>
           ))}
           <SheetFooter className="mt-auto flex w-full">
-            <div className="flex">
+            <div className="flex w-full">
               <div className="h-7 w-7">
-                <UserMenu />
+                <UserMenu name={name} email={email} />
               </div>
               <p className="ml-5 text-mth-silver-200">My Profile</p>
             </div>
