@@ -33,7 +33,7 @@ export const metadata: Metadata = {
 }
 
 export async function generateStaticParams() {
-  return locales.map(locale => ({ locale: locale }))
+  return locales.map((locale) => ({ locale }))
 }
 
 export default async function RootLayout({
@@ -46,12 +46,9 @@ export default async function RootLayout({
   unstable_setRequestLocale(params.locale)
 
   return (
-    <html
-      lang={params.locale}
-      suppressHydrationWarning
-    >
+    <html lang={params.locale} suppressHydrationWarning>
       <body
-        className={`${openSans.variable} ${roboto.variable} ${poppins.variable} font-sans min-h-screen`}
+        className={`${openSans.variable} ${roboto.variable} ${poppins.variable} min-h-screen font-sans`}
       >
         <Providers>
           <Toaster />

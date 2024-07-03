@@ -10,6 +10,8 @@ import { auth } from '@/config/auth'
 export default async function Header({ locale }: { locale: Locale }) {
   const { navigation } = await getDictionary(locale);
   const session = await auth();
+  const name = session?.user.firstName;
+  const email = session?.user.email
 
   return (
     <header className='bg-mth-grey-blue-600 w-full'>
@@ -22,7 +24,7 @@ export default async function Header({ locale }: { locale: Locale }) {
             <SelectLocale />
           </div>
           <div className='hidden lg:block'>
-            <UserMenu />
+            <UserMenu name={name} email={email}/>
           </div>
         </div>
       </nav>

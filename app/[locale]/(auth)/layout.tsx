@@ -34,14 +34,14 @@ export default function AuthLayout({
           />
           <Image
             src="/assets/images/team.svg"
-            className="hidden lg:flex lg:sticky bottom-0" 
+            className="bottom-0 hidden lg:sticky lg:flex"
             alt="team"
             width={800}
             height={600}
             priority
           />
         </aside>
-        <main className='flex justify-center lg:my-auto'>{children}</main>
+        <main className="flex justify-center lg:my-auto">{children}</main>
       </div>
     </div>
   );

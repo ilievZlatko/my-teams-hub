@@ -19,18 +19,14 @@ export function ThemeSwitcher() {
 
   useEffect(() => setMounted(true), [])
 
-  if (!mounted) return <div className='w-4 h-4 inline-block'></div>
+  if (!mounted) return <div className="inline-block h-4 w-4"></div>
 
   return (
-    <Button
-      onClick={toggleTheme}
-      size='icon'
-      variant='primary-outline'
-    >
+    <Button onClick={toggleTheme} size="icon" variant="primary-outline">
       {resolvedTheme === 'light' ? (
-        <Moon className='h-4 w-4 rotate-0 transition-all dark:-rotate-90' />
+        <Moon className="h-4 w-4 rotate-0 transition-all dark:-rotate-90" />
       ) : (
-        <Sun className='h-4 w-4 rotate-90 transition-all dark:rotate-0' />
+        <Sun className="h-4 w-4 rotate-90 transition-all dark:rotate-0" />
       )}
     </Button>
   )

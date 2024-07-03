@@ -5,7 +5,7 @@ type ExampleStore = {
   increment: () => void
 }
 
-export const useExampleStore = createStore<ExampleStore>(set => ({
+export const useExampleStore = createStore<ExampleStore>((set) => ({
   count: 0,
-  increment: () => set(state => ({ count: state.count + 1 })),
+  increment: () => set((state) => ({ count: state.count + 1 })),
 }))

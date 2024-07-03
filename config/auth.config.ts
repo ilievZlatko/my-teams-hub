@@ -16,7 +16,7 @@ export default {
         },
         password: { label: 'Password', type: 'password' },
       },
-      async authorize(credentials, req) {
+      async authorize(credentials, _) {
         if (!credentials || !credentials?.email || !credentials?.password)
           return null
         const validatedFields = LoginSchema.safeParse(credentials)
@@ -75,6 +75,7 @@ export default {
             }
 
             return user
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
           } catch (error: any) {
             throw new Error('LoginError: ', error?.message)
           }

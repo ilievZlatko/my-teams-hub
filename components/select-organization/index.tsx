@@ -47,29 +47,34 @@ export const SelectOrganization = () => {
   }
 
   return (
-    <Card className='max-sm:w-full w-[400px] h-fit bg-transparent border-0 shadow-none text-[#3C4B57]'>
-      <CardHeader className='flex flex-col gap-y-3 justify-center items-center w-full'>
-        <h1 className='text-[32px] leading-[38.4px] px-0 text-center font-medium font-roboto max-md:max-w-[80%] max-sm:max-w-full max-md:text-2xl max-sm:text-xl'>
+    <Card className="h-fit w-[400px] border-0 bg-transparent text-[#3C4B57] shadow-none max-sm:w-full">
+      <CardHeader className="flex w-full flex-col items-center justify-center gap-y-3">
+        <h1 className="px-0 text-center font-roboto text-[32px] font-medium leading-[38.4px] max-md:max-w-[80%] max-md:text-2xl max-sm:max-w-full max-sm:text-xl">
           {organizations && organizations?.length > 0
-            ? t('select.title') : t('create.title')}
+            ? t('select.title')
+            : t('create.title')}
         </h1>
-        <p dangerouslySetInnerHTML={
-          organizations && organizations?.length > 0
-            ? { __html: t.raw('select.subtitle') }
-            : { __html: t.raw('create.subtitle') }}
-          className='text-[12px] leading-[14.4px] font-poppins text-center px-4 max-md:text-xs'
+        <p
+          dangerouslySetInnerHTML={
+            organizations && organizations?.length > 0
+              ? { __html: t.raw('select.subtitle') }
+              : { __html: t.raw('create.subtitle') }
+          }
+          className="px-4 text-center font-poppins text-[12px] leading-[14.4px] max-md:text-xs"
         />
       </CardHeader>
 
       <CardContent>
         {showCreateOrg ? (
-          <div className='flex flex-col gap-y-2'>
+          <div className="flex flex-col gap-y-2">
             <Select onValueChange={handleUpdateSession}>
-              <SelectTrigger className='w-full bg-transparent'>
-                <SelectValue placeholder={t('select.organization_placeholder')} />
+              <SelectTrigger className="w-full bg-transparent">
+                <SelectValue
+                  placeholder={t('select.organization_placeholder')}
+                />
               </SelectTrigger>
               <SelectContent>
-                {organizations?.map(org => (
+                {organizations?.map((org) => (
                   <SelectItem
                     key={org.organizationId}
                     value={org.organizationId}
@@ -81,8 +86,8 @@ export const SelectOrganization = () => {
             </Select>
 
             <Button
-              type='button'
-              className='w-full rounded-lg mt-4'
+              type="button"
+              className="mt-4 w-full rounded-lg"
               disabled={!activeOrg}
               onClick={() => router.push(`/${locale}`)}
             >
@@ -92,29 +97,33 @@ export const SelectOrganization = () => {
         ) : (
           <CreateOrganizationForm />
         )}
-        <div className='flex items-center justify-center'>
+        <div className="flex items-center justify-center">
           {showCreateOrg ? (
-            <div className='mt-4 flex gap-1 items-center max-sm:flex-wrap max-sm:justify-center'>
+            <div className="mt-4 flex items-center gap-1 max-sm:flex-wrap max-sm:justify-center">
               <span
-                dangerouslySetInnerHTML={{ __html: t.raw('select.no_organization_question') }}
-                className='text-xs'
+                dangerouslySetInnerHTML={{
+                  __html: t.raw('select.no_organization_question'),
+                }}
+                className="text-xs"
               />
               <Button
-                type='button'
-                variant='link'
-                className='text-[#63929E] h-fit text-xs p-0'
+                type="button"
+                variant="link"
+                className="h-fit p-0 text-xs text-[#63929E]"
                 onClick={() => setShowCreateOrg(false)}
               >
                 {t('select.create_organization_btn')}
               </Button>
             </div>
           ) : (
-            <div className='mt-1 flex gap-1 items-center'>
-              <span className='text-xs'>{t('select.already_have_organization_question')}</span>
+            <div className="mt-1 flex items-center gap-1">
+              <span className="text-xs">
+                {t('select.already_have_organization_question')}
+              </span>
               <Button
-                type='button'
-                variant='link'
-                className='text-[#63929E] p-0 text-xs'
+                type="button"
+                variant="link"
+                className="p-0 text-xs text-[#63929E]"
                 disabled={!organizations || organizations?.length === 0}
                 onClick={() => setShowCreateOrg(true)}
               >

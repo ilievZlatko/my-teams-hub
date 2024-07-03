@@ -11,7 +11,12 @@ import {
 import { logout } from "@/actions/logout";
 import { useLocale } from "next-intl";
 
-export const UserMenu = async() => {
+type UserMenuProps = {
+  name: string | undefined;
+  email: string | undefined | null;
+}
+
+export const UserMenu = async ({ name, email }: UserMenuProps) => {
   const locale = useLocale();
 
   return (
@@ -32,13 +37,13 @@ export const UserMenu = async() => {
         <DropdownMenuItem>
           <div className="flex gap-2">
             <p className="font-semibold">Name:</p>
-            <p>Test</p>
+            <p>{name}</p>
           </div>
         </DropdownMenuItem>
         <DropdownMenuItem>
           <div className="flex gap-2">
             <p className="font-semibold">Email:</p>
-            <p>test@abv.bg</p>
+            <p>{email}</p>
           </div>
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => logout(locale)}>Sign out</DropdownMenuItem>

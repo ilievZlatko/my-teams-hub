@@ -17,13 +17,13 @@ export const SelectLocale = ({ className, isLoginPage }: LocaleSwitcherProps) =>
   const pathName = usePathname()
   const router = useRouter()
   const locale = useLocale() as Locale
-  const [language, setLanguage] = useState(locale)
+  const [language, setLanguage] = useState<string>(locale)
 
   useEffect(() => {
     router.push(redirectedPathName(language))
   }, [language])
 
-  const handleStringToInt = (event: any) => {
+  const handleStringToInt = (event: string) => {
     setLanguage(event)
   }
 
@@ -43,11 +43,11 @@ export const SelectLocale = ({ className, isLoginPage }: LocaleSwitcherProps) =>
         <SelectTrigger className={`w-12 bg-transparent border-transparent p-0 text-base font-poppins leading-2 font-normal ${isLoginPage ? 'text-black' : 'text-mth-silver-200'}`}>
           <SelectValue>{language}</SelectValue>
         </SelectTrigger>
-        <SelectContent className='background-background text-primary'>
+        <SelectContent className="background-background text-primary">
           <SelectItem
             key={locales[0]}
             value={locales[0]}
-            className='background-background text-primary'
+            className="background-background text-primary"
           >
             <div className={cn('flex items-center gap-1', className)}>
               <US
@@ -60,7 +60,7 @@ export const SelectLocale = ({ className, isLoginPage }: LocaleSwitcherProps) =>
           <SelectItem
             key={locales[1]}
             value={locales[1]}
-            className='background-background text-primary'
+            className="background-background text-primary"
           >
             <div className={cn('flex items-center gap-1', className)}>
               <BG

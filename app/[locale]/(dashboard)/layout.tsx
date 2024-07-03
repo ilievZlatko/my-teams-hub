@@ -5,7 +5,7 @@ import { unstable_setRequestLocale } from 'next-intl/server'
 import { SideBar } from '@/components/side-bar/index'
 
 export async function generateStaticParams() {
-  return locales.map(locale => ({ locale: locale }))
+  return locales.map((locale) => ({ locale }))
 }
 
 const DashboardLayout = ({

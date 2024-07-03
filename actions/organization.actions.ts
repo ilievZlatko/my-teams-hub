@@ -25,6 +25,7 @@ export async function createOrg(
     const newOrg = await res.json()
     revalidateTag('organizations')
     return newOrg.data
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     if (error?.message) {
       return { error: error.message }
@@ -51,6 +52,7 @@ export async function getOrgs(): Promise<Organisation[] | { error: string }> {
     })
     const orgs = await res.json()
     return orgs.data
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     if (error?.message) {
       return { error: error.message }
