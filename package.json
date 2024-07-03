@@ -9,9 +9,9 @@
     "lint": "next lint",
     "postinstall": "husky",
     "prepare": "husky",
-    "prettier:format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md,mdx,css,yaml,yml}\"",
-    "prettier:check": "prettier --check \"**/*.{js,jsx,ts,tsx,json,md,mdx,css,yaml,yml}\"",
-    "eslint:format": "eslint --fix \"**/*.{js,jsx,ts,tsx,json,md,mdx,css,yaml,yml}\""
+    "prettier:format": "prettier --write \"**/*.{js,jsx,ts,tsx}\"",
+    "prettier:check": "prettier --check \"**/*.{js,jsx,ts,tsx}\"",
+    "eslint:format": "eslint --fix \"**/*.{js,jsx,ts,tsx}\""
   },
   "dependencies": {
     "@hookform/resolvers": "^3.6.0",

@@ -11,7 +11,7 @@ const intlMiddleware = createIntlMiddleware({
 
 const authMiddleware = auth(async function middleware(req: NextRequest) {
   const session = await auth()
-  const [, locale, ...segments] = req.nextUrl.pathname.split('/')
+  const [, locale, ..._] = req.nextUrl.pathname.split('/')
 
   const isProtectedRoute = PROTECTED_ROUTES.some((prefix) =>
     req.nextUrl.pathname.startsWith(prefix),
@@ -40,6 +40,7 @@ export default function middleware(req: NextRequest) {
   if (isPublicPage) {
     return intlMiddleware(req)
   } else {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return (authMiddleware as any)(req)
   }
 }
