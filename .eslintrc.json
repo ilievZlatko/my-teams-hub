@@ -32,7 +32,7 @@
     "no-unused-vars": "off",
     "object-shorthand": "warn",
     "quote-props": ["warn", "as-needed"],
-    "newline-before-return": "error",
+    "newline-before-return": "off",
     // TypeScript rules
     "@typescript-eslint/no-unused-vars": [
       "error",
