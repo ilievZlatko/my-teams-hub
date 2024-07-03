@@ -25,13 +25,13 @@ export const SelectLocale = ({ className }: LocaleSwitcherProps) => {
 
   const locale = useLocale() as Locale
 
-  const [language, setLanguage] = useState(locale)
+  const [language, setLanguage] = useState<string>(locale)
 
   useEffect(() => {
     router.push(redirectedPathName(language))
   }, [language])
 
-  const handleStringToInt = (event: any) => {
+  const handleStringToInt = (event: string) => {
     setLanguage(event)
   }
 
@@ -43,38 +43,29 @@ export const SelectLocale = ({ className }: LocaleSwitcherProps) => {
   }
 
   return (
-    <div className='flex flex-col gap-y-2'>
-      <Select
-        value={locale}
-        onValueChange={handleStringToInt}
-      >
-        <SelectTrigger className='bg-transparent text-primary'>
-          <SelectValue placeholder='Select language' />
+    <div className="flex flex-col gap-y-2">
+      <Select value={locale} onValueChange={handleStringToInt}>
+        <SelectTrigger className="bg-transparent text-primary">
+          <SelectValue placeholder="Select language" />
         </SelectTrigger>
-        <SelectContent className='background-background text-primary'>
+        <SelectContent className="background-background text-primary">
           <SelectItem
             key={locales[0]}
             value={locales[0]}
-            className='background-background text-primary'
+            className="background-background text-primary"
           >
             <div className={cn('flex items-center gap-1', className)}>
-              <US
-                title='Great Britain'
-                className='w-6 h-auto'
-              />
+              <US title="Great Britain" className="h-auto w-6" />
               <span>EN</span>
             </div>
           </SelectItem>
           <SelectItem
             key={locales[1]}
             value={locales[1]}
-            className='background-background text-primary'
+            className="background-background text-primary"
           >
             <div className={cn('flex items-center gap-1', className)}>
-              <BG
-                title='Bulgarian'
-                className='w-6 h-auto'
-              />
+              <BG title="Bulgarian" className="h-auto w-6" />
               <span>BG</span>
             </div>
           </SelectItem>

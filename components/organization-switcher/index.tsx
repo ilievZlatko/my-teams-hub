@@ -37,19 +37,16 @@ const OrganizationSwitcher = () => {
       value={activeOrg ?? undefined}
     >
       <SelectTrigger>
-        <SelectValue placeholder='Select organisation'>
+        <SelectValue placeholder="Select organisation">
           {
-            organizations?.find(org => org.organizationId === activeOrg)
+            organizations?.find((org) => org.organizationId === activeOrg)
               ?.organizationName
           }
         </SelectValue>
       </SelectTrigger>
       <SelectContent>
-        {organizations?.map(org => (
-          <SelectItem
-            key={org.organizationId}
-            value={org.organizationId}
-          >
+        {organizations?.map((org) => (
+          <SelectItem key={org.organizationId} value={org.organizationId}>
             {org.organizationName}
           </SelectItem>
         ))}

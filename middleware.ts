@@ -13,7 +13,7 @@ const authMiddleware = auth(async function middleware(req: NextRequest) {
   const session = await auth()
   const [, locale, ...segments] = req.nextUrl.pathname.split('/')
 
-  const isProtectedRoute = PROTECTED_ROUTES.some(prefix =>
+  const isProtectedRoute = PROTECTED_ROUTES.some((prefix) =>
     req.nextUrl.pathname.startsWith(prefix),
   )
 
@@ -30,7 +30,7 @@ const authMiddleware = auth(async function middleware(req: NextRequest) {
 
 export default function middleware(req: NextRequest) {
   const publicPathnameRegex = RegExp(
-    `^(/(${locales.join('|')}))?(${PUBLIC_ROUTES.flatMap(p =>
+    `^(/(${locales.join('|')}))?(${PUBLIC_ROUTES.flatMap((p) =>
       p === '/' ? ['', '/'] : p,
     ).join('|')})/?$`,
     'i',
