@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import Header from '@/components/header'
 import { Locale, locales } from '@/navigation'
 import { unstable_setRequestLocale } from 'next-intl/server'
@@ -17,14 +17,14 @@ const DashboardLayout = ({
 }) => {
   unstable_setRequestLocale(params.locale)
 
-
   return (
     <>
-      <div className='h-full'>
-        <Header locale={params.locale} />
-        <div className='w-full h-full flex'>
-          <SideBar/>
-          <main className='flex flex-col p-8'>{children}</main>
+      <div className="h-full">
+        {/* <Header locale={params.locale} /> */}
+        <Header />
+        <div className="flex h-full w-full">
+          <SideBar />
+          <main className="flex flex-col p-8">{children}</main>
         </div>
       </div>
     </>

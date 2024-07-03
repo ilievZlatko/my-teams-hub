@@ -140,13 +140,13 @@ const config = {
         poppins: ['var(--font-poppins)', ...fontFamily.sans],
       },
       width: {
-        '22': '88px',
+        22: '88px',
       },
       fontSize: {
-        '20': '20px',
+        20: '20px',
       },
       lineHeight: {
-        '20': '20px'
+        20: '20px',
       },
     },
   },

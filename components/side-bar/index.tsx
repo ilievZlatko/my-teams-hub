@@ -1,77 +1,81 @@
-"use client";
+'use client'
 
-import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
-import  SideBarRoute  from "@/components/side-bar-route/index";
-import { useRouter } from "next/navigation";
+import Image from 'next/image'
+import { useEffect, useRef, useState } from 'react'
+import SideBarRoute from '@/components/side-bar-route/index'
+import { useRouter } from 'next/navigation'
 
 export const routes = [
   {
-    image: "/assets/images/overview.svg",
-    routeName: "Overview",
-    url: "/"
+    image: '/assets/images/overview.svg',
+    routeName: 'Overview',
+    url: '/',
   },
   {
-    image: "/assets/images/management.svg",
-    routeName: "Management",
+    image: '/assets/images/management.svg',
+    routeName: 'Management',
     subRoutes: [
-      { routeName: "Organisation’s chart" },
+      { routeName: 'Organisation’s chart' },
       {
-        routeName: "Teams",
+        routeName: 'Teams',
         subRoutes: [
-          { routeName: "View All Teams" },
-          { routeName: "Add Team" },
-          { routeName: "Edit Team" },
+          { routeName: 'View All Teams' },
+          { routeName: 'Add Team' },
+          { routeName: 'Edit Team' },
         ],
       },
       {
-        routeName: "Users",
+        routeName: 'Users',
         subRoutes: [
-          { routeName: "View All Users" },
-          { routeName: "Add User"},
-          { routeName: "Edit User" },
+          { routeName: 'View All Users' },
+          { routeName: 'Add User' },
+          { routeName: 'Edit User' },
         ],
       },
     ],
   },
   {
-    image: "/assets/images/evaluation.svg",
-    routeName: "Evaluation",
+    image: '/assets/images/evaluation.svg',
+    routeName: 'Evaluation',
   },
-];
+]
 
 export const SideBar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const sidebarRef = useRef<HTMLDivElement>(null);
-  const router = useRouter();
-
+  const [isOpen, setIsOpen] = useState(false)
+  const sidebarRef = useRef<HTMLDivElement>(null)
+  const router = useRouter()
 
   const handleClickOutside = (event: MouseEvent) => {
-    if (sidebarRef.current && !sidebarRef.current.contains(event.target as Node)) {
-      setIsOpen(false);
+    if (
+      sidebarRef.current &&
+      !sidebarRef.current.contains(event.target as Node)
+    ) {
+      setIsOpen(false)
     }
-  };
+  }
 
   useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside)
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [])
 
   const handleRouteClick = (url?: string) => {
     if (url) {
-      router.push(url);
-      setIsOpen(false); 
+      router.push(url)
+      setIsOpen(false)
     }
-  };
-
+  }
 
   return (
-    <div ref={sidebarRef} className={`hidden lg:block bg-mth-grey-blue-600 h-full transition-width duration-300 ease-in-out ${isOpen ? "w-80" : "w-22"}`}>
+    <div
+      ref={sidebarRef}
+      className={`transition-width hidden h-full bg-mth-grey-blue-600 duration-300 ease-in-out lg:block ${isOpen ? 'w-80' : 'w-22'}`}
+    >
       <div className="flex flex-col items-start space-y-10 px-8">
         <Image
-          src={"/assets/images/hamburger.svg"}
+          src={'/assets/images/hamburger.svg'}
           alt="hamburger"
           className="cursor-pointer"
           width={24}
@@ -91,10 +95,10 @@ export const SideBar = () => {
             subRoutes={route.subRoutes}
             isOpen={isOpen}
             url={route.url}
-      
-            onRouteClick={handleRouteClick} />
+            onRouteClick={handleRouteClick}
+          />
         ))}
       </div>
     </div>
-  );
-};
+  )
+}

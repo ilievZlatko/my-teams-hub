@@ -36,7 +36,7 @@ export default {
               },
             )
             const userInfo = await loginResponse.json()
-            
+
             if (!loginResponse.ok) {
               throw new Error(userInfo.errors[0].code)
             }

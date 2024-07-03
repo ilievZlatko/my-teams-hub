@@ -1,39 +1,37 @@
-"use client";
+'use client'
 
-import Image from "next/image";
+import Image from 'next/image'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
-import { logout } from "@/actions/logout";
-import { useLocale } from "next-intl";
+} from '../ui/dropdown-menu'
+import { logout } from '@/actions/logout'
+import { useLocale } from 'next-intl'
 
 type UserMenuProps = {
-  name: string | undefined;
-  email: string | undefined | null;
+  name: string | undefined
+  email: string | undefined | null
 }
 
 export const UserMenu = async ({ name, email }: UserMenuProps) => {
-  const locale = useLocale();
+  const locale = useLocale()
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
         <Image
-          src={"/assets/images/profile.svg"}
+          src={'/assets/images/profile.svg'}
           alt="hamburger"
-          className="cursor-pointer relative lg:top-1"
+          className="relative cursor-pointer lg:top-1"
           width={50}
           height={50}
         />
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        <DropdownMenuLabel>
-          My Profile
-        </DropdownMenuLabel>
+        <DropdownMenuLabel>My Profile</DropdownMenuLabel>
         <DropdownMenuItem>
           <div className="flex gap-2">
             <p className="font-semibold">Name:</p>
@@ -46,8 +44,10 @@ export const UserMenu = async ({ name, email }: UserMenuProps) => {
             <p>{email}</p>
           </div>
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => logout(locale)}>Sign out</DropdownMenuItem>
+        <DropdownMenuItem onClick={() => logout(locale)}>
+          Sign out
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
-  );
-};
+  )
+}

@@ -36,14 +36,13 @@ const OrganizationSwitcher = () => {
       defaultValue={activeOrg ?? undefined}
       value={activeOrg ?? undefined}
     >
-      <SelectTrigger className='bg-transparent border-transparent lg:border-mth-silver-100 text-mth-silver-200 lg:border-opacity-50'>
-        <SelectValue placeholder='Select organisation'>
+      <SelectTrigger className="border-transparent bg-transparent text-mth-silver-200 lg:border-mth-silver-100 lg:border-opacity-50">
+        <SelectValue placeholder="Select organisation">
           {
             organizations?.find((org) => org.organizationId === activeOrg)
               ?.organizationName
           }
         </SelectValue>
-        
       </SelectTrigger>
       <SelectContent>
         {organizations?.map((org) => (
