@@ -1,30 +1,22 @@
-'use client'
+'use client';
 
-import { US, BG } from 'country-flag-icons/react/3x2'
+import { US, BG } from 'country-flag-icons/react/3x2';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { useLocale } from 'next-intl';
+import { usePathname } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { Locale, locales } from '@/navigation';
+import { cn } from '@/lib/utils';
+import { useRouter } from 'next/navigation';
 
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
-import { useLocale } from 'next-intl'
-import { usePathname } from 'next/navigation'
-import { useEffect, useState } from 'react'
-import { Locale, locales } from '@/navigation'
-import { cn } from '@/lib/utils'
+type LocaleSwitcherProps = React.HTMLAttributes<HTMLElement> & {
+  isLoginPage?: boolean;
+}
 
-import { useRouter } from 'next/navigation'
-
-type LocaleSwitcherProps = React.HTMLAttributes<HTMLElement>
-
-export const SelectLocale = ({ className }: LocaleSwitcherProps) => {
+export const SelectLocale = ({ className, isLoginPage }: LocaleSwitcherProps) => {
   const pathName = usePathname()
   const router = useRouter()
-
   const locale = useLocale() as Locale
-
   const [language, setLanguage] = useState(locale)
 
   useEffect(() => {
@@ -43,13 +35,13 @@ export const SelectLocale = ({ className }: LocaleSwitcherProps) => {
   }
 
   return (
-    <div className='flex flex-col gap-y-2'>
+    <div className='flex flex-col gap-y-2 p-0'>
       <Select
         value={locale}
         onValueChange={handleStringToInt}
       >
-        <SelectTrigger className='bg-transparent border-transparent text-mth-silver-200 lg:border-mth-silver-100 lg:border-opacity-50'>
-          <SelectValue placeholder='Select language' />
+        <SelectTrigger className={`w-12 bg-transparent border-transparent p-0 text-base font-poppins leading-2 font-normal ${isLoginPage ? 'text-black' : 'text-mth-silver-200'}`}>
+          <SelectValue>{language}</SelectValue>
         </SelectTrigger>
         <SelectContent className='background-background text-primary'>
           <SelectItem
@@ -62,7 +54,7 @@ export const SelectLocale = ({ className }: LocaleSwitcherProps) => {
                 title='Great Britain'
                 className='w-6 h-auto'
               />
-              <span>EN</span>
+              <span className='text-base font-poppins leading-2 font-normal'>EN</span>
             </div>
           </SelectItem>
           <SelectItem
@@ -75,7 +67,7 @@ export const SelectLocale = ({ className }: LocaleSwitcherProps) => {
                 title='Bulgarian'
                 className='w-6 h-auto'
               />
-              <span>BG</span>
+              <span className='text-base font-poppins leading-2 font-normal'>BG</span>
             </div>
           </SelectItem>
         </SelectContent>

@@ -4,17 +4,23 @@ import OrganizationSwitcher from '../organization-switcher'
 import { SelectLocale } from '../select-locale'
 import { UserMenu } from '../user-menu'
 import { ResponsiveSideBar } from '../responsive-sidebar'
+import { IoIosGlobe } from 'react-icons/io'
+import { auth } from '@/config/auth'
 
 export default async function Header({ locale }: { locale: Locale }) {
   const { navigation } = await getDictionary(locale);
+  const session = await auth();
 
   return (
     <header className='bg-mth-grey-blue-600 w-full'>
       <nav className='container flex items-center justify-between py-3 px-4 lg:px-8'>
-        <ResponsiveSideBar/>
-        <div className='flex items-center gap-x-4 lg:ml-auto'>
+        <ResponsiveSideBar />
+        <div className='flex items-center gap-x-4 w-96 lg:ml-auto'>
           <OrganizationSwitcher />
-          <SelectLocale />
+          <div className='flex items-centers justify-center px-2'>
+            <IoIosGlobe className='hidden md:block w-8 h-6 text-mth-silver-200 my-auto pl-auto' />
+            <SelectLocale />
+          </div>
           <div className='hidden lg:block'>
             <UserMenu />
           </div>
@@ -23,4 +29,3 @@ export default async function Header({ locale }: { locale: Locale }) {
     </header>
   )
 }
-

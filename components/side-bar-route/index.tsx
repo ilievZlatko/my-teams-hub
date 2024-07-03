@@ -87,7 +87,7 @@ const SideBarRoute: React.FC<SideBarRouteProps> = ({
                 className="flex w-44 ml-12 justify-between mr-4 mb-3 text-mth-silver-200 hover:text-mth-grey-blue-900 transition duration-300 ease-in-out gap-y-4"
                 onClick={() => toggleAccordionItem(`${routeName}-${index}`)}
               >
-                  <p className="lg:text-base text-sm leading-20 font-normal" onClick={() => handleRouteClick(subRoute.url)}>{subRoute.routeName}</p>
+                  <p className="lg:text-base text-base leading-20 font-normal" onClick={() => handleRouteClick(subRoute.url)}>{subRoute.routeName}</p>
                   {subRoute.subRoutes && (
                     <Image
                       src={isAccordionItemOpen(`${routeName}-${index}`) ? "/assets/images/arrowdown.svg" : "/assets/images/arrowup.svg"}
@@ -104,7 +104,7 @@ const SideBarRoute: React.FC<SideBarRouteProps> = ({
                   {subRoute.subRoutes.map((nestedSubRoute, nestedIndex) => (
                     <div
                       key={nestedIndex}
-                      className="cursor-pointer mb-2 ml-8 text-mth-silver-200 hover:text-mth-grey-blue-900 transition duration-300 ease-in-out pl-12 lg:text-sm text-xs leading-20 font-normal font-poppins"
+                      className="cursor-pointer mb-2 ml-8 text-mth-silver-200 hover:text-mth-grey-blue-900 transition duration-300 ease-in-out pl-12 lg:text-sm text-sm leading-20 font-normal font-poppins"
                       onClick={() => handleRouteClick(nestedSubRoute.url)}
                     >
                       {nestedSubRoute.routeName}

@@ -43,6 +43,7 @@ const OrganizationSwitcher = () => {
               ?.organizationName
           }
         </SelectValue>
+        
       </SelectTrigger>
       <SelectContent>
         {organizations?.map(org => (
