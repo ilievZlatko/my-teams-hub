@@ -43,6 +43,7 @@ export const register = async (values: RegisterFormData) => {
     if (!user) throw new Error('User not found')
 
     return { success: "You've successfully registered!", user: user.data }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     console.error('Error register in: ', error)
     if (error?.message) {
