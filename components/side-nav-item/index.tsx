@@ -116,12 +116,16 @@ const SideNavItem: React.FC<SideNavItemProps> = ({
               value={`${routeName}-${index}`}
               className="mb-6 w-full"
             >
+              {/* {subRoute.url} */}
               <AccordionTrigger
                 className="mb-3 ml-12 mr-4 flex w-44 justify-between gap-y-4 text-mth-silver-200 transition duration-300 ease-in-out hover:text-mth-grey-blue-900"
                 onClick={() => toggleAccordionItem(`${routeName}-${index}`)}
               >
                 {subRoute.url ? (
-                  <Link href={subRoute.url as string}>
+                  <Link
+                    className="text-base font-normal leading-20 lg:text-base"
+                    href={subRoute.url as string}
+                  >
                     {subRoute.routeName}
                   </Link>
                 ) : (
@@ -155,7 +159,7 @@ const SideNavItem: React.FC<SideNavItemProps> = ({
                     nestedSubRoute.url ? (
                       <Link
                         key={nestedIndex}
-                        className="mb-2 ml-8 cursor-pointer pl-12 font-poppins text-sm font-normal leading-20 text-mth-silver-200 transition duration-300 ease-in-out hover:text-mth-grey-blue-900 lg:text-sm"
+                        className="mb-2 ml-8 block cursor-pointer pl-12 font-poppins text-sm font-normal leading-20 text-mth-silver-200 transition duration-300 ease-in-out hover:text-mth-grey-blue-900 lg:text-sm"
                         href={nestedSubRoute.url as string}
                       >
                         {nestedSubRoute.routeName}

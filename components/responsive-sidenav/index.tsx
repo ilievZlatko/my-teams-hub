@@ -11,7 +11,7 @@ import {
   SheetTrigger,
 } from '../ui/sheet'
 import { routes } from '@/routes'
-import SideNavItem from '../side-nav-route'
+import SideNavItem from '../side-nav-item'
 import { UserMenu, UserMenuProps } from '../user-menu'
 
 export const ResponsiveSideNav = ({ name, email }: UserMenuProps) => {

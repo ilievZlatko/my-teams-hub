@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
-import SideNavItem from '@/components/side-nav-route/index'
+import SideNavItem from '@/components/side-nav-item/index'
 import { routes } from '@/routes'
 
 export const SideNav = () => {
