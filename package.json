@@ -71,7 +71,6 @@
   },
   "lint-staged": {
     "./**/*": [
-      "npm run prettier:format",
       "npm run eslint:format",
       "npm run prettier:check"
     ]
