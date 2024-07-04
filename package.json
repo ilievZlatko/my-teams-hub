@@ -70,10 +70,10 @@
     "typescript": "^5"
   },
   "lint-staged": {
-    "*.{ts,tsx}": [
-      "prettier --write",
-      "prettier --check",
-      "eslint --max-warnings 0 ."
+    "*.{js,jsx,ts,tsx}": [
+      "npm run prettier:check",
+      "npm run prettier:format",
+      "npm run eslint:format"
     ]
   }
 }
