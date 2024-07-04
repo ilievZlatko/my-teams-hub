@@ -127,7 +127,7 @@ const SideNavRoute: React.FC<SideNavRouteProps> = ({
                   </Link>
                 ) : (
                   <p className="text-base font-normal leading-20 lg:text-base">
-                    {subRoute.routeName}+
+                    {subRoute.routeName}
                   </p>
                 )}
 
