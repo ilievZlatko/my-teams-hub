@@ -10,11 +10,11 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '../ui/sheet'
-import { routes } from '../side-bar'
-import SideBarRoute from '../side-bar-route'
+import { routes } from '@/routes'
+import SideNavRoute from '../side-nav-route'
 import { UserMenu, UserMenuProps } from '../user-menu'
 
-export const ResponsiveSideBar = ({ name, email }: UserMenuProps) => {
+export const ResponsiveSideNav = ({ name, email }: UserMenuProps) => {
   return (
     <div className="block h-full lg:hidden">
       <Sheet>
@@ -43,7 +43,7 @@ export const ResponsiveSideBar = ({ name, email }: UserMenuProps) => {
 
           {routes.map((route, index) => (
             <div className="mb-4" key={index}>
-              <SideBarRoute
+              <SideNavRoute
                 image={route.image}
                 routeName={route.routeName}
                 subRoutes={route.subRoutes}

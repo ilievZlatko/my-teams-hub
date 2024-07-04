@@ -8,6 +8,7 @@ import {
   AccordionTrigger,
 } from '@radix-ui/react-accordion'
 import Image from 'next/image'
+import Link from 'next/link'
 
 interface SubRoute {
   routeName: string
@@ -15,7 +16,7 @@ interface SubRoute {
   url?: string
 }
 
-interface SideBarRouteProps {
+interface SideNavRouteProps {
   image: string
   routeName: string
   subRoutes?: SubRoute[]
@@ -25,14 +26,13 @@ interface SideBarRouteProps {
   onRouteClick?: (url?: string) => void
 }
 
-const SideBarRoute: React.FC<SideBarRouteProps> = ({
+const SideNavRoute: React.FC<SideNavRouteProps> = ({
   image,
   routeName,
   subRoutes,
   isOpen,
   url,
   onToggle,
-  onRouteClick,
 }) => {
   const [openAccordionItems, setOpenAccordionItems] = useState<string[]>([])
 
@@ -57,12 +57,6 @@ const SideBarRoute: React.FC<SideBarRouteProps> = ({
   const isAccordionItemOpen = (value: string) =>
     openAccordionItems.includes(value)
 
-  const handleRouteClick = (clickedUrl?: string) => {
-    if (onRouteClick) {
-      onRouteClick(clickedUrl)
-    }
-  }
-
   return (
     <div className="flex w-full flex-col justify-between">
       <div
@@ -77,12 +71,21 @@ const SideBarRoute: React.FC<SideBarRouteProps> = ({
           onClick={onToggle}
         />
         <div className="flex w-44 justify-between">
-          <p
-            className={`mb-0 font-poppins text-base font-normal leading-20 text-mth-silver-200 transition duration-300 ease-in-out hover:text-mth-grey-blue-900 lg:text-20 ${isOpen ? 'block' : 'hidden'}`}
-            onClick={() => handleRouteClick(url)}
-          >
-            {routeName}
-          </p>
+          {url ? (
+            <Link
+              href={url as string}
+              className={`mb-0 font-poppins text-base font-normal leading-20 text-mth-silver-200 transition duration-300 ease-in-out hover:text-mth-grey-blue-900 lg:text-20 ${isOpen ? 'block' : 'hidden'}`}
+            >
+              {routeName}
+            </Link>
+          ) : (
+            <p
+              className={`mb-0 font-poppins text-base font-normal leading-20 text-mth-silver-200 transition duration-300 ease-in-out hover:text-mth-grey-blue-900 lg:text-20 ${isOpen ? 'block' : 'hidden'}`}
+            >
+              {routeName}
+            </p>
+          )}
+
           {subRoutes && isOpen && (
             <div className="ml-3 pt-1">
               <Image
@@ -113,16 +116,21 @@ const SideBarRoute: React.FC<SideBarRouteProps> = ({
               value={`${routeName}-${index}`}
               className="mb-6 w-full"
             >
+              {subRoute.url}
               <AccordionTrigger
                 className="mb-3 ml-12 mr-4 flex w-44 justify-between gap-y-4 text-mth-silver-200 transition duration-300 ease-in-out hover:text-mth-grey-blue-900"
                 onClick={() => toggleAccordionItem(`${routeName}-${index}`)}
               >
-                <p
-                  className="text-base font-normal leading-20 lg:text-base"
-                  onClick={() => handleRouteClick(subRoute.url)}
-                >
-                  {subRoute.routeName}
-                </p>
+                {subRoute.url ? (
+                  <Link href={subRoute.url as string}>
+                    {subRoute.routeName}
+                  </Link>
+                ) : (
+                  <p className="text-base font-normal leading-20 lg:text-base">
+                    {subRoute.routeName}+
+                  </p>
+                )}
+
                 {subRoute.subRoutes && (
                   <Image
                     src={
@@ -144,15 +152,24 @@ const SideBarRoute: React.FC<SideBarRouteProps> = ({
 
               {subRoute.subRoutes && (
                 <AccordionContent>
-                  {subRoute.subRoutes.map((nestedSubRoute, nestedIndex) => (
-                    <div
-                      key={nestedIndex}
-                      className="mb-2 ml-8 cursor-pointer pl-12 font-poppins text-sm font-normal leading-20 text-mth-silver-200 transition duration-300 ease-in-out hover:text-mth-grey-blue-900 lg:text-sm"
-                      onClick={() => handleRouteClick(nestedSubRoute.url)}
-                    >
-                      {nestedSubRoute.routeName}
-                    </div>
-                  ))}
+                  {subRoute.subRoutes.map((nestedSubRoute, nestedIndex) =>
+                    nestedSubRoute.url ? (
+                      <Link
+                        key={nestedIndex}
+                        className="mb-2 ml-8 cursor-pointer pl-12 font-poppins text-sm font-normal leading-20 text-mth-silver-200 transition duration-300 ease-in-out hover:text-mth-grey-blue-900 lg:text-sm"
+                        href={nestedSubRoute.url as string}
+                      >
+                        {nestedSubRoute.routeName}
+                      </Link>
+                    ) : (
+                      <p
+                        key={nestedIndex}
+                        className="mb-2 ml-8 cursor-pointer pl-12 font-poppins text-sm font-normal leading-20 text-mth-silver-200 transition duration-300 ease-in-out hover:text-mth-grey-blue-900 lg:text-sm"
+                      >
+                        {nestedSubRoute.routeName}
+                      </p>
+                    ),
+                  )}
                 </AccordionContent>
               )}
             </AccordionItem>
@@ -163,4 +180,4 @@ const SideBarRoute: React.FC<SideBarRouteProps> = ({
   )
 }
 
-export default SideBarRoute
+export default SideNavRoute
