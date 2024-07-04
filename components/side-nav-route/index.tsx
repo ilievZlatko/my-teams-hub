@@ -116,7 +116,6 @@ const SideNavItem: React.FC<SideNavItemProps> = ({
               value={`${routeName}-${index}`}
               className="mb-6 w-full"
             >
-              {subRoute.url}
               <AccordionTrigger
                 className="mb-3 ml-12 mr-4 flex w-44 justify-between gap-y-4 text-mth-silver-200 transition duration-300 ease-in-out hover:text-mth-grey-blue-900"
                 onClick={() => toggleAccordionItem(`${routeName}-${index}`)}
