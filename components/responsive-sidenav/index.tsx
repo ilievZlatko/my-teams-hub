@@ -11,7 +11,7 @@ import {
   SheetTrigger,
 } from '../ui/sheet'
 import { routes } from '@/routes'
-import SideNavRoute from '../side-nav-route'
+import SideNavItem from '../side-nav-route'
 import { UserMenu, UserMenuProps } from '../user-menu'
 
 export const ResponsiveSideNav = ({ name, email }: UserMenuProps) => {
@@ -43,7 +43,7 @@ export const ResponsiveSideNav = ({ name, email }: UserMenuProps) => {
 
           {routes.map((route, index) => (
             <div className="mb-4" key={index}>
-              <SideNavRoute
+              <SideNavItem
                 image={route.image}
                 routeName={route.routeName}
                 subRoutes={route.subRoutes}

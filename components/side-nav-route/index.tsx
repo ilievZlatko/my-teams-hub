@@ -16,7 +16,7 @@ interface SubRoute {
   url?: string
 }
 
-interface SideNavRouteProps {
+interface SideNavItemProps {
   image: string
   routeName: string
   subRoutes?: SubRoute[]
@@ -26,7 +26,7 @@ interface SideNavRouteProps {
   onRouteClick?: (url?: string) => void
 }
 
-const SideNavRoute: React.FC<SideNavRouteProps> = ({
+const SideNavItem: React.FC<SideNavItemProps> = ({
   image,
   routeName,
   subRoutes,
@@ -180,4 +180,4 @@ const SideNavRoute: React.FC<SideNavRouteProps> = ({
   )
 }
 
-export default SideNavRoute
+export default SideNavItem

@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
-import SideNavRoute from '@/components/side-nav-route/index'
+import SideNavItem from '@/components/side-nav-route/index'
 import { routes } from '@/routes'
 
 export const SideNav = () => {
@@ -40,7 +40,7 @@ export const SideNav = () => {
           onClick={() => setIsOpen(!isOpen)}
         />
         {routes.map((route, index) => (
-          <SideNavRoute
+          <SideNavItem
             onToggle={() => {
               if (!isOpen) {
                 setIsOpen(true)
