@@ -16,12 +16,12 @@ import { cn } from '@/lib/utils'
 import { useRouter } from 'next/navigation'
 
 type LocaleSwitcherProps = React.HTMLAttributes<HTMLElement> & {
-  isLoginPage?: boolean
+  variant?: string
 }
 
 export const SelectLocale = ({
   className,
-  isLoginPage,
+  variant = 'silver',
 }: LocaleSwitcherProps) => {
   const pathName = usePathname()
   const router = useRouter()
@@ -49,7 +49,10 @@ export const SelectLocale = ({
         <SelectTrigger
           className={cn(
             'leading-2 w-12 border-transparent bg-transparent p-0 font-poppins text-base font-normal',
-            isLoginPage ? 'text-black' : 'text-mth-silver-200',
+            {
+              'text-black': variant === 'black',
+              'text-mth-silver-200': variant === 'silver',
+            },
           )}
         >
           <SelectValue>{language}</SelectValue>
