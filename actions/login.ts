@@ -21,7 +21,7 @@ export const login = async (values: LoginFormData) => {
     await signIn(PROVIDERS.CREDENTIALS, {
       email,
       password,
-      redirectTo: `/${locale}/${DEFAULT_LOGIN_REDIRECT}`,
+      redirectTo: `/${locale}${DEFAULT_LOGIN_REDIRECT}`,
     })
     return { success: "You've successfully logged in!" }
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
