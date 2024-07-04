@@ -68,5 +68,12 @@
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
+  },
+  "lint-staged": {
+    "**/*.{js,jsx,ts,tsx}": [
+      "npm run prettier:format",
+      "npm run eslint:format",
+      "npm run prettier:check"
+    ]
   }
 }
