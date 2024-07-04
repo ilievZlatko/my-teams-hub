@@ -139,6 +139,15 @@ const config = {
         roboto: ['var(--font-roboto)', ...fontFamily.serif],
         poppins: ['var(--font-poppins)', ...fontFamily.sans],
       },
+      width: {
+        22: '88px',
+      },
+      fontSize: {
+        20: '20px',
+      },
+      lineHeight: {
+        20: '20px',
+      },
     },
   },
   plugins: [require('tailwindcss-animate')],

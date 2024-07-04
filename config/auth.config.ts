@@ -36,7 +36,10 @@ export default {
               },
             )
             const userInfo = await loginResponse.json()
-            if (!loginResponse.ok) throw new Error(userInfo?.errors[0]?.code)
+
+            if (!loginResponse.ok) {
+              throw new Error(userInfo.errors[0].code)
+            }
 
             const userMeJson = await fetch(
               process.env.API_BASE_URL! + routes.me.get,

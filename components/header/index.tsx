@@ -1,29 +1,28 @@
-import Link from 'next/link'
-import { getDictionary } from '@/lib/dictionary'
-import { Locale } from '@/navigation'
-import { SignOutButton } from '../signout-button'
 import OrganizationSwitcher from '../organization-switcher'
 import { SelectLocale } from '../select-locale'
+import { UserMenu } from '../user-menu'
+import { ResponsiveSideBar } from '../responsive-sidebar'
+import { IoIosGlobe } from 'react-icons/io'
+import { auth } from '@/config/auth'
 
-export default async function Header({ locale }: { locale: Locale }) {
-  const { navigation } = await getDictionary(locale)
+export default async function Header() {
+  const session = await auth()
+  const name = session?.user.firstName
+  const email = session?.user.email
 
   return (
-    <header className="border-b border-b-slate-200 py-4 dark:border-b-slate-800">
-      <nav className="container flex items-center justify-between">
-        <ul className="flex gap-x-8">
-          <li>
-            <Link href={`/${locale}`}>{navigation.home}</Link>
-          </li>
-          <li>
-            <Link href={`/${locale}/dashboard`}>{navigation.dashboard}</Link>
-          </li>
-        </ul>
-
-        <div className="flex items-center gap-x-4">
+    <header className="w-full bg-mth-grey-blue-600">
+      <nav className="container flex items-center justify-between px-4 py-3 lg:px-8">
+        <ResponsiveSideBar name={name} email={email} />
+        <div className="flex w-72 items-center justify-between gap-x-4 lg:ml-auto lg:w-80">
           <OrganizationSwitcher />
-          <SelectLocale />
-          <SignOutButton />
+          <div className="items-centers flex justify-center px-2">
+            <IoIosGlobe className="pl-auto my-auto hidden h-6 w-8 text-mth-silver-200 md:block" />
+            <SelectLocale />
+          </div>
+          <div className="hidden lg:block">
+            <UserMenu name={name} email={email} />
+          </div>
         </div>
       </nav>
     </header>

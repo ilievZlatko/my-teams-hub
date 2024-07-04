@@ -1,5 +1,4 @@
 import Image from 'next/image'
-
 import { Locale, locales } from '@/navigation'
 import { unstable_setRequestLocale } from 'next-intl/server'
 import { SelectLocale } from '@/components/select-locale'
@@ -19,8 +18,8 @@ export default function AuthLayout({
 
   return (
     <div className="flex min-h-full flex-col bg-gradient-to-tr from-[#CFDDE1] from-0% via-[#FDFDFF] via-50% to-[#EFF4F5] to-80% bg-no-repeat lg:h-full lg:px-6">
-      <div className="m-4 flex h-auto justify-end">
-        <SelectLocale className="bg-transparent" />
+      <div className="m-4 flex h-auto justify-end text-black">
+        <SelectLocale className="bg-transparent text-black" variant="black" />
       </div>
       <div className="flex h-full flex-col lg:flex-row lg:gap-20">
         <aside className="flex flex-col justify-center gap-6 px-6 lg:h-full lg:justify-between lg:gap-[154px]">
