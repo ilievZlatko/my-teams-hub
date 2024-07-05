@@ -2,7 +2,7 @@ import React from 'react'
 import Header from '@/components/header'
 import { Locale, locales } from '@/navigation'
 import { unstable_setRequestLocale } from 'next-intl/server'
-import { SideBar } from '@/components/side-bar/index'
+import { SideNav } from '@/components/side-nav/index'
 
 export async function generateStaticParams() {
   return locales.map((locale) => ({ locale }))
@@ -22,8 +22,8 @@ const DashboardLayout = ({
       <div className="h-full">
         <Header />
         <div className="flex h-full w-full">
-          <SideBar />
-          <main className="flex w-full flex-col p-8">{children}</main>
+          <SideNav />
+          <main className="flex flex-col p-8">{children}</main>
         </div>
       </div>
     </>

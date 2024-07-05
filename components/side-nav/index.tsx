@@ -2,48 +2,12 @@
 
 import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
-import SideBarRoute from '@/components/side-bar-route/index'
-import { useRouter } from 'next/navigation'
+import SideNavItem from '@/components/side-nav-item/index'
+import { routes } from '@/routes'
 
-export const routes = [
-  {
-    image: '/assets/images/overview.svg',
-    routeName: 'Overview',
-    url: '/',
-  },
-  {
-    image: '/assets/images/management.svg',
-    routeName: 'Management',
-    subRoutes: [
-      { routeName: 'Organisation’s chart' },
-      {
-        routeName: 'Teams',
-        subRoutes: [
-          { routeName: 'View All Teams' },
-          { routeName: 'Add Team' },
-          { routeName: 'Edit Team' },
-        ],
-      },
-      {
-        routeName: 'Users',
-        subRoutes: [
-          { routeName: 'View All Users' },
-          { routeName: 'Add User' },
-          { routeName: 'Edit User' },
-        ],
-      },
-    ],
-  },
-  {
-    image: '/assets/images/evaluation.svg',
-    routeName: 'Evaluation',
-  },
-]
-
-export const SideBar = () => {
+export const SideNav = () => {
   const [isOpen, setIsOpen] = useState(false)
   const sidebarRef = useRef<HTMLDivElement>(null)
-  const router = useRouter()
 
   const handleClickOutside = (event: MouseEvent) => {
     if (
@@ -61,13 +25,6 @@ export const SideBar = () => {
     }
   }, [])
 
-  const handleRouteClick = (url?: string) => {
-    if (url) {
-      router.push(url)
-      setIsOpen(false)
-    }
-  }
-
   return (
     <div
       ref={sidebarRef}
@@ -83,7 +40,7 @@ export const SideBar = () => {
           onClick={() => setIsOpen(!isOpen)}
         />
         {routes.map((route, index) => (
-          <SideBarRoute
+          <SideNavItem
             onToggle={() => {
               if (!isOpen) {
                 setIsOpen(true)
@@ -95,7 +52,6 @@ export const SideBar = () => {
             subRoutes={route.subRoutes}
             isOpen={isOpen}
             url={route.url}
-            onRouteClick={handleRouteClick}
           />
         ))}
       </div>
