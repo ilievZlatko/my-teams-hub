@@ -163,7 +163,7 @@ export const EditTeamForm = ({
       if (response === null) {
         setIsSubmitting(false)
 
-        router.push('/')
+        router.push('/teams')
         toast.info(t('team_deleted_msg'))
       }
     } catch (_: unknown) {
