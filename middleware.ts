@@ -18,8 +18,7 @@ const authMiddleware = auth(async function middleware(req: NextRequest) {
   )
 
   if (!session && isProtectedRoute) {
-    let absoluteURL = null
-    absoluteURL = locale
+    const absoluteURL = locale
       ? new URL(`/${locale}/login`, req.nextUrl.origin)
       : new URL(`/${defaultLocale}/login`, req.nextUrl.origin)
     return NextResponse.redirect(absoluteURL.toString())

@@ -9,7 +9,7 @@ export const config = {
   },
   callbacks: {
     authorized({ auth }) {
-      return !!auth
+      return !!auth && !!auth?.user?.accessToken
     },
     async jwt({ token, user, session, account, trigger }): Promise<JWT | null> {
       if (trigger === 'update' && session) {
