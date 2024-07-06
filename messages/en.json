@@ -79,20 +79,24 @@
       },
       "edit": {
         "title": "Edit Team",
-        "teamNameLabel": "Team Name",
-        "teamDescriptionLabel": "Team Description",
-        "teamMembersLabel": "Team Members",
-        "teamMembersPlaceholder": "View team members",
-        "noTeamMembers": "No team members yet",
-        "inviteTeamMemberLabel": "Invite Team Member",
-        "memberToInvitePlaceholder": "Select from the list",
-        "noUsersToSelect": "No users available",
-        "inviteBtn": "Invite",
-        "removeTeamMemberLabel": "Remove Team Member",
-        "memberToRemovePlaceholder": "Select a member to remove",
-        "removeBtn": "Remove",
-        "saveBtn": "Save",
-        "successMessage": "Team updated successfuly!"
+        "team_name_label": "Team Name",
+        "team_description_label": "Team Description",
+        "team_members_label": "Members",
+        "team_members_remove_label": "Remove",
+        "no_team_members": "No team members yet",
+        "invite_team_member_label": "Invite Team Member",
+        "member_to_invite_placeholder": "Select from the list",
+        "no_users_to_select": "No users available",
+        "invite_btn": "Invite",
+        "work_in_progress": "This feature is still in development. Check back soon.",
+        "delete_team_btn": "Delete Team",
+        "team_deleted_msg": "Team has been deleted.",
+        "save_btn": "Save",
+        "success_message": "Team updated successfuly!",
+        "error_message": "Sorry, something went wrong!",
+        "confirm_team_member_remove_title": "Are you sure you want to remove this user from team {teamName}?",
+        "confirm_team_delete_title": "Are you sure you want to delete this team?",
+        "schema_msg_name_require": "Team name is required!"
       },
       "details": {
         "title": "Team Details"
@@ -100,7 +104,12 @@
     },
     "continue": "Continue",
     "save": "Save",
-    "organization_switcher_placeholder": "Select organization"
+    "organization_switcher_placeholder": "Select organization",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "error_occurred_msg": "Sorry, there has been an error!",
+    "unauthorized_request": "Sorry, you are not authorized to do this!",
+    "invalid_fields_msg": "Invalid data!"
   },
   "apierrors": {
     "invalid_firstname": "First name is not valid!",
@@ -118,6 +127,9 @@
     "invalid_team_id": "Team ID number is not valid!",
     "organization_already_exists": "Organization already exists!",
     "team_not_found": "Team was not found!",
-    "invalid_username_or_password": "Username or password is not correct!"
+    "invalid_username_or_password": "Username or password is not correct!",
+    "error_occurred_msg": "Sorry, there has been an error!",
+    "unauthorized_request": "Sorry, you are not authorized to do this!",
+    "invalid_fields_msg": "Invalid data!"
   }
 }
