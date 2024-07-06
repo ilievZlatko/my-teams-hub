@@ -18,5 +18,5 @@ export interface TeamMember {
 export interface PatchTeam {
   name: string
   description?: string
-  teamMembers: { teamMemberId: string, email: string }[]
+  teamMembers: { teamMemberId: string; email: string }[]
 }

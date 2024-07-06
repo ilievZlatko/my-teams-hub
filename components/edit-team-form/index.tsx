@@ -55,7 +55,9 @@ export const EditTeamForm = ({
   const [teamMembers, setTeamMembers] = useState<TeamMember[]>([])
   const [notMemberUsers, setNotMemberUsers] = useState<IUser[]>(users)
 
-  const [userToInviteEmail, setUserToInviteEmail] = useState<string | undefined>(undefined)
+  const [userToInviteEmail, setUserToInviteEmail] = useState<
+    string | undefined
+  >(undefined)
 
   const [error, setError] = useState<string | undefined>('')
   const [isPending, setIsPending] = useState(true)
@@ -74,11 +76,11 @@ export const EditTeamForm = ({
   }, [])
 
   useEffect(() => {
-    let notMembers: IUser[] = []
+    const notMembers: IUser[] = []
 
     if (teamMembers.length > 0) {
-      users.forEach(user => {
-        teamMembers.forEach(member => {
+      users.forEach((user) => {
+        teamMembers.forEach((member) => {
           if (member.memberId !== user.userId) notMembers.push(user)
         })
       })
@@ -95,16 +97,13 @@ export const EditTeamForm = ({
   })
 
   useEffect(() => {
-    const email = form.getValues('otherUsers')
-    //@ts-ignore
+    const email = form.getValues('otherUsers')?.[0]?.email
     setUserToInviteEmail(email)
   }, [form.watch('otherUsers')])
 
   // TODO: implement 'invite logic'
   const handleInviteUser = () => {
     if (!userToInviteEmail) return
-    console.log("user to be invited", userToInviteEmail)
-
     toast.info(t('work_in_progress'))
     form.resetField('otherUsers', { keepDirty: false })
 
@@ -115,7 +114,10 @@ export const EditTeamForm = ({
     setError('')
     setIsSubmitting(true)
 
-    if (!team || !team.teamId) { router.back(); return }
+    if (!team || !team.teamId) {
+      router.back()
+      return
+    }
 
     try {
       const responseBody = await editTeam(organizationId, team.teamId, {
@@ -135,7 +137,7 @@ export const EditTeamForm = ({
       if (responseBody && responseBody.error) {
         setError(responseBody.error)
       }
-    } catch (error: unknown) {
+    } catch (_: unknown) {
       setError(t('error_message'))
       setIsSubmitting(false)
     }
@@ -144,7 +146,9 @@ export const EditTeamForm = ({
   function removeTeamMember(id: string | undefined) {
     if (!id) return
 
-    const filteredMembers = teamMembers.filter((member) => member.memberId !== id)
+    const filteredMembers = teamMembers.filter(
+      (member) => member.memberId !== id,
+    )
     setTeamMembers(filteredMembers)
     setMemberToRemoveId(undefined)
   }
@@ -159,10 +163,10 @@ export const EditTeamForm = ({
       if (response === null) {
         setIsSubmitting(false)
 
-        router.push("/")
+        router.push('/')
         toast.info(t('team_deleted_msg'))
       }
-    } catch (error: unknown) {
+    } catch (_: unknown) {
       setError(t('error_message'))
       setIsSubmitting(false)
     } finally {
@@ -172,12 +176,12 @@ export const EditTeamForm = ({
 
   return (
     <>
-      <Card className="w-full border-0 text-mth-grey-blue-700 shadow-none mx-auto px-0">
-        <CardContent className="flex flex-col-reverse items-center justify-center gap-6 max-sm:mx-auto lg:flex-row max-sm:px-0">
+      <Card className="mx-auto w-full border-0 px-0 text-mth-grey-blue-700 shadow-none">
+        <CardContent className="flex flex-col-reverse items-center justify-center gap-6 max-sm:mx-auto max-sm:px-0 lg:flex-row">
           <Image
             src="/assets/images/team2.svg"
             alt="team image"
-            className="mx-auto w-full max-sm:w-[300px] sm:max-w-[350px] md:max-w-[380px] xl:max-w-[445px] lg:max-w-[360px]"
+            className="mx-auto w-full max-sm:w-[300px] sm:max-w-[350px] md:max-w-[380px] lg:max-w-[360px] xl:max-w-[445px]"
             width={445}
             height={404}
             priority
@@ -185,7 +189,7 @@ export const EditTeamForm = ({
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
-              className="flex w-full flex-col items-center gap-6 font-poppins sm:w-[500px] max-sm:min-w-[70vw]   md:min-w-[400px] lg:min-w-[500px]"
+              className="flex w-full flex-col items-center gap-6 font-poppins max-sm:min-w-[70vw] sm:w-[500px] md:min-w-[400px] lg:min-w-[500px]"
             >
               <h1 className="w-6/12 border-b-[2px] pb-1 text-center font-roboto text-[32px] leading-[42.2px] max-sm:w-fit max-sm:px-2 max-sm:text-[25px] max-sm:leading-[35px]">
                 {t('title')}
@@ -202,7 +206,10 @@ export const EditTeamForm = ({
                       <FormControl>
                         <Input {...field} type="text" />
                       </FormControl>
-                      <FormMessage className="text-xs" defaultValue={t('schema_msg_name_require')} />
+                      <FormMessage
+                        className="text-xs"
+                        defaultValue={t('schema_msg_name_require')}
+                      />
                     </FormItem>
                   )}
                 />
@@ -215,7 +222,10 @@ export const EditTeamForm = ({
                         {t('team_description_label')}
                       </FormLabel>
                       <FormControl>
-                        <Textarea {...field} className="resize-none overflow-y-auto" />
+                        <Textarea
+                          {...field}
+                          className="resize-none overflow-y-auto"
+                        />
                       </FormControl>
                       <FormMessage className="text-xs" />
                     </FormItem>
@@ -233,7 +243,9 @@ export const EditTeamForm = ({
                         <Select onValueChange={field.onChange}>
                           <FormControl>
                             <SelectTrigger>
-                              <SelectValue placeholder={t('member_to_invite_placeholder')} />
+                              <SelectValue
+                                placeholder={t('member_to_invite_placeholder')}
+                              />
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent className="max-h-[50vh]">
@@ -268,7 +280,7 @@ export const EditTeamForm = ({
                   <FormField
                     control={form.control}
                     name="teamMembers"
-                    render={({ field }) => (
+                    render={() => (
                       <FormItem className="mt-6 rounded-xl border-[4px] border-mth-silver-100 p-3">
                         <FormLabel className="flex justify-between px-4 !text-sm font-normal max-sm:px-2">
                           <p>{t('team_members_label')}</p>
@@ -299,7 +311,9 @@ export const EditTeamForm = ({
                                     />
                                     <div>
                                       <p className="leading-[21px]">
-                                        {member.firstName + ' ' + member.lastName}
+                                        {member.firstName +
+                                          ' ' +
+                                          member.lastName}
                                       </p>
                                       <p className="text-[12px] leading-[18px] text-mth-grey-blue-400">
                                         {member.email}

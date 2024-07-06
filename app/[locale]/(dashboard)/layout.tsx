@@ -19,13 +19,15 @@ const DashboardLayout = ({
 
   return (
     <>
-      <div className="flex flex-col w-full h-full">
+      <div className="flex h-full w-full flex-col">
         <div>
           <Header />
         </div>
-        <div className="flex justify-stretch w-full h-full min-h-screen">
+        <div className="flex h-full min-h-screen w-full justify-stretch">
           <SideNav />
-          <main className="flex flex-col mx-auto p-8 max-sm:p-4">{children}</main>
+          <main className="mx-auto flex flex-col p-8 max-sm:p-4">
+            {children}
+          </main>
         </div>
       </div>
     </>
