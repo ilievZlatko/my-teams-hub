@@ -128,7 +128,7 @@ export const EditTeamForm = ({
 
       if (responseBody === null) {
         form.reset()
-        router.push(`/`)
+        router.push(`/teams`)
         toast.success(t('success_message'))
       }
 

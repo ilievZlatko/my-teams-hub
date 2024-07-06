@@ -9,6 +9,7 @@ export const getAllUsers = async () => {
     const response = await fetcher<IUser[], null>({
       url: routes.allUsers.get,
       method: 'GET',
+      revalidateTags: ['teams']
     })
 
     return response

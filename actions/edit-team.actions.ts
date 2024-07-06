@@ -64,6 +64,7 @@ export const getTeam = async (organizationId: string, teamId: string) => {
     const response = await fetcher<Team, null>({
       url: routes.team.getOne(organizationId, teamId),
       method: 'GET',
+      revalidateTags: ['teams']
     })
 
     return response

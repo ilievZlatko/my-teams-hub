@@ -13,12 +13,14 @@ export async function fetcher<T, B>({
   body = undefined,
   headers = {},
   cache = 'no-cache',
+  revalidateTags = undefined,
 }: {
   url: string
   method?: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE'
   body?: B
   headers?: RequestInit['headers']
-  cache?: RequestInit['cache']
+  cache?: RequestInit['cache'],
+  revalidateTags?: string[] | undefined,
 }): Promise<T | { error: string }> {
   const controller = new AbortController()
   const session = await auth()
@@ -39,6 +41,9 @@ export async function fetcher<T, B>({
         ...headers,
       },
       cache,
+      next: {
+        tags: revalidateTags ? [...revalidateTags] : undefined,
+      }
     })
 
     const jsonResponse = await res.json()
