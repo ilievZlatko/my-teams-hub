@@ -13,25 +13,18 @@ import { IUser } from '@/types/user'
 import { getTeam } from '@/actions/edit-team.actions'
 import { Loader } from '@/components/loader'
 
-
-export default function Edit({
-  params: { id }
-}: {
-  params: { id: string }
-}) {
+export default function Edit({ params: { id } }: { params: { id: string } }) {
   const router = useRouter()
 
   const { data: session } = useSession()
-
-  if (!session?.user || !session.user.activeOrg) return
-  const organizationId = session.user.activeOrg
-
   const t = useTranslations('apierrors')
 
   const [otherUsers, setOtherUsers] = useState<IUser[]>([])
   const [team, setTeam] = useState<Team | undefined>(undefined)
   const [isFetchingTeam, setIsFetchingTeam] = useState(true)
   const [isFetchingOtherUsers, setIsFetchingOtherUsers] = useState(true)
+
+  const organizationId = session?.user?.activeOrg
 
   useEffect(() => {
     setIsFetchingOtherUsers(true)
@@ -48,6 +41,8 @@ export default function Edit({
   }, [])
 
   useEffect(() => {
+    if (!organizationId) return
+
     setIsFetchingTeam(true)
 
     getTeam(organizationId, id)
@@ -59,20 +54,20 @@ export default function Edit({
         }
       })
       .finally(() => setIsFetchingTeam(false))
-  }, [])
+  }, [organizationId])
 
   if (!isFetchingTeam && !team) {
     toast.error(t('error_occurred_msg'))
 
     setTimeout(() => {
       return router.back()
-    }, 3000);
+    }, 3000)
   }
 
   return isFetchingOtherUsers || isFetchingTeam ? (
     <Loader />
   ) : (
-    team && (
+    team && organizationId && (
       <EditTeamForm
         organizationId={organizationId}
         team={team}

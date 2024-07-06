@@ -49,13 +49,13 @@ export async function fetcher<T, B>({
     const jsonResponse = await res.json()
 
     if (jsonResponse?.errors && jsonResponse.errors?.length > 0) {
-      return { error: "error_occurred_msg" }
+      return { error: 'error_occurred_msg' }
     }
 
     return jsonResponse?.data ?? null
   } catch (err: unknown) {
     //@ts-expect-error: error type returned from the server is unknown
-    return { error: err?.message || "error_occurred_msg" }
+    return { error: err?.message || 'error_occurred_msg' }
   } finally {
     controller.abort()
   }

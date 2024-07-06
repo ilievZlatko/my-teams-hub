@@ -14,7 +14,9 @@ export const editTeam = async (
   values: EditTeamType,
 ) => {
   const session = await auth()
-  const validatedFields = EditTeamSchema.omit({ otherUsers: true }).safeParse(values)
+  const validatedFields = EditTeamSchema.omit({ otherUsers: true }).safeParse(
+    values,
+  )
 
   if (!session || !session.user.userId) {
     return { error: 'unauthorized_request' }
@@ -26,12 +28,12 @@ export const editTeam = async (
 
   try {
     const { name, description, teamMembers } = validatedFields.data
-    let members: { teamMemberId: string, email: string }[] = []
+    let members: { teamMemberId: string; email: string }[] = []
 
     if (teamMembers && teamMembers.length > 0) {
-      members = teamMembers.map(member => ({
+      members = teamMembers.map((member) => ({
         teamMemberId: member.memberId,
-        email: member.email
+        email: member.email,
       }))
     }
 
@@ -68,7 +70,7 @@ export const getTeam = async (organizationId: string, teamId: string) => {
     })
 
     return response
-  } catch (error: unknown) {
+  } catch (_: unknown) {
     return { error: 'error_occurred_msg' }
   }
 }
@@ -88,7 +90,7 @@ export const deleteTeam = async (organizationId: string, teamId: string) => {
     revalidateTag('teams')
 
     return response
-  } catch (error: unknown) {
+  } catch (_: unknown) {
     return { error: 'error_occurred_msg' }
   }
 }

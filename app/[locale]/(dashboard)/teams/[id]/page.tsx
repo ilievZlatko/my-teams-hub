@@ -1,8 +1,4 @@
-const TeamDetailsPage = ({
-  params: { id }
-}: {
-  params: { id: string }
-}) => {
+const TeamDetailsPage = ({ params: { id } }: { params: { id: string } }) => {
   return (
     <div>
       <h1 className="text-3xl">Team Details Page</h1>
