@@ -7,56 +7,40 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-export async function fetcher<T, B>({
-  url,
-  method = 'GET',
-  body = undefined,
-  headers = {},
-  cache = 'no-cache',
-  revalidateTags = undefined,
-}: {
-  url: string
-  method?: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE'
-  body?: B
-  headers?: RequestInit['headers']
-  cache?: RequestInit['cache'],
-  revalidateTags?: string[] | undefined,
-}): Promise<T | { error: string }> {
-  const controller = new AbortController()
+type RequestConfig = {
+  params?: Record<string, string | number> | null
+} & RequestInit
+
+export async function fetcher(
+  url: string,
+  { ...configs }: RequestConfig = {},
+): Promise<Response | { error: string }> {
   const session = await auth()
 
   if (!session || !session.access_token) {
     return { error: 'unauthorized_request' }
   }
 
-  try {
-    const res = await fetch(`${process.env.API_BASE_URL}${url}`, {
-      method,
-      signal: controller.signal,
-      body: typeof body === 'object' ? JSON.stringify(body) : undefined,
-      mode: 'cors',
-      headers: {
-        'Content-type': 'application/json',
-        Authorization: `Bearer ${session.access_token}`,
-        ...headers,
-      },
-      cache,
-      next: {
-        tags: revalidateTags ? [...revalidateTags] : undefined,
-      }
+  const generatedUrl = new URL(`${process.env.API_BASE_URL}${url}`)
+
+  if (configs?.params) {
+    Object.keys(configs.params).forEach((key) => {
+      generatedUrl.searchParams.append(key, String(configs?.params?.[key]))
     })
-
-    const jsonResponse = await res.json()
-
-    if (jsonResponse?.errors && jsonResponse.errors?.length > 0) {
-      return { error: 'error_occurred_msg' }
-    }
-
-    return jsonResponse?.data ?? null
-  } catch (err: unknown) {
-    //@ts-expect-error: error type returned from the server is unknown
-    return { error: err?.message || 'error_occurred_msg' }
-  } finally {
-    controller.abort()
   }
+
+  const headers: HeadersInit = {
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${session.access_token}`,
+    ...configs.headers,
+  }
+
+  const { params, ...restConfig } = configs
+
+  const config: RequestInit = {
+    headers,
+    ...restConfig,
+  }
+
+  return await fetch(generatedUrl.toString(), config)
 }
