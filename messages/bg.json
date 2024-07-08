@@ -79,20 +79,24 @@
       },
       "edit": {
         "title": "Редакция на Екип",
-        "teamNameLabel": "Име на екипа",
-        "teamDescriptionLabel": "Описание на екипа",
-        "teamMembersLabel": "Членове на екипа",
-        "teamMembersPlaceholder": "Разгледай",
-        "noTeamMembers": "Няма добавени членове",
-        "inviteTeamMemberLabel": "Покани член в екипа",
-        "memberToInvitePlaceholder": "Избери от списъка",
-        "noUsersToSelect": "Няма налични потребители",
-        "inviteBtn": "Покани",
-        "removeTeamMemberLabel": "Премахни член от екипа",
-        "memberToRemovePlaceholder": "Избери от списъка",
-        "removeBtn": "Премахни",
-        "saveBtn": "Запази",
-        "successMessage": "Екипът беше редактиран успешно!"
+        "team_name_label": "Име на екипа",
+        "team_description_label": "Описание на екипа",
+        "team_members_label": "Членове на екипа",
+        "team_members_remove_label": "Премахни",
+        "no_team_members": "Няма добавени",
+        "invite_team_member_label": "Покани член в екипа",
+        "member_to_invite_placeholder": "Избери от списъка",
+        "no_users_to_select": "Няма налични потребители",
+        "invite_btn": "Покани",
+        "work_in_progress": "Тази функционалност е в процес на разработка.",
+        "delete_team_btn": "Изтрий Екипа",
+        "team_deleted_msg": "Екипът беше изтрит.",
+        "save_btn": "Запази",
+        "success_message": "Екипът беше редактиран успешно!",
+        "error_message": "Съжаляваме, възникна грешка!",
+        "confirm_team_member_remove_title": "Сигурен ли си, че искаш да премахнеш този потребител от тима {teamName}?",
+        "confirm_team_delete_title": "Сигурен ли си, че искаш да изтриеш този тим?",
+        "schema_msg_name_require": "Името на екипа е задължително!"
       },
       "details": {
         "title": "Детайли за Екипа"
@@ -100,7 +104,12 @@
     },
     "continue": "Продължи",
     "save": "Запази",
-    "organization_switcher_placeholder": "Избери организация"
+    "organization_switcher_placeholder": "Избери организация",
+    "confirm": "Потвърди",
+    "cancel": "Откажи",
+    "error_occurred_msg": "Съжаляваме, възникна грешка!",
+    "unauthorized_request": "Съжаляваме, намате необходимите права, за да извършите това действие!",
+    "invalid_fields_msg": "Невалидни данни!"
   },
   "apierrors": {
     "invalid_firstname": "Некоректно име!",
@@ -118,6 +127,9 @@
     "invalid_team_id": "ИД номерът на екипа е невалиден!",
     "organization_already_exists": "Организацията вече съществува!",
     "team_not_found": "Екипът не беше намерен!",
-    "invalid_username_or_password": "Некоректно потребителско име или парола"
+    "invalid_username_or_password": "Некоректно потребителско име или парола",
+    "error_occurred_msg": "Съжаляваме, възникна грешка!",
+    "unauthorized_request": "Съжаляваме, намате необходимите права, за да извършите това действие!",
+    "invalid_fields_msg": "Невалидни данни!"
   }
 }
