@@ -28,7 +28,7 @@ export const routes = [
         subRoutes: [
           { routeName: 'View All Users', url: '/users' },
           { routeName: 'Add User', url: '/users' },
-          { routeName: 'Edit User', url: '/users/{userId}' },
+          { routeName: 'Edit User', url: '/users' },
         ],
       },
     ],
