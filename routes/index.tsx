@@ -12,7 +12,7 @@ export const routes = [
       {
         routeName: 'Teams',
         subRoutes: [
-          { routeName: 'View All Teams', url: '/organizations/{organizationsId}/teams' },
+          { routeName: 'View All Teams', url: '/teams' },
           {
             routeName: 'Add Team',
             url: '/organization/{organizationsId}/teams',

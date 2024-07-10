@@ -21,17 +21,16 @@ export const TeamCard = (props: any) => {
   const router = useRouter()
 
   const onSubmit = async () => {
-    console.log('See members');
+    console.log('See members')
   }
-  
 
   return (
     <div className="w-[226px]">
-      <Card className="w-full flex flex-col bg-transparent rounded-[12px] overflow-hidden">
-        <div className="flex justify-center h-[90px] w-full rounded-[12px] bg-mth-blue-100 relative z-30">
+      <Card className="flex w-full flex-col overflow-hidden rounded-[12px] bg-transparent">
+        <div className="relative z-30 flex h-[90px] w-full justify-center rounded-[12px] bg-mth-blue-100">
           <Image
             src="/assets/images/team2.svg"
-            className="h-[97px] w-[97px] lg:h-[97px] rounded-full border-[3px] border-white absolute top-[50%] z-40"
+            className="absolute top-[50%] z-40 h-[97px] w-[97px] rounded-full border-[3px] border-white lg:h-[97px]"
             width={97}
             height={97}
             alt="author"
@@ -39,11 +38,15 @@ export const TeamCard = (props: any) => {
           />
         </div>
         <CardHeader className="relative mt-[40px] p-[16px]">
-          <CardTitle className='text-center text-xl font-normal font-poppins'>{props.team.name}</CardTitle>
-          <CardDescription className='text-center text-base font-normal font-poppins'>{props.team.description}</CardDescription>
+          <CardTitle className="text-center font-poppins text-xl font-normal">
+            {props.team.name}
+          </CardTitle>
+          <CardDescription className="text-center font-poppins text-base font-normal">
+            {props.team.description}
+          </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className='flex justify-center content-center'>
+          <div className="flex content-center justify-center">
             <Image
               src="/assets/images/team2.svg"
               className="h-[36px] w-[36px] rounded-full border-[1.6px]"
@@ -68,9 +71,9 @@ export const TeamCard = (props: any) => {
               alt="team"
               priority
             />
-            <p className='ml-[6px] content-center'>+5</p>
+            <p className="ml-[6px] content-center">+5</p>
           </div>
-          <div className="flex justify-center mt-[10px]">
+          <div className="mt-[10px] flex justify-center">
             <Button
               variant="tertiary"
               type="submit"
