@@ -6,6 +6,7 @@ export const EditUserSchema = z
     lastName: z.string().min(1, { message: 'schema_msg_lname_require' }),
     email: z.string().email().min(1, { message: 'schema_msg_email_require' }),
     phoneNumber: z.string().min(1, { message: 'schema_msg_phone_require' }),
+    option: z.string().nonempty("Option is required"),
   })
 
 

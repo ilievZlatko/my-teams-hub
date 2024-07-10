@@ -4,7 +4,6 @@ import { getUserProfile } from "@/actions/user.actions"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { Form, FormControl, FormLabel, FormItem, FormField, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { Select } from "@/components/ui/select"
 import { EditUserFormData, EditUserSchema } from "@/schemas/edit-user.schema"
 import { IUser } from "@/types/user"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -17,7 +16,7 @@ const User = () => {
 
   const form = useForm<EditUserFormData>({
     resolver: zodResolver(EditUserSchema),
-    defaultValues: { firstName: '', lastName: '', email: '' },
+    defaultValues: { firstName: '', lastName: '', email: '', phoneNumber: '', option: '' },
   });
 
   useEffect(() => {
@@ -30,7 +29,9 @@ const User = () => {
           form.reset({
             firstName: response.firstName,
             lastName: response.lastName,
-            email: response.email
+            email: response.email,
+            // phoneNumber: response.phoneNumber ?? '',
+            option: '' // default value for select
           })
         }
       })
@@ -92,17 +93,39 @@ const User = () => {
                       </FormItem>
                     )}
                   />
-                  <FormItem>
-                    <FormLabel>Phone Number</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Phone Number" />
-                    </FormControl>
-                  </FormItem>
-                  <FormItem>
-                    <FormControl>
-                      <Select />
-                    </FormControl>
-                  </FormItem>
+                  <FormField
+                    control={form.control}
+                    name="phoneNumber"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Phone Number</FormLabel>
+                        <FormControl>
+                          <Input {...field} placeholder="Phone Number" />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="option"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Option</FormLabel>
+                        <FormControl>
+                          <select {...field}>
+                            <option value="" disabled>Select an option</option>
+                            <option value="option1">Option 1</option>
+                            <option value="option2">Option 2</option>
+                            <option value="option3">Option 3</option>
+                            <option value="option4">Option 4</option>
+                          </select>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <button type="submit">Submit</button>
                 </form>
               </Form>
             </CardContent>
