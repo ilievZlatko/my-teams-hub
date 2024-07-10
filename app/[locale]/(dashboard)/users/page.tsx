@@ -2,8 +2,9 @@
 
 import { getUserProfile } from "@/actions/user.actions"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
-import { Form, FormLabel } from "@/components/ui/form"
+import { Form, FormControl, FormLabel, FormItem, FormField, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import { Select } from "@/components/ui/select"
 import { EditUserFormData, EditUserSchema } from "@/schemas/edit-user.schema"
 import { IUser } from "@/types/user"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -14,6 +15,11 @@ const User = () => {
   const [user, setUser] = useState<IUser | null>(null)
   const [error, setError] = useState<string | null>(null);
 
+  const form = useForm<EditUserFormData>({
+    resolver: zodResolver(EditUserSchema),
+    defaultValues: { firstName: '', lastName: '', email: '' },
+  });
+
   useEffect(() => {
     getUserProfile()
       .then((response) => {
@@ -21,17 +27,17 @@ const User = () => {
           setError(response.error)
         } else {
           setUser(response)
+          form.reset({
+            firstName: response.firstName,
+            lastName: response.lastName,
+            email: response.email
+          })
         }
       })
       .catch((error) => {
         setError(error.message)
       })
-  }, []);
-
-  const form = useForm<EditUserFormData>({
-    resolver: zodResolver(EditUserSchema),
-    defaultValues: { firstName: user?.firstName, lastName: user?.lastName, email: user?.email },
-  });
+  }, [form]);
 
   return (
     <>
@@ -46,12 +52,58 @@ const User = () => {
             </CardHeader>
             <CardContent className="">
               <Form {...form}>
-                <FormLabel>Name</FormLabel>
-                <Input placeholder="name" />
-                <FormLabel>Email</FormLabel>
-                <Input placeholder="email" />
-                <FormLabel>Phone Number</FormLabel>
-                <Input placeholder="phone number" />
+                <form onSubmit={form.handleSubmit((data) => console.log(data))}>
+                  <FormField
+                    control={form.control}
+                    name="firstName"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>First Name</FormLabel>
+                        <FormControl>
+                          <Input {...field} placeholder="First Name" />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="lastName"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Last Name</FormLabel>
+                        <FormControl>
+                          <Input {...field} placeholder="Last Name" />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Email</FormLabel>
+                        <FormControl>
+                          <Input {...field} placeholder="Email" />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormItem>
+                    <FormLabel>Phone Number</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Phone Number" />
+                    </FormControl>
+                  </FormItem>
+                  <FormItem>
+                    <FormControl>
+                      <Select />
+                    </FormControl>
+                  </FormItem>
+                </form>
               </Form>
             </CardContent>
           </Card>
