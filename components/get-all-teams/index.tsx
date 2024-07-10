@@ -7,12 +7,7 @@ import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import { Search, LayoutGrid, List } from 'lucide-react'
 
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-} from '@/components/ui/form'
+import { Form, FormControl, FormField, FormItem } from '@/components/ui/form'
 
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
 
@@ -24,11 +19,7 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 
-import {
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table'
+import { TableHead, TableHeader, TableRow } from '@/components/ui/table'
 
 import { Input } from '../ui/input'
 import { getAllTeams } from '@/actions/team.actions'
@@ -264,16 +255,20 @@ export const GetAllTeamsComponent = () => {
                 </TableRow>
               </TableHeader>
               {filteredArrayTeams?.map((team: Team) => (
-                <TeamTable key={team.teamId} team={team} />
+                <TeamTable
+                  key={team.teamId}
+                  {...team}
+                  organizationName={currentOrganization?.organizationName!}
+                />
               ))}
             </div>
           ) : (
-            <div className="flex justify-between">
+            <div className="flex flex-col flex-wrap items-center gap-6 lg:flex-row lg:items-stretch lg:justify-center">
               {filteredArrayTeams?.map((team: Team) => (
                 <TeamCard
                   key={team.teamId}
-                  team={team}
-                  organization={currentOrganization?.organizationName}
+                  {...team}
+                  organizationName={currentOrganization?.organizationName!}
                 />
               ))}
             </div>

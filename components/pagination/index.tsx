@@ -10,7 +10,15 @@ import {
   PaginationPrevious,
 } from '@/components/ui/pagination'
 
-export const PaginationComponent = (props: any) => {
+export type PaginationComponentProps = {
+  nextPage: () => void
+  previousPage: () => void
+  sendCurrentPage: (data: number) => void
+  currentPage: number
+  countPages: number
+}
+
+export const PaginationComponent = (props: PaginationComponentProps) => {
   return (
     <Pagination className="text-mth-grey-blue-700">
       <PaginationContent>
@@ -30,7 +38,7 @@ export const PaginationComponent = (props: any) => {
           const arr = []
           for (let i = 1; i <= props.countPages; i++) {
             arr.push(
-              <PaginationItem>
+              <PaginationItem key={i}>
                 <PaginationLink
                   onClick={() => props.sendCurrentPage(i)}
                   className={

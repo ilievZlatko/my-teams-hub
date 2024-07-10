@@ -1,6 +1,5 @@
 'use client'
 
-import { useTransition } from 'react'
 import { Trash2, FilePenLine } from 'lucide-react'
 
 import {
@@ -14,12 +13,22 @@ import {
 } from '@/components/ui/table'
 
 import Image from 'next/image'
-import { Button } from '../ui/button'
-import { getAllTeams } from '@/actions/team.actions'
+import { TeamMember } from '@/types/team'
 
-export const TeamTable = (props: any) => {
-  const [isPending, startTransition] = useTransition()
+export type TeamTableProps = {
+  organizationName: string
+  teamId: string
+  name: string
+  description?: string
+  teamMembers: TeamMember[]
+}
 
+export const TeamTable = ({
+  organizationName,
+  teamId,
+  name,
+  teamMembers,
+}: TeamTableProps) => {
   const editTeam = async () => {
     console.log('editTeam')
   }
@@ -33,7 +42,7 @@ export const TeamTable = (props: any) => {
       <Table className="flex w-full flex-col overflow-hidden rounded-[12px] bg-transparent">
         <TableBody>
           <TableRow className="flex w-full items-center justify-between">
-            <TableCell className="font-medium">{props.team.teamId}</TableCell>
+            <TableCell className="font-medium">{teamId}</TableCell>
             <TableCell>
               <div className="flex w-full items-center justify-center gap-[6px] rounded-[12px]">
                 <Image
@@ -44,7 +53,7 @@ export const TeamTable = (props: any) => {
                   alt="author"
                   priority
                 />
-                <p>{props.team.name}</p>
+                <p>{name}</p>
               </div>
             </TableCell>
             <TableCell>
