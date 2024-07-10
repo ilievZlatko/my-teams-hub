@@ -71,7 +71,8 @@
     },
     "team": {
       "index": {
-        "title": "Всички Екипи"
+        "title": "Всички Екипи",
+        "search_placeholder": "Търсене..."
       },
       "create": {
         "title": "Създаване на Екип",

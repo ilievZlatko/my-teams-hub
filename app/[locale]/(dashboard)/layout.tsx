@@ -25,7 +25,7 @@ const DashboardLayout = ({
         </div>
         <div className="flex h-full min-h-screen w-full justify-stretch">
           <SideNav />
-          <main className="mx-auto flex flex-col p-8 max-sm:p-4">
+          <main className="mx-auto flex flex-col p-8 w-full max-sm:p-4">
             {children}
           </main>
         </div>

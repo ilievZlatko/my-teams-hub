@@ -71,7 +71,8 @@
     },
     "team": {
       "index": {
-        "title": "All Teams"
+        "title": "All Teams",
+        "search_placeholder": "Search..."
       },
       "create": {
         "title": "Create Team",

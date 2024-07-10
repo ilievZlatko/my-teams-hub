@@ -41,3 +41,33 @@ export async function createTeam(
     return { error: 'An error has occurred!' }
   }
 }
+
+
+export async function getAllTeams(
+): Promise<Team[] | { error: string }> {
+  try {
+    const session = await auth()
+    const headers = new Headers()
+
+    headers.append('Content-Type', 'application/json')
+    headers.append('Authorization', `Bearer ${session?.token?.access_token}`)
+
+    const url = `${process.env.API_BASE_URL}${routes.allOrgsUrl.get}/${session?.user.activeOrg}${routes.allTeamsUrl.get}`
+
+    const res = await fetch(url, {
+      method: 'GET',
+      headers,
+    })
+    const allTeams = await res.json()
+
+    revalidateTag('teams')
+    
+    return allTeams.data
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
+    if (error?.message) {
+      return { error: error.message }
+    }
+    return { error: 'An error has occurred!' }
+  }
+}
