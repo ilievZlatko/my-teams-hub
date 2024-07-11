@@ -6,11 +6,14 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import { Search, LayoutGrid, List } from 'lucide-react'
+import { useSession } from 'next-auth/react'
 
+import { Organisation } from '@/types/organisation.types'
+import { getAllTeams } from '@/actions/team.actions'
+import { TeamList, Team } from '@/types/team'
+import { searchSchema, searchType } from '@/schemas/get-all-teams.schema'
 import { Form, FormControl, FormField, FormItem } from '@/components/ui/form'
-
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
-
 import {
   Select,
   SelectContent,
@@ -18,18 +21,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-
-import { TableHead, TableHeader, TableRow } from '@/components/ui/table'
-
-import { Input } from '../ui/input'
-import { getAllTeams } from '@/actions/team.actions'
-import { Organisation } from '@/types/organisation.types'
-import { TeamList, Team } from '@/types/team'
-import { useSession } from 'next-auth/react'
-import { searchSchema, searchType } from '@/schemas/get-all-teams.schema'
+import { Table, TableBody, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { TeamCard } from '@/components/team-card'
+import { Input } from '@/components/ui/input'
 import { PaginationComponent } from '@/components/pagination'
-import { TeamTable } from '@/components/team-table'
+import { TeamRowElement } from '@/components/team-table-row'
 import { Loader } from '@/components/loader'
 
 export const GetAllTeamsComponent = () => {
@@ -207,61 +203,58 @@ export const GetAllTeamsComponent = () => {
               />
             </form>
           </Form>
+
           {teamView ? (
-            <div className="flex flex-col justify-between">
+            <Table>
               <TableHeader>
-                <TableRow className="flex w-full justify-between border-none">
-                  <TableHead className="mr-auto">Team ID</TableHead>
-                  <TableHead className="ml-auto">
-                    <div className="flex w-full items-center justify-center gap-[6px] rounded-[12px]">
-                      <p>Name</p>
+                <TableRow>
+                  <TableHead>Team ID</TableHead>
+                  <TableHead>
+                    <span className='flex gap-1 items-center'>
+                      Name
                       <Image
                         src="/assets/images/up_and_down_arrow.svg"
-                        className="h-[16px] w-[16px] lg:h-[16px]"
-                        width={20}
-                        height={20}
+                        width={11}
+                        height={11}
                         alt="arrow"
-                        priority
                       />
-                    </div>
+                    </span>
                   </TableHead>
-                  <TableHead className="lg:ml-[180px] lg:mr-auto">
-                    <div className="flex w-full items-center justify-center gap-[6px] rounded-[12px]">
-                      <p>Members</p>
+                  <TableHead>
+                    <span className='flex gap-1 items-center'>
+                      Members
                       <Image
                         src="/assets/images/up_and_down_arrow.svg"
-                        className="h-[16px] w-[16px] lg:h-[16px]"
-                        width={20}
-                        height={20}
+                        width={11}
+                        height={11}
                         alt="arrow"
-                        priority
                       />
-                    </div>
+                    </span>
                   </TableHead>
-                  <TableHead className="md:mr-[0px] lg:mr-[50px]">
-                    <div className="flex w-full items-center justify-center gap-[6px] rounded-[12px]">
-                      <p>Date of creation</p>
+                  <TableHead>
+                    <span className='flex gap-1 items-center'>
+                      Date of creation
                       <Image
                         src="/assets/images/up_and_down_arrow.svg"
-                        className="h-[16px] w-[16px] lg:h-[16px]"
-                        width={20}
-                        height={20}
+                        width={11}
+                        height={11}
                         alt="arrow"
                         priority
                       />
-                    </div>
+                    </span>
                   </TableHead>
                   <TableHead>Action</TableHead>
                 </TableRow>
               </TableHeader>
-              {filteredArrayTeams?.map((team: Team) => (
-                <TeamTable
-                  key={team.teamId}
-                  {...team}
-                  organizationName={currentOrganization?.organizationName!}
-                />
-              ))}
-            </div>
+              <TableBody>
+                {filteredArrayTeams?.map((team: Team) => (
+                  <TeamRowElement
+                    key={team.teamId}
+                    {...team}             
+                  />
+                ))}
+              </TableBody>
+            </Table>
           ) : (
             <div className="flex flex-col flex-wrap items-center gap-6 lg:flex-row lg:items-stretch lg:justify-center">
               {filteredArrayTeams?.map((team: Team) => (
@@ -274,6 +267,7 @@ export const GetAllTeamsComponent = () => {
             </div>
           )}
         </CardContent>
+        
         <div className="mt-[16px] flex items-center justify-end gap-[10px]">
           <p>Show</p>
           <div className="w-[60px]">
