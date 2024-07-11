@@ -22,7 +22,7 @@ export type PaginationComponentProps = {
 export const PaginationComponent = (props: PaginationComponentProps) => {
   return (
     <Pagination className="text-mth-grey-blue-700">
-      <PaginationContent>
+      <PaginationContent className="flex max-sm:!flex-wrap">
         <PaginationItem className="text-mth-grey-blue-600">
           <PaginationPrevious
             className={
@@ -43,7 +43,7 @@ export const PaginationComponent = (props: PaginationComponentProps) => {
                 <PaginationLink
                   onClick={() => props.sendCurrentPage(i)}
                   className={cn(
-                    'h-[32px] w-[32px] rounded-[8px]',
+                    'h-[32px] w-[32px] rounded-[8px] max-sm:h-[25px] max-sm:w-[25px]',
                     props.currentPage === i
                       ? 'cursor-pointer bg-mth-dark-50'
                       : 'cursor-pointer bg-mth-grey-blue-600 text-white',

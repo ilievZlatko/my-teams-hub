@@ -350,19 +350,33 @@ export const EditTeamForm = ({
                     type="button"
                     disabled={isPending || isSubmitting}
                     variant={'tertiary-outline'}
-                    className="sm:max-w-4/12 w-full font-normal"
+                    className="sm:max-w-4/12 flex w-full font-normal"
                     onClick={() => {
                       setTeamToDeleteId(team.teamId)
                     }}
                   >
+                    <Loader
+                      className={cn(
+                        'm-2',
+                        isPending || isSubmitting ? 'block' : 'hidden',
+                      )}
+                      size={20}
+                    />
                     {t('delete_team_btn')}
                   </Button>
                   <Button
                     type="submit"
                     disabled={isPending || isSubmitting}
                     variant={'tertiary'}
-                    className="sm:max-w-4/12 w-full font-normal"
+                    className="sm:max-w-4/12 flex w-full font-normal"
                   >
+                    <Loader
+                      className={cn(
+                        'm-2',
+                        isPending || isSubmitting ? 'block' : 'hidden',
+                      )}
+                      size={20}
+                    />
                     {t('save_btn')}
                   </Button>
                 </div>

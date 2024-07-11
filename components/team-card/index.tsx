@@ -1,6 +1,7 @@
 'use client'
 
 import Image from 'next/image'
+import { useTranslations } from 'next-intl'
 
 import {
   Card,
@@ -12,50 +13,6 @@ import {
 import { TeamMember } from '@/types/team'
 import Link from 'next/link'
 import { cn, getRandomNumber } from '@/lib/utils'
-
-// TODO: 'fakeMembers' is used for testing how the team members are displayed on the card
-const fakeMembers = [
-  {
-    memberId: '12377-asss-47t7-87ggcx',
-    firstName: 'Jane',
-    lastName: 'Doe',
-    email: 'jane.doe@mail.com',
-    phone: '+123569878',
-    status: 0,
-  },
-  {
-    memberId: '895-37i7-ass-57t7-87ggcx',
-    firstName: 'John',
-    lastName: 'Doe',
-    email: 'john.doe@mail.com',
-    phone: '+0003569778',
-    status: 2,
-  },
-  {
-    memberId: '10hy77-asss-47t7-87gjix',
-    firstName: 'Mark',
-    lastName: 'Stale',
-    email: 'mark.stale@gmail.com',
-    phone: '+3535600078',
-    status: 1,
-  },
-  {
-    memberId: '10hy77-asss-47t7-87gjix',
-    firstName: 'Alex',
-    lastName: 'Bloom',
-    email: 'bloom.alex@gmail.com',
-    phone: '+1478801078',
-    status: 0,
-  },
-  {
-    memberId: 'b78a77-asss-47t7-8788oj',
-    firstName: 'Maria',
-    lastName: 'Taylor',
-    email: 'bloom.alex@gmail.com',
-    phone: '+3598981078',
-    status: 1,
-  },
-]
 
 export type TeamCardProps = {
   organizationName: string
@@ -71,10 +28,7 @@ export const TeamCard = ({
   name,
   teamMembers,
 }: TeamCardProps) => {
-  // let membersSliced: TeamMember[] = []
-  // if (fakeMembers.length > 4) {
-  //   membersSliced = fakeMembers.slice(0, 4)
-  // }
+  const t = useTranslations('page.team.index')
 
   let membersSliced: TeamMember[] = []
   if (teamMembers.length > 4) {
@@ -95,20 +49,20 @@ export const TeamCard = ({
           />
         </CardHeader>
         <CardContent>
-          <CardTitle className="text-[20px] font-normal leading-[30px]">
+          <CardTitle className="line-clamp-2 min-h-[64px] text-[20px] font-normal leading-[30px]">
             {name}
           </CardTitle>
-          <p>{organizationName}</p>
+          {organizationName !== '' && <p>{organizationName}</p>}
 
-          <div className="relative flex justify-center *:border-[1.6px] *:border-mth-white-50 *:bg-mth-silver-100">
+          <div className="relative flex min-h-[37px] justify-center *:border-[1.6px] *:border-mth-white-50 *:bg-mth-silver-100">
             {teamMembers?.length === 0 ? (
               <p className="!bg-transparent text-xs text-mth-dark-300">
-                No Members Yet
+                {t('no_members_yet')}
               </p>
             ) : teamMembers &&
               teamMembers.length > 0 &&
               teamMembers.length <= 4 ? (
-              teamMembers.map((member, i) => (
+              teamMembers.map((member) => (
                 <Image
                   key={member.memberId}
                   src={'/assets/images/avatars/' + getRandomNumber() + '.svg'}
@@ -142,9 +96,9 @@ export const TeamCard = ({
           <CardFooter className="mx-auto flex justify-center py-1">
             <Link
               href={`/teams/${teamId}/edit`}
-              className="flex h-[36px] w-[122px] items-center justify-center rounded-xl bg-mth-blue-500 text-mth-white-50 transition hover:bg-mth-blue-500/70"
+              className="flex h-[36px] w-[142px] items-center justify-center rounded-xl bg-mth-blue-500 text-mth-white-50 transition hover:bg-mth-blue-500/70"
             >
-              Edit
+              {t('edit')}
             </Link>
           </CardFooter>
         </CardContent>
