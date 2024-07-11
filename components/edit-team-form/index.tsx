@@ -123,7 +123,8 @@ export const EditTeamForm = ({
       const responseBody = await editTeam(organizationId, team.teamId, {
         name: values.name,
         description: values.description,
-        teamMembers: teamMembers || [],
+        teamMembers:
+          teamMembers.length !== team.teamMembers.length ? teamMembers : [],
       })
 
       setIsSubmitting(false)
@@ -176,12 +177,12 @@ export const EditTeamForm = ({
 
   return (
     <>
-      <Card className="mx-auto w-full border-0 px-0 text-mth-grey-blue-700 shadow-none">
+      <Card className="mx-auto w-full border-0 px-0 text-mth-grey-blue-700 shadow-none xl:max-w-[980px]">
         <CardContent className="flex flex-col-reverse items-center justify-center gap-6 max-sm:mx-auto max-sm:px-0 lg:flex-row">
           <Image
             src="/assets/images/team2.svg"
             alt="team image"
-            className="mx-auto w-full max-sm:w-[300px] sm:max-w-[350px] md:max-w-[380px] lg:max-w-[360px] xl:max-w-[445px]"
+            className="w-full max-sm:w-[300px] sm:max-w-[350px] md:max-w-[380px] lg:max-w-[360px] xl:max-w-[445px]"
             width={445}
             height={404}
             priority

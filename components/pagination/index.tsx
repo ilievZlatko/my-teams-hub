@@ -9,6 +9,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from '@/components/ui/pagination'
+import { cn } from '@/lib/utils'
 
 export type PaginationComponentProps = {
   nextPage: () => void
@@ -41,11 +42,12 @@ export const PaginationComponent = (props: PaginationComponentProps) => {
               <PaginationItem key={i}>
                 <PaginationLink
                   onClick={() => props.sendCurrentPage(i)}
-                  className={
+                  className={cn(
+                    'h-[32px] w-[32px] rounded-[8px]',
                     props.currentPage === i
                       ? 'cursor-pointer bg-mth-dark-50'
-                      : 'cursor-pointer bg-black text-white'
-                  }
+                      : 'cursor-pointer bg-mth-grey-blue-600 text-white',
+                  )}
                 >
                   {i}
                 </PaginationLink>

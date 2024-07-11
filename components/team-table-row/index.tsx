@@ -20,16 +20,15 @@ export const TeamRowElement = ({
   teamMembers,
 }: TeamTableProps) => {
   let membersSliced: TeamMember[] = []
- 
+
   if (teamMembers.length > 4) {
     membersSliced = teamMembers.slice(0, 4)
   }
 
   return (
-
-    <TableRow>
-      <TableCell className='max-w-[50px] truncate'>#{teamId}</TableCell>
-      <TableCell className="flex gap-1">
+    <TableRow className="*:text-mth-grey-blue-700">
+      <TableCell className="max-w-[50px] truncate">#{teamId}</TableCell>
+      <TableCell className="flex items-center gap-2">
         <Image
           src="/assets/images/team-card-image.svg"
           className="rounded-xl bg-mth-silver-100"
@@ -41,9 +40,9 @@ export const TeamRowElement = ({
         <p>{name}</p>
       </TableCell>
       <TableCell>
-        <div className="relative flex justify-center items-center *:border-[1.6px] *:border-mth-white-50 *:bg-mth-silver-100">
+        <div className="relative flex items-center justify-start *:border-[1.6px] *:border-mth-white-50 *:bg-mth-silver-100">
           {teamMembers?.length === 0 ? (
-            <p className="!bg-transparent text-xs text-mth-dark-300">
+            <p className="border-none !bg-transparent text-xs text-mth-dark-300">
               No Members Yet
             </p>
           ) : teamMembers &&
@@ -81,11 +80,12 @@ export const TeamRowElement = ({
           </span>
         </div>
       </TableCell>
+      {/* //TODO: make dynamic  */}
       <TableCell>13/05/2022</TableCell>
       <TableCell>
         <div className="mt-[10px] flex justify-center gap-[18px]">
           <FilePenLine
-            className="cursor-pointer bg-transparent text-[#63929E]"
+            className="cursor-pointer bg-transparent text-mth-blue-500"
             onClick={() => {}}
           />
           <Trash2

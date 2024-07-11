@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
-import { Search, LayoutGrid, List } from 'lucide-react'
+import { Search, LayoutGrid, List, X } from 'lucide-react'
 import { useSession } from 'next-auth/react'
 
 import { Organisation } from '@/types/organisation.types'
@@ -21,12 +21,19 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { Table, TableBody, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+import {
+  Table,
+  TableBody,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table'
 import { TeamCard } from '@/components/team-card'
 import { Input } from '@/components/ui/input'
 import { PaginationComponent } from '@/components/pagination'
 import { TeamRowElement } from '@/components/team-table-row'
 import { Loader } from '@/components/loader'
+import { cn } from '@/lib/utils'
 
 export const GetAllTeamsComponent = () => {
   const t = useTranslations('page')
@@ -135,10 +142,6 @@ export const GetAllTeamsComponent = () => {
     )
   }
 
-  function search() {
-    setSearchValue('')
-  }
-
   if (!session || isFetchingData) return <Loader />
 
   return (
@@ -163,10 +166,12 @@ export const GetAllTeamsComponent = () => {
         </CardHeader>
 
         <CardContent
-          className={teamView === true ? 'rounded-[12px] border' : ''}
+          className={
+            teamView === true ? 'rounded-[12px] border max-sm:px-1' : ''
+          }
         >
           <Form {...form}>
-            <form className="w-2/3 space-y-6">
+            <form className="space-y-6">
               <FormField
                 control={form.control}
                 name="search"
@@ -179,22 +184,30 @@ export const GetAllTeamsComponent = () => {
                             {...field}
                             type="text"
                             placeholder={t('team.index.search_placeholder')}
-                            className="form-input m-[10px] w-[400px] px-[36px] placeholder:text-xs"
+                            className="form-input m-[10px] w-[300px] px-[36px] placeholder:text-xs max-sm:w-[240px]"
                             value={searchValue}
                             onChange={handleSearchChange}
                           />
                           <span className="absolute left-[20px] top-[20px]">
-                            <Search className="size-5 cursor-pointer select-none text-[#63929e]" />
+                            <Search className="size-5 select-none text-[#63929e] max-sm:size-4" />
+                          </span>
+                          <span className="absolute left-[280px] top-[20px] max-sm:left-[225px]">
+                            <X
+                              className={cn(
+                                'size-5 cursor-pointer select-none text-[#63929e] max-sm:size-4',
+                                searchValue !== '' ? 'block' : 'hidden',
+                              )}
+                              onClick={() => setSearchValue('')}
+                            />
                           </span>
                         </div>
                         <Image
                           src="/assets/images/vector.svg"
-                          className="h-auto w-full max-w-[20px] cursor-pointer"
+                          className="select-none"
                           alt="vector logo"
-                          width={10}
-                          height={10}
+                          width={16}
+                          height={16}
                           priority
-                          onClick={search}
                         />
                       </div>
                     </FormControl>
@@ -210,7 +223,7 @@ export const GetAllTeamsComponent = () => {
                 <TableRow>
                   <TableHead>Team ID</TableHead>
                   <TableHead>
-                    <span className='flex gap-1 items-center'>
+                    <span className="flex items-center gap-1">
                       Name
                       <Image
                         src="/assets/images/up_and_down_arrow.svg"
@@ -221,7 +234,7 @@ export const GetAllTeamsComponent = () => {
                     </span>
                   </TableHead>
                   <TableHead>
-                    <span className='flex gap-1 items-center'>
+                    <span className="flex items-center gap-1">
                       Members
                       <Image
                         src="/assets/images/up_and_down_arrow.svg"
@@ -232,7 +245,7 @@ export const GetAllTeamsComponent = () => {
                     </span>
                   </TableHead>
                   <TableHead>
-                    <span className='flex gap-1 items-center'>
+                    <span className="flex items-center gap-1">
                       Date of creation
                       <Image
                         src="/assets/images/up_and_down_arrow.svg"
@@ -248,10 +261,7 @@ export const GetAllTeamsComponent = () => {
               </TableHeader>
               <TableBody>
                 {filteredArrayTeams?.map((team: Team) => (
-                  <TeamRowElement
-                    key={team.teamId}
-                    {...team}             
-                  />
+                  <TeamRowElement key={team.teamId} {...team} />
                 ))}
               </TableBody>
             </Table>
@@ -267,8 +277,8 @@ export const GetAllTeamsComponent = () => {
             </div>
           )}
         </CardContent>
-        
-        <div className="mt-[16px] flex items-center justify-end gap-[10px]">
+
+        <div className="mt-[16px] flex items-center justify-end gap-[10px] text-xs">
           <p>Show</p>
           <div className="w-[60px]">
             <Select onValueChange={valueChange}>
