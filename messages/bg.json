@@ -71,7 +71,17 @@
     },
     "team": {
       "index": {
-        "title": "Всички Екипи"
+        "title": "Всички Екипи",
+        "search_placeholder": "Търсене...",
+        "edit": "Редактирай",
+        "delete": "Изтрий",
+        "show": "Покажи",
+        "no_members_yet": "Няма членове",
+        "team_id": "ИД Номер",
+        "members": "Членове",
+        "name": "Име",
+        "creation_date": "Дата на създаване",
+        "action": "Действие"
       },
       "create": {
         "title": "Създаване на Екип",
