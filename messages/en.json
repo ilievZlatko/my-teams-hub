@@ -69,6 +69,22 @@
       "schema_msg_name_required": "Organization name is required!",
       "schema_msg_desc_required": "Please, provide a short description!"
     },
+    "user": {
+      "index": {
+        "search_placeholder": "Search...",
+        "edit": "Edit",
+        "delete": "Delete",
+        "show": "Show",
+        "no_members_yet": "No Members Yet",
+        "team_id": "Team ID",
+        "members": "Members",
+        "name": "Name",
+        "creation_date": "Date of Creation",
+        "action": "Action",
+        "team": "Team",
+        "status": "Status"
+      }
+    },
     "team": {
       "index": {
         "title": "All Teams",

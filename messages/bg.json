@@ -69,6 +69,22 @@
       "schema_msg_name_required": "Името на организацията е задължително!",
       "schema_msg_desc_required": "Моля, напишете кратко описание на организацията!"
     },
+    "user": {
+      "index": {
+        "search_placeholder": "Търсене...",
+        "edit": "Редактирай",
+        "delete": "Изтрий",
+        "show": "Покажи",
+        "no_members_yet": "Няма членове",
+        "team_id": "ИД Номер",
+        "members": "Членове",
+        "name": "Име",
+        "creation_date": "Дата на създаване",
+        "action": "Действие",
+        "team": "Отбор",
+        "status": "Статус"
+      }
+    },
     "team": {
       "index": {
         "title": "Всички Екипи",

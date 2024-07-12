@@ -12,3 +12,8 @@ export interface IUserTeam {
   teamId: string
   name: string
 }
+
+export interface UserList {
+  total: number
+  teams: IUser[]
+}
