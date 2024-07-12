@@ -1,11 +1,11 @@
-"use client";
+'use client'
 
 export enum SidenavKeys {
   OVERVIEW = 'overview',
   TEAMS = 'teams',
   USERS = 'users',
   ORG_CHART = 'org-chart',
-  EVALUATION = 'evaluation'
+  EVALUATION = 'evaluation',
 }
 
 export const routes = [
@@ -39,6 +39,4 @@ export const routes = [
     routeName: SidenavKeys.EVALUATION,
     url: '/evaluation',
   },
-];
-
-
+]
