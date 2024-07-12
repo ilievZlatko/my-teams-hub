@@ -71,7 +71,17 @@
     },
     "team": {
       "index": {
-        "title": "All Teams"
+        "title": "All Teams",
+        "search_placeholder": "Search...",
+        "edit": "Edit",
+        "delete": "Delete",
+        "show": "Show",
+        "no_members_yet": "No Members Yet",
+        "team_id": "Team ID",
+        "members": "Members",
+        "name": "Name",
+        "creation_date": "Date of Creation",
+        "action": "Action"
       },
       "create": {
         "title": "Create Team",

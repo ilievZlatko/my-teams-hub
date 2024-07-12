@@ -12,11 +12,13 @@ export const routes = [
       {
         routeName: 'Teams',
         subRoutes: [
-          { routeName: 'View All Teams', url: '/organizations' },
+          { routeName: 'View All Teams', url: '/teams' },
           {
             routeName: 'Add Team',
-            url: '/organization/{organizationsId}/teams',
+            url: '/teams/create',
           },
+
+          //TODO: Is this going to stay?
           {
             routeName: 'Edit Team',
             url: '/organizations/{organizationsId}/teams/{teamId}',

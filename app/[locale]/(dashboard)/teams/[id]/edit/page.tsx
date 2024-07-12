@@ -65,7 +65,7 @@ export default function Edit({ params: { id } }: { params: { id: string } }) {
   }
 
   return isFetchingOtherUsers || isFetchingTeam ? (
-    <Loader />
+    <Loader size={44} className="m-auto" />
   ) : (
     team && organizationId && (
       <EditTeamForm

@@ -44,3 +44,7 @@ export async function fetcher(
 
   return await fetch(generatedUrl.toString(), config)
 }
+
+export function getRandomNumber(): string {
+  return (Math.floor(Math.random() * 59) + 1).toString()
+}
