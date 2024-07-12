@@ -28,7 +28,7 @@ export const SideNav = () => {
   return (
     <div
       ref={sidebarRef}
-      className={`transition-width hidden h-full bg-mth-grey-blue-600 duration-300 ease-in-out lg:block ${isOpen ? 'w-96' : 'w-22'}`}
+      className={`transition-width hidden h-full bg-mth-grey-blue-600 duration-300 ease-in-out lg:block ${isOpen ? 'w-72' : 'w-22'}`}
     >
       <div className="flex flex-col items-start space-y-10 px-8">
         <Image

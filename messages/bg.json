@@ -4,7 +4,7 @@
     "dashboard": "Дашборд",
     "sidenav" : {
       "overview" : "Дашборд",
-      "teams" : "Тимове",
+      "teams" : "Екипи",
       "users" : "Потребители",
       "org-chart" : "Диаграма",
       "evaluation" : "Оценка"

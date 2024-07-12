@@ -49,20 +49,13 @@ const t = useTranslations('navigation.sidenav');
           onClick={onToggle}
         />
         <div className="flex w-44 justify-between">
-          {url ? (
             <Link
               href={url as string}
               className={`mb-0 font-poppins text-base font-normal leading-20 text-mth-silver-200 transition duration-300 ease-in-out hover:text-mth-grey-blue-900 ${isOpen ? 'block' : 'hidden'}`}
+              style={{ whiteSpace: 'nowrap' }}
             >
               {t(routeName)}
             </Link>
-          ) : (
-            <p
-              className={`mb-0 font-poppins text-base font-normal leading-20 text-mth-silver-200 transition duration-300 ease-in-out hover:text-mth-grey-blue-900 ${isOpen ? 'block' : 'hidden'}`}
-            >
-              {routeName}
-            </p>
-          )}
         </div>
       </div>
     </div>

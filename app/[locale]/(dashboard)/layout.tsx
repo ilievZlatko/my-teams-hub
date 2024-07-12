@@ -19,14 +19,18 @@ const DashboardLayout = ({
 
   return (
     <>
-      <div className="flex h-screen w-full flex-col relative">
-        <div className='sticky top-0 left-0 z-50'>
+      <div className="flex flex-col h-screen w-full relative overflow-hidden">
+        <div className="sticky top-0 left-0 z-50">
           <Header />
         </div>
-        <div className="flex  w-full justify-stretch">
-          <SideNav />
-          <main className="mx-auto min-h-screen overflow-y-auto flex w-full flex-col items-center p-8 pb-20 max-sm:p-4">
-            {children}
+        <div className="flex w-full h-full">
+          <div className={`top-16 left-0 h-full z-40 transition-transform duration-300`}>
+            <SideNav />
+          </div>
+          <main className={`flex-1 transition-all duration-300 overflow-y-auto`}>
+            <div className="mx-auto flex w-full flex-col items-center p-8 pb-20 max-sm:p-4">
+              {children}
+            </div>
           </main>
         </div>
       </div>

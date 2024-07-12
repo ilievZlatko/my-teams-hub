@@ -27,7 +27,7 @@ export const routes = [
   {
     image: '/assets/images/organisations-chart.svg',
     routeName: SidenavKeys.ORG_CHART,
-    url: '/teams',
+    url: '/organisations',
   },
   {
     image: '/assets/images/evaluation.svg',
