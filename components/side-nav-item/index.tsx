@@ -35,8 +35,7 @@ const SideNavItem: React.FC<SideNavItemProps> = ({
         <div className="flex w-44 justify-between">
           <Link
             href={url as string}
-            className={`mb-0 font-poppins text-base font-normal leading-20 text-mth-silver-200 transition duration-300 ease-in-out hover:text-mth-grey-blue-900 ${isOpen ? 'block' : 'hidden'}`}
-            style={{ whiteSpace: 'nowrap' }}
+            className={`mb-0 whitespace-nowrap font-poppins text-base font-normal leading-20 text-mth-silver-200 transition duration-300 ease-in-out hover:text-mth-grey-blue-900 ${isOpen ? 'block' : 'hidden'}`}
           >
             {t(routeName)}
           </Link>
