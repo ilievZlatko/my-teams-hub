@@ -1,6 +1,7 @@
 "use client"
 
 import { getUserProfile } from "@/actions/user.actions"
+import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { Form, FormControl, FormLabel, FormItem, FormField, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
@@ -125,7 +126,7 @@ const User = () => {
                       </FormItem>
                     )}
                   />
-                  <button type="submit">Submit</button>
+                  <Button type="submit">Edit</Button>
                 </form>
               </Form>
             </CardContent>
