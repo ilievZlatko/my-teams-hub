@@ -13,14 +13,14 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { EditUserFormData, EditUserSchema } from '@/schemas/edit-user.schema'
-import { IUser } from '@/types/user'
+// import { IUser } from '@/types/user'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 
 const User = () => {
-  const [user, setUser] = useState<IUser | null>(null)
-  const [error, setError] = useState<string | null>(null)
+  // const [user, setUser] = useState<IUser | null>(null)
+  // const [error, setError] = useState<string | null>(null)
 
   const form = useForm<EditUserFormData>({
     resolver: zodResolver(EditUserSchema),
@@ -31,9 +31,9 @@ const User = () => {
     getUserProfile()
       .then((response) => {
         if ('error' in response) {
-          setError(response.error)
+          // setError(response.error)
         } else {
-          setUser(response)
+          // setUser(response)
           form.reset({
             firstName: response.firstName,
             lastName: response.lastName,
@@ -43,7 +43,8 @@ const User = () => {
         }
       })
       .catch((error) => {
-        setError(error.message)
+        return { error }
+        // setError(error.message)
       })
   }, [form])
 
@@ -56,7 +57,7 @@ const User = () => {
             <CardHeader>Edit User</CardHeader>
             <CardContent className="">
               <Form {...form}>
-                <form onSubmit={form.handleSubmit((data) => console.log(data))}>
+                <form onSubmit={form.handleSubmit(() => {})}>
                   <FormField
                     control={form.control}
                     name="firstName"

@@ -1,5 +1,9 @@
 'use server'
 
+interface CustomError extends Error {
+  message: string
+}
+
 import routes from '@/api-routes'
 import { auth } from '@/config/auth'
 import { IUser } from '@/types/user'
@@ -29,9 +33,10 @@ export async function getAllUsers(): Promise<IUser[] | { error: string }> {
 
     return jsonResponse?.data ?? null
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } catch (error: any) {
-    if (error?.message) {
-      return { error: error.message }
+  } catch (error) {
+    const customError = error as CustomError
+    if (customError?.message) {
+      return { error: customError.message }
     }
     return { error: 'error_occurred_msg' }
   }
@@ -67,7 +72,8 @@ export const getUserProfile = async (): Promise<IUser | { error: string }> => {
     }
 
     return jsonResponse?.data ?? { error: 'No data returned from the API' }
-  } catch (error: any) {
-    return { error: error.message || 'An unexpected error occurred' }
+  } catch (error) {
+    const customError = error as CustomError
+    return { error: customError.message || 'An unexpected error occurred' }
   }
 }
