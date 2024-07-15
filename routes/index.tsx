@@ -1,12 +1,6 @@
 'use client'
 
-export enum SidenavKeys {
-  OVERVIEW = 'overview',
-  TEAMS = 'teams',
-  USERS = 'users',
-  ORG_CHART = 'org-chart',
-  EVALUATION = 'evaluation',
-}
+import { SidenavKeys } from '@/enums/side-nav'
 
 export const routes = [
   {
