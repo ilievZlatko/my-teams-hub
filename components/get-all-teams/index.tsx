@@ -173,14 +173,14 @@ export const GetAllTeamsComponent = () => {
               <Input
                 type="text"
                 placeholder={t('search_placeholder')}
-                className="w-[300px] px-[34px] placeholder:text-xs max-sm:w-[210px] max-sm:px-[31px]"
+                className="w-[300px] px-[34px] placeholder:text-xs max-sm:w-[200px] max-sm:px-[31px]"
                 value={searchValue}
                 onChange={handleSearchChange}
               />
               <span className="absolute left-[10px] top-[11px] max-sm:left-[9px] max-sm:top-[12px]">
                 <Search className="size-5 select-none text-mth-blue-500 max-sm:size-4" />
               </span>
-              <span className="absolute left-[271px] top-[11px] max-sm:left-[187px] max-sm:top-[12px]">
+              <span className="absolute left-[271px] top-[11px] max-sm:left-[177px] max-sm:top-[12px]">
                 <X
                   className={cn(
                     'size-5 cursor-pointer select-none text-mth-blue-500 max-sm:size-4',
@@ -208,7 +208,7 @@ export const GetAllTeamsComponent = () => {
               <Link
                 href="/teams/create"
                 prefetch
-                className="flex items-center justify-center gap-2 rounded-xl bg-mth-blue-500 px-3 py-2.5 font-normal text-white transition hover:bg-mth-blue-500/70 max-sm:w-[36px] max-sm:p-0 lg:me-14"
+                className="flex items-center justify-center gap-2 rounded-xl bg-mth-blue-500 px-3 py-2.5 font-normal text-white transition hover:bg-mth-blue-500/70 max-sm:h-[40px] max-sm:w-[36px] max-sm:p-0 lg:me-14"
               >
                 {width >= 1024 ? (
                   <>
