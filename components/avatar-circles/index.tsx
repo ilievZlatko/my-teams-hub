@@ -61,7 +61,7 @@ export const AvatarCirclesComponent = ({
   const t = useTranslations('page.team.index')
 
   // TODO: Comment out the row below to see the real team members data from server
-  // teamMembers = _fakeMembers
+  teamMembers = _fakeMembers
 
   let membersSliced: TeamMember[] = []
   if (teamMembers.length > 4) {
