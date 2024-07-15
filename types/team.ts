@@ -20,3 +20,9 @@ export interface PatchTeam {
   description?: string
   teamMembers: { teamMemberId: string; email: string }[]
 }
+
+// get teams for organization
+export interface TeamList {
+  total: number
+  teams: Team[]
+}

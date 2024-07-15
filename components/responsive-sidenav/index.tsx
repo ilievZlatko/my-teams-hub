@@ -46,7 +46,6 @@ export const ResponsiveSideNav = ({ name, email }: UserMenuProps) => {
               <SideNavItem
                 image={route.image}
                 routeName={route.routeName}
-                subRoutes={route.subRoutes}
                 url={route.url}
                 isOpen={true}
               />
