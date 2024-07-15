@@ -1,9 +1,10 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
+
 import {
   Pagination,
   PaginationContent,
-  PaginationEllipsis,
   PaginationItem,
   PaginationLink,
   PaginationNext,
@@ -20,16 +21,20 @@ export type PaginationComponentProps = {
 }
 
 export const PaginationComponent = (props: PaginationComponentProps) => {
+  const t = useTranslations('page')
+
   return (
     <Pagination className="text-mth-grey-blue-700">
       <PaginationContent className="flex max-sm:!flex-wrap">
         <PaginationItem className="text-mth-grey-blue-600">
           <PaginationPrevious
-            className={
+            lang={t('prev_page')}
+            className={cn(
+              'h-[32px] rounded-[8px] max-sm:h-[29px]',
               props.currentPage === 1
                 ? 'pointer-events-none opacity-50'
-                : 'cursor-pointer text-white'
-            }
+                : 'cursor-pointer text-mth-grey-blue-600',
+            )}
             onClick={() => {
               props.previousPage()
             }}
@@ -43,7 +48,7 @@ export const PaginationComponent = (props: PaginationComponentProps) => {
                 <PaginationLink
                   onClick={() => props.sendCurrentPage(i)}
                   className={cn(
-                    'h-[32px] w-[32px] rounded-[8px] max-sm:h-[25px] max-sm:w-[25px]',
+                    'h-[32px] w-[32px] rounded-[8px] max-sm:h-[29px] max-sm:w-[25px]',
                     props.currentPage === i
                       ? 'cursor-pointer bg-mth-dark-50'
                       : 'cursor-pointer bg-mth-grey-blue-600 text-white',
@@ -57,15 +62,14 @@ export const PaginationComponent = (props: PaginationComponentProps) => {
           return arr
         })()}
         <PaginationItem>
-          <PaginationEllipsis />
-        </PaginationItem>
-        <PaginationItem>
           <PaginationNext
-            className={
+            lang={t('next_page')}
+            className={cn(
+              'h-[32px] rounded-[8px] max-sm:h-[29px]',
               props.currentPage === props.countPages
                 ? 'pointer-events-none opacity-50'
-                : 'cursor-pointer text-white'
-            }
+                : 'cursor-pointer text-mth-grey-blue-600',
+            )}
             onClick={() => {
               props.nextPage()
             }}

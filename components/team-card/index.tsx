@@ -1,6 +1,7 @@
 'use client'
 
 import Image from 'next/image'
+import Link from 'next/link'
 import { useTranslations } from 'next-intl'
 
 import {
@@ -11,11 +12,10 @@ import {
   CardTitle,
 } from '@/components/ui/card'
 import { TeamMember } from '@/types/team'
-import Link from 'next/link'
-import { cn, getRandomNumber } from '@/lib/utils'
+import { AvatarCirclesComponent } from '@/components/avatar-circles'
 
 export type TeamCardProps = {
-  organizationName: string
+  orgName: string
   teamId: string
   name: string
   description?: string
@@ -23,17 +23,12 @@ export type TeamCardProps = {
 }
 
 export const TeamCard = ({
-  organizationName,
+  orgName,
   teamId,
   name,
   teamMembers,
 }: TeamCardProps) => {
   const t = useTranslations('page.team.index')
-
-  let membersSliced: TeamMember[] = []
-  if (teamMembers.length > 4) {
-    membersSliced = teamMembers.slice(0, 4)
-  }
 
   return (
     <div>
@@ -52,51 +47,15 @@ export const TeamCard = ({
           <CardTitle className="line-clamp-2 min-h-[64px] text-[20px] font-normal leading-[30px]">
             {name}
           </CardTitle>
-          {organizationName !== '' && <p>{organizationName}</p>}
+          {orgName !== '' && <p>{orgName}</p>}
 
-          <div className="relative flex min-h-[37px] justify-center *:border-[1.6px] *:border-mth-white-50 *:bg-mth-silver-100">
-            {teamMembers?.length === 0 ? (
-              <p className="!bg-transparent text-xs text-mth-dark-300">
-                {t('no_members_yet')}
-              </p>
-            ) : teamMembers &&
-              teamMembers.length > 0 &&
-              teamMembers.length <= 4 ? (
-              teamMembers.map((member) => (
-                <Image
-                  key={member.memberId}
-                  src={'/assets/images/avatars/' + getRandomNumber() + '.svg'}
-                  alt="avatar"
-                  height={37}
-                  width={37}
-                  className="rounded-full"
-                />
-              ))
-            ) : (
-              membersSliced.map((member, i) => (
-                <Image
-                  key={`${member.memberId}-${i}`}
-                  src={'/assets/images/avatars/' + getRandomNumber() + '.svg'}
-                  alt="avatar"
-                  height={37}
-                  width={37}
-                  className="rounded-full"
-                />
-              ))
-            )}
-            <span
-              className={cn(
-                'text-normal',
-                teamMembers.length > 4 ? 'flex items-center' : 'hidden',
-              )}
-            >
-              + {teamMembers.length - 4}
-            </span>
-          </div>
+          <AvatarCirclesComponent teamMembers={teamMembers} isForCard />
+
           <CardFooter className="mx-auto flex justify-center py-1">
             <Link
               href={`/teams/${teamId}/edit`}
-              className="flex h-[36px] w-[142px] items-center justify-center rounded-xl bg-mth-blue-500 text-mth-white-50 transition hover:bg-mth-blue-500/70"
+              className="flex w-[142px] items-center justify-center rounded-xl bg-mth-blue-500 px-3 py-2.5 text-sm text-mth-white-50 transition hover:bg-mth-blue-500/70"
+              prefetch
             >
               {t('edit')}
             </Link>
