@@ -80,6 +80,8 @@
       "index": {
         "title": "Всички Екипи",
         "search_placeholder": "Търсене...",
+        "no_results": "Няма намерени резултати",
+        "create_team_btn": "Създай Екип",
         "edit": "Редактирай",
         "delete": "Изтрий",
         "show": "Покажи",
@@ -126,7 +128,9 @@
     "cancel": "Откажи",
     "error_occurred_msg": "Съжаляваме, възникна грешка!",
     "unauthorized_request": "Съжаляваме, намате необходимите права, за да извършите това действие!",
-    "invalid_fields_msg": "Невалидни данни!"
+    "invalid_fields_msg": "Невалидни данни!",
+    "next_page": "Напред",
+    "prev_page": "Назад"
   },
   "apierrors": {
     "invalid_firstname": "Некоректно име!",
