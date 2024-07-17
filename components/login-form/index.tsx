@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { useTransition, useState } from 'react'
 import { useLocale, useTranslations } from 'next-intl'
 import { EyeIcon, EyeOffIcon } from 'lucide-react'
@@ -27,8 +28,11 @@ import { BackButton } from '@/components/back-button'
 import { FormError } from '@/components/form-error'
 import { FormSuccess } from '@/components/form-success'
 import { login } from '@/actions/login'
+import { cn } from '@/lib/utils'
+import { DEFAULT_LOGIN_REDIRECT } from '@/consts/protectedRoutes'
 
 export const LoginForm = () => {
+  const router = useRouter()
   const [error, setError] = useState<string | undefined>('')
   const [success, setSuccess] = useState<string | undefined>('')
   const [isPending, startTransition] = useTransition()
@@ -49,6 +53,7 @@ export const LoginForm = () => {
       login(values).then((data) => {
         setError(data?.error)
         setSuccess(data?.success)
+        router.replace(`/${locale}${DEFAULT_LOGIN_REDIRECT}`)
       })
     })
   }
@@ -150,7 +155,13 @@ export const LoginForm = () => {
                   )}
                 />
 
-                <Link href="#" className="text-xs font-normal">
+                <Link
+                  href="#"
+                  className={cn(
+                    'text-xs font-normal',
+                    isPending && 'pointer-events-none opacity-50',
+                  )}
+                >
                   {t('login.forgot_password_link')}
                 </Link>
               </div>
@@ -171,11 +182,12 @@ export const LoginForm = () => {
       </CardContent>
 
       <CardFooter className="flex flex-col items-center justify-center gap-2">
-        <Social label={t('signingoogle')} />
+        <Social label={t('signingoogle')} disabled={isPending} />
         <BackButton
           questionLabel={t('login.not_member_question')}
           actionLabel={t('signup')}
           href={`/${locale}/register`}
+          disabled={isPending}
         />
       </CardFooter>
     </Card>

@@ -12,7 +12,7 @@ export const config = {
       return !!auth && !!auth?.user?.accessToken
     },
     async jwt({ token, user, session, account, trigger }): Promise<JWT | null> {
-      if (trigger === 'update' && session) {
+      if (trigger === 'update') {
         token = {
           ...token,
           activeOrg: session?.user?.activeOrg,

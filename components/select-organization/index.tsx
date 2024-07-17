@@ -17,26 +17,26 @@ import { useSession } from 'next-auth/react'
 
 export const SelectOrganization = () => {
   const locale = useLocale()
+  const router = useRouter()
   const t = useTranslations('page')
   const [showCreateOrg, setShowCreateOrg] = useState(false)
-  const router = useRouter()
   const { data: session, update, status } = useSession()
 
-  const organizations = session?.user?.organizations
-  const activeOrg = session?.user?.activeOrg
+  const { organizations, activeOrg } = session?.user ?? {}
 
   useEffect(() => {
     if (status === 'loading') return
-    setShowCreateOrg(false)
 
     if (
       organizations &&
       organizations?.length > 0 &&
       status === 'authenticated'
     ) {
+      setShowCreateOrg(false)
+    } else {
       setShowCreateOrg(true)
     }
-  }, [session, status])
+  }, [session?.user, status])
 
   const handleUpdateSession = async (orgId: string) => {
     const updatedSession = {
@@ -71,6 +71,8 @@ export const SelectOrganization = () => {
 
       <CardContent>
         {showCreateOrg ? (
+          <CreateOrganizationForm />
+        ) : (
           <div className="flex flex-col gap-y-2">
             <Select onValueChange={handleUpdateSession}>
               <SelectTrigger className="w-full bg-transparent">
@@ -99,11 +101,24 @@ export const SelectOrganization = () => {
               {t('continue')}
             </Button>
           </div>
-        ) : (
-          <CreateOrganizationForm />
         )}
         <div className="flex items-center justify-center">
           {showCreateOrg ? (
+            <div className="mt-1 flex items-center gap-1">
+              <span className="text-xs">
+                {t('select.already_have_organization_question')}
+              </span>
+              <Button
+                type="button"
+                variant="link"
+                className="p-0 text-xs text-[#63929E]"
+                disabled={!organizations || organizations?.length === 0}
+                onClick={() => setShowCreateOrg(false)}
+              >
+                {t('select.select_organization_btn')}
+              </Button>
+            </div>
+          ) : (
             <div className="mt-4 flex items-center gap-1 max-sm:flex-wrap max-sm:justify-center">
               <span
                 dangerouslySetInnerHTML={{
@@ -115,24 +130,9 @@ export const SelectOrganization = () => {
                 type="button"
                 variant="link"
                 className="h-fit p-0 text-xs text-[#63929E]"
-                onClick={() => setShowCreateOrg(false)}
-              >
-                {t('select.create_organization_btn')}
-              </Button>
-            </div>
-          ) : (
-            <div className="mt-1 flex items-center gap-1">
-              <span className="text-xs">
-                {t('select.already_have_organization_question')}
-              </span>
-              <Button
-                type="button"
-                variant="link"
-                className="p-0 text-xs text-[#63929E]"
-                disabled={!organizations || organizations?.length === 0}
                 onClick={() => setShowCreateOrg(true)}
               >
-                {t('select.select_organization_btn')}
+                {t('select.create_organization_btn')}
               </Button>
             </div>
           )}
