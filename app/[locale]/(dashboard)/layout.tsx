@@ -3,6 +3,7 @@ import Header from '@/components/header'
 import { Locale, locales } from '@/navigation'
 import { unstable_setRequestLocale } from 'next-intl/server'
 import { SideNav } from '@/components/side-nav/index'
+import HeaderWrapper from '@/components/header-wrapper'
 
 export async function generateStaticParams() {
   return locales.map((locale) => ({ locale }))
@@ -21,7 +22,7 @@ const DashboardLayout = ({
     <>
       <div className="relative flex h-screen w-full flex-col overflow-hidden">
         <div className="sticky left-0 top-0 z-50">
-          <Header />
+          <HeaderWrapper />
         </div>
         <div className="flex h-full w-full">
           <div

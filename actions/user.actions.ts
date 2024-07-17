@@ -6,6 +6,7 @@ interface CustomError extends Error {
 
 import routes from '@/api-routes'
 import { auth } from '@/config/auth'
+import { EditUserFormData } from '@/schemas/edit-user.schema'
 import { IUser } from '@/types/user'
 
 export async function getAllUsers(): Promise<IUser[] | { error: string }> {
@@ -72,6 +73,37 @@ export const getUserProfile = async (): Promise<IUser | { error: string }> => {
     }
 
     return jsonResponse?.data ?? { error: 'No data returned from the API' }
+  } catch (error) {
+    const customError = error as CustomError
+    return { error: customError.message || 'An unexpected error occurred' }
+  }
+}
+
+export const updateUserProfile = async (userData: any): Promise<IUser | { error: string }> => {
+  try {
+    const session = await auth()
+    if (!session || !session.token?.access_token) {
+      return { error: 'Session not found or token is missing' }
+    }
+
+
+    const headers = new Headers()
+    headers.append('Content-Type', 'application/json')
+    headers.append('Authorization', `Bearer ${session.token.access_token}`)
+
+    const url = `${process.env.API_BASE_URL}${routes.updateUser.patch}`
+    const res = await fetch(url, {
+      method: 'PATCH',
+      headers,
+      body: JSON.stringify(userData),
+    })
+    const jsonResponse = await res.json()
+
+    if (jsonResponse?.errors && jsonResponse.errors?.length > 0) {
+      return { error: 'error_occurred_msg' }
+    }
+    return jsonResponse?.data ?? null
+    
   } catch (error) {
     const customError = error as CustomError
     return { error: customError.message || 'An unexpected error occurred' }

@@ -5,6 +5,7 @@ export interface IUser {
   email: string
   status: number
   creationDate: Date
+  phoneNumber?: string
   teams: IUserTeam[]
 }
 
