@@ -54,7 +54,11 @@ export const config = {
 
       return token
     },
-    async session({ session, user, token }) {
+    async session({ session, user, token, trigger, newSession }) {
+      if (trigger === 'update') {
+        return newSession
+      }
+
       session.user = { ...token, ...user }
       session.token = token
       session.refresh_token = token.refresh_token

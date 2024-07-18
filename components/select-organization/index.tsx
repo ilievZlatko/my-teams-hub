@@ -20,23 +20,19 @@ export const SelectOrganization = () => {
   const router = useRouter()
   const t = useTranslations('page')
   const [showCreateOrg, setShowCreateOrg] = useState(false)
-  const { data: session, update, status } = useSession()
+  const { data: session, update, status } = useSession({ required: true })
 
   const { organizations, activeOrg } = session?.user ?? {}
 
   useEffect(() => {
     if (status === 'loading') return
 
-    if (
-      organizations &&
-      organizations?.length > 0 &&
-      status === 'authenticated'
-    ) {
+    if (organizations && organizations?.length > 0) {
       setShowCreateOrg(false)
     } else {
       setShowCreateOrg(true)
     }
-  }, [session?.user, status])
+  }, [session, status])
 
   const handleUpdateSession = async (orgId: string) => {
     const updatedSession = {
