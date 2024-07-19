@@ -62,6 +62,7 @@ export const EditTeamForm = ({
   const [error, setError] = useState<string | undefined>('')
   const [isPending, setIsPending] = useState(true)
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isDeleting, setIsDeleting] = useState(false)
 
   const [memberToRemoveId, setMemberToRemoveId] = useState<string | undefined>(
     undefined,
@@ -156,22 +157,22 @@ export const EditTeamForm = ({
 
   async function onDeleteTeam(id: string | undefined) {
     if (!id) return
-    setIsSubmitting(true)
+    setIsDeleting(true)
 
     try {
       const response = await deleteTeam(organizationId, id)
 
       if (response === null) {
-        setIsSubmitting(false)
+        setIsDeleting(false)
 
         router.push('/teams')
         toast.info(t('team_deleted_msg'))
       }
     } catch (_: unknown) {
       setError(t('error_message'))
-      setIsSubmitting(false)
+      setIsDeleting(false)
     } finally {
-      setIsSubmitting(false)
+      setIsDeleting(false)
     }
   }
 
@@ -270,7 +271,7 @@ export const EditTeamForm = ({
                     type="button"
                     variant="tertiary-outline"
                     className="w-full max-w-20 rounded-xl font-normal"
-                    disabled={isPending || isSubmitting}
+                    disabled={isPending || isSubmitting || isDeleting}
                     onClick={handleInviteUser}
                   >
                     {t('invite_btn')}
@@ -348,7 +349,7 @@ export const EditTeamForm = ({
                 <div className="flex justify-between *:rounded-xl max-sm:gap-6 sm:gap-8 lg:gap-10">
                   <Button
                     type="button"
-                    disabled={isPending || isSubmitting}
+                    disabled={isPending || isSubmitting || isDeleting}
                     variant={'tertiary-outline'}
                     className="sm:max-w-4/12 flex w-full font-normal"
                     onClick={() => {
@@ -358,7 +359,7 @@ export const EditTeamForm = ({
                     <Loader
                       className={cn(
                         'm-2',
-                        isPending || isSubmitting ? 'block' : 'hidden',
+                        isPending || isDeleting ? 'block' : 'hidden',
                       )}
                       size={20}
                     />
@@ -366,7 +367,7 @@ export const EditTeamForm = ({
                   </Button>
                   <Button
                     type="submit"
-                    disabled={isPending || isSubmitting}
+                    disabled={isPending || isSubmitting || isDeleting}
                     variant={'tertiary'}
                     className="sm:max-w-4/12 flex w-full font-normal"
                   >

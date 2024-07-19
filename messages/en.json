@@ -1,7 +1,14 @@
 {
   "navigation": {
     "home": "Home",
-    "dashboard": "Dashboard"
+    "dashboard": "Dashboard",
+    "sidenav" : {
+      "overview" : "Dashboard",
+      "teams" : "Teams",
+      "users" : "Users",
+      "org-chart" : "Organization`s chart",
+      "evaluation" : "Evaluation"
+    }
   },
   "auth": {
     "login": {
@@ -89,6 +96,8 @@
       "index": {
         "title": "All Teams",
         "search_placeholder": "Search...",
+        "no_results": "No results found",
+        "create_team_btn": "Create Team",
         "edit": "Edit",
         "delete": "Delete",
         "show": "Show",
@@ -135,7 +144,9 @@
     "cancel": "Cancel",
     "error_occurred_msg": "Sorry, there has been an error!",
     "unauthorized_request": "Sorry, you are not authorized to do this!",
-    "invalid_fields_msg": "Invalid data!"
+    "invalid_fields_msg": "Invalid data!",
+    "next_page": "Next",
+    "prev_page": "Previous"
   },
   "apierrors": {
     "invalid_firstname": "First name is not valid!",
