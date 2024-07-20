@@ -3,12 +3,14 @@
 import { ChangeEvent, useEffect, useState } from 'react'
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
-import { Search, LayoutGrid, List, X } from 'lucide-react'
+import { Search, LayoutGrid, List, X, Plus } from 'lucide-react'
 import { useSession } from 'next-auth/react'
+import useWindowSize from '@custom-react-hooks/use-window-size'
 
 import { Organisation } from '@/types/organisation.types'
 import { getAllTeams } from '@/actions/team.actions'
 import { TeamList, Team } from '@/types/team'
+import useDebounce from '@/hooks/useDebounce'
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
 import {
   Select,
@@ -17,39 +19,45 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import {
-  Table,
-  TableBody,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table'
+
 import { TeamCard } from '@/components/team-card'
 import { Input } from '@/components/ui/input'
 import { PaginationComponent } from '@/components/pagination'
-import { TeamRowElement } from '@/components/team-table-row'
+import { TeamTableComponent } from '@/components/team-table'
 import { Loader } from '@/components/loader'
 import { cn } from '@/lib/utils'
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/tooltip'
+import Link from 'next/link'
 
 export const GetAllTeamsComponent = () => {
+  const { width } = useWindowSize(200)
+
   const t = useTranslations('page.team.index')
   const tErrors = useTranslations('apierrors')
 
   const { data: session, status } = useSession()
   const [hasSession, setHasSession] = useState(false)
 
-  const [valueState, setValue] = useState(1)
-  const [teamView, setTeamView] = useState(false)
+  const [valueState, setValue] = useState(10)
+  const [isLayoutGrid, setIsLayoutGrid] = useState(true)
   const [allTeams, setAllTeams] = useState<TeamList | undefined>(undefined)
 
   const [isFetchingData, setIsFetchingData] = useState(false)
-  const [currentOrganization, setCurrentOrganization] = useState<
-    Organisation | undefined
-  >(undefined)
+  const [currentOrg, setCurrentOrg] = useState<Organisation | undefined>(
+    undefined,
+  )
 
   const rowsPerPage = 1
   const [currentPage, setCurrentPage] = useState(rowsPerPage)
   const [searchValue, setSearchValue] = useState('')
+  const debouncedSearch = useDebounce(searchValue, 200)
+
+  let filteredTeams = allTeams && allTeams?.teams ? allTeams.teams : []
 
   useEffect(() => {
     if (session && status === 'authenticated') setHasSession(true)
@@ -57,7 +65,7 @@ export const GetAllTeamsComponent = () => {
 
   useEffect(() => {
     if (session?.user?.activeOrg) {
-      setCurrentOrganization(
+      setCurrentOrg(
         () =>
           session.user.organizations.filter(
             (org: Organisation) =>
@@ -71,7 +79,6 @@ export const GetAllTeamsComponent = () => {
 
   function fetchTeams() {
     if (!session) return
-
     setIsFetchingData(true)
 
     getAllTeams(session.user.activeOrg!)
@@ -90,18 +97,22 @@ export const GetAllTeamsComponent = () => {
       })
   }
 
+  useEffect(() => {
+    setCurrentPage(1)
+  }, [debouncedSearch, valueState])
+
   function handleSearchChange(e: ChangeEvent<HTMLInputElement>) {
     setSearchValue(e.target.value)
   }
 
   const pages = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
-  const valueChange = async (value: string) => {
+  function valueChange(value: string) {
     setValue(Number(value))
   }
 
-  const teamViewChange = async () => {
-    setTeamView(!teamView)
+  function onLayoutChange() {
+    setIsLayoutGrid(!isLayoutGrid)
   }
 
   const previousPage = () => {
@@ -121,21 +132,18 @@ export const GetAllTeamsComponent = () => {
     firstTeam = valueState * (currentPage - 1)
   }
 
-  const countPages =
-    allTeams !== undefined ? Math.ceil(allTeams?.total / valueState) : 1
-
-  let filteredArrayTeams =
-    allTeams && allTeams?.teams
-      ? allTeams.teams.slice(firstTeam, valueState * currentPage)
-      : []
-
-  if (searchValue.trim() !== '' && filteredArrayTeams) {
-    filteredArrayTeams = filteredArrayTeams.filter((team) =>
-      team.name.toLowerCase().includes(searchValue.toLowerCase()),
+  if (debouncedSearch.trim() !== '') {
+    filteredTeams = filteredTeams.filter((team) =>
+      team.name.toLowerCase().includes(debouncedSearch.toLowerCase()),
     )
   }
 
-  if (!session || isFetchingData) return <Loader size={44} className="m-auto" />
+  const countPages = Math.ceil(filteredTeams.length / valueState) ?? 1
+
+  filteredTeams = filteredTeams.slice(firstTeam, valueState * currentPage)
+
+  if (!session || isFetchingData)
+    return <Loader size={44} className="m-auto flex h-[50vh] items-center" />
 
   return (
     <div className="flex w-full flex-col lg:flex-row lg:gap-1 xl:max-w-[1100px]">
@@ -145,117 +153,125 @@ export const GetAllTeamsComponent = () => {
             {t('title')}
           </h1>
           <span className="relative left-[50%] max-w-[220px] translate-x-[-50%] rounded border" />
-          {teamView ? (
-            <LayoutGrid
-              className="absolute right-2 top-[50%] translate-y-[-50%] cursor-pointer text-mth-blue-500"
-              onClick={teamViewChange}
-            />
-          ) : (
-            <List
-              className="absolute right-2 top-[50%] translate-y-[-50%] cursor-pointer text-mth-blue-500"
-              onClick={teamViewChange}
-            />
-          )}
         </CardHeader>
 
         <CardContent
           className={
-            teamView === true ? 'rounded-[12px] max-sm:px-1' : 'max-sm:px-1'
+            !isLayoutGrid ? 'rounded-[12px] max-sm:px-1' : 'max-sm:px-1'
           }
         >
-          <div className="mb-6 flex">
+          <div className="mx-auto mb-8 flex w-full max-w-[1100px] items-center justify-center max-lg:gap-3 max-sm:gap-1 lg:justify-start lg:pl-4">
+            <Image
+              src="/assets/images/vector.svg"
+              className="me-3 select-none max-lg:me-0 max-sm:size-4"
+              alt="vector logo"
+              width={16}
+              height={16}
+              priority
+            />
             <div className="relative">
               <Input
                 type="text"
                 placeholder={t('search_placeholder')}
-                className="form-input m-[10px] w-[300px] px-[36px] placeholder:text-xs max-sm:w-[240px]"
+                className="w-[300px] px-[34px] placeholder:text-xs max-sm:w-[200px] max-sm:px-[31px]"
                 value={searchValue}
                 onChange={handleSearchChange}
               />
-              <span className="absolute left-[20px] top-[20px]">
-                <Search className="size-5 select-none text-[#63929e] max-sm:size-4" />
+              <span className="absolute left-[10px] top-[11px] max-sm:left-[9px] max-sm:top-[12px]">
+                <Search className="size-5 select-none text-mth-blue-500 max-sm:size-4" />
               </span>
-              <span className="absolute left-[280px] top-[20px] max-sm:left-[225px]">
+              <span className="absolute left-[271px] top-[11px] max-sm:left-[177px] max-sm:top-[12px]">
                 <X
                   className={cn(
-                    'size-5 cursor-pointer select-none text-[#63929e] max-sm:size-4',
+                    'size-5 cursor-pointer select-none text-mth-blue-500 max-sm:size-4',
                     searchValue !== '' ? 'block' : 'hidden',
                   )}
                   onClick={() => setSearchValue('')}
                 />
               </span>
             </div>
-            <Image
-              src="/assets/images/vector.svg"
-              className="select-none"
-              alt="vector logo"
-              width={16}
-              height={16}
-              priority
-            />
+
+            <div className="relative flex items-center justify-center *:text-sm lg:w-full lg:justify-end">
+              {width >= 1024 ? (
+                isLayoutGrid ? (
+                  <List
+                    className="absolute right-2 top-[8px] cursor-pointer text-mth-blue-500"
+                    onClick={onLayoutChange}
+                  />
+                ) : (
+                  <LayoutGrid
+                    className="absolute right-2 top-[8px] cursor-pointer text-mth-blue-500"
+                    onClick={onLayoutChange}
+                  />
+                )
+              ) : null}
+              <Link
+                href="/teams/create"
+                prefetch
+                className="flex items-center justify-center gap-2 rounded-xl bg-mth-blue-500 px-3 py-2.5 font-normal text-white transition hover:bg-mth-blue-500/70 max-sm:h-[40px] max-sm:w-[36px] max-sm:p-0 lg:me-14"
+              >
+                {width >= 1024 ? (
+                  <>
+                    <Plus size={16} />
+                    {t('create_team_btn')}
+                  </>
+                ) : (
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Image
+                          src="/assets/images/users-add.svg"
+                          alt="create team"
+                          width={20}
+                          height={20}
+                          className="max-sm:w-[18px]"
+                        />
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p className="text-xs">{t('create_team_btn')}</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                )}
+              </Link>
+            </div>
           </div>
 
-          {teamView ? (
-            <div className="rounded-xl border-[3px] border-mth-blue-100 px-1 py-10 lg:px-4">
-              <Table>
-                <TableHeader className="border-none">
-                  <TableRow className="items-center border-none">
-                    <TableHead>{t('team_id')}</TableHead>
-                    <TableHead>
-                      <span className="flex items-center gap-1 max-sm:items-start">
-                        {t('name')}
-                        <Image
-                          src="/assets/images/up_and_down_arrow.svg"
-                          width={11}
-                          height={11}
-                          alt="arrow"
-                        />
-                      </span>
-                    </TableHead>
-                    <TableHead>
-                      <span className="flex items-center gap-1">
-                        {t('members')}
-                        <Image
-                          src="/assets/images/up_and_down_arrow.svg"
-                          width={11}
-                          height={11}
-                          alt="arrow"
-                        />
-                      </span>
-                    </TableHead>
-                    <TableHead>
-                      <span className="flex items-center gap-1">
-                        {t('creation_date')}
-                        <Image
-                          src="/assets/images/up_and_down_arrow.svg"
-                          width={11}
-                          height={11}
-                          alt="arrow"
-                          priority
-                        />
-                      </span>
-                    </TableHead>
-                    <TableHead>{t('action')}</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {filteredArrayTeams?.map((team: Team) => (
-                    <TeamRowElement key={team.teamId} {...team} />
-                  ))}
-                </TableBody>
-              </Table>
-            </div>
+          {width >= 1024 ? (
+            isLayoutGrid ? (
+              <div className="mx-auto flex w-full max-w-[1100px] flex-wrap items-stretch justify-center gap-10">
+                {debouncedSearch.trim() !== '' && filteredTeams.length === 0 ? (
+                  <p className="flex min-h-[200px] items-center justify-center text-lg text-mth-dark-200 max-sm:text-sm">
+                    {t('no_results')}
+                  </p>
+                ) : (
+                  filteredTeams.map((team: Team) => (
+                    <TeamCard
+                      key={team.teamId}
+                      {...team}
+                      orgName={currentOrg ? currentOrg.organizationName : ''}
+                    />
+                  ))
+                )}
+              </div>
+            ) : debouncedSearch.trim() !== '' && filteredTeams.length === 0 ? (
+              <p className="flex min-h-[200px] items-center justify-center text-lg text-mth-dark-200 max-sm:text-sm">
+                {t('no_results')}
+              </p>
+            ) : (
+              <TeamTableComponent teams={filteredTeams} />
+            )
+          ) : debouncedSearch.trim() !== '' && filteredTeams.length === 0 ? (
+            <p className="flex min-h-[200px] items-center justify-center text-lg text-mth-dark-200 max-sm:text-sm">
+              {t('no_results')}
+            </p>
           ) : (
-            <div className="flex flex-col flex-wrap items-center gap-6 lg:flex-row lg:items-stretch lg:justify-center">
-              {filteredArrayTeams?.map((team: Team) => (
+            <div className="flex w-full flex-wrap items-stretch justify-center gap-10 max-sm:flex-col max-sm:items-center">
+              {filteredTeams?.map((team: Team) => (
                 <TeamCard
                   key={team.teamId}
                   {...team}
-                  organizationName={
-                    currentOrganization
-                      ? currentOrganization.organizationName
-                      : ''
-                  }
+                  orgName={currentOrg ? currentOrg.organizationName : ''}
                 />
               ))}
             </div>
@@ -266,12 +282,16 @@ export const GetAllTeamsComponent = () => {
           <p>{t('show')}</p>
           <div className="w-[60px]">
             <Select onValueChange={valueChange}>
-              <SelectTrigger className="w-full bg-transparent">
-                <SelectValue placeholder={valueState} />
+              <SelectTrigger className="h-9 border-none bg-mth-dark-50 px-2.5 py-1">
+                <SelectValue placeholder={valueState} className="text-sm" />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="min-w-[60px]">
                 {pages?.map((page) => (
-                  <SelectItem key={page} value={page.toString()}>
+                  <SelectItem
+                    key={page}
+                    value={page.toString()}
+                    className="flex justify-center pl-3 pr-1 text-xs"
+                  >
                     {page}
                   </SelectItem>
                 ))}
@@ -280,7 +300,7 @@ export const GetAllTeamsComponent = () => {
           </div>
         </div>
 
-        <CardFooter className="mt-[50px]">
+        <CardFooter className="mt-[40px] max-sm:pb-20">
           <PaginationComponent
             nextPage={nextPage}
             previousPage={previousPage}

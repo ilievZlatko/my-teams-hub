@@ -6,7 +6,13 @@ import { PROVIDERS } from '@/consts/providers'
 import { DEFAULT_LOGIN_REDIRECT } from '@/consts/protectedRoutes'
 import { signIn } from 'next-auth/react'
 
-export const Social = ({ label }: { label?: string }) => {
+export const Social = ({
+  label,
+  disabled,
+}: {
+  label?: string
+  disabled?: boolean
+}) => {
   return (
     <div className="flex w-full items-center gap-x-2">
       <Button
@@ -17,6 +23,7 @@ export const Social = ({ label }: { label?: string }) => {
             callbackUrl: DEFAULT_LOGIN_REDIRECT,
           })
         }
+        disabled={disabled}
       >
         <FcGoogle className="h-5 w-5" />
         {label && <span className="text-[#3C4B57]">{label}</span>}
