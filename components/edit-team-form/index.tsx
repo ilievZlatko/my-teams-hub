@@ -341,7 +341,7 @@ export const EditTeamForm = ({
                   />
                 </div>
               </div>
-        {/* -------------------- */}
+              {/* -------------------- */}
               <div className="flex flex-col space-y-2 *:rounded-xl max-sm:w-full sm:w-10/12 md:w-11/12">
                 <FormError message={error} />
 

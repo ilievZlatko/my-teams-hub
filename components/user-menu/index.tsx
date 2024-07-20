@@ -11,7 +11,6 @@ import {
 import { logout } from '@/actions/logout'
 import { useLocale } from 'next-intl'
 import Link from 'next/link'
-import { useEffect } from 'react'
 
 export type UserMenuProps = {
   name?: string
@@ -20,9 +19,6 @@ export type UserMenuProps = {
 
 export const UserMenu = ({ name, email }: UserMenuProps) => {
   const locale = useLocale()
-  useEffect(() => {
-    console.log(name)
-  }, [name, email])
 
   return (
     <DropdownMenu>
@@ -37,9 +33,7 @@ export const UserMenu = ({ name, email }: UserMenuProps) => {
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuLabel>My Profile</DropdownMenuLabel>
-        <Link href={'/users/edit'}>
-          Edit ptofile
-        </Link>
+        <Link href={'/users/edit'}>Edit ptofile</Link>
         <DropdownMenuItem>
           <div className="flex gap-2">
             <p className="font-semibold">Name:</p>

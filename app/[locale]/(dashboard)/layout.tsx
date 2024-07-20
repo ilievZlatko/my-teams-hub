@@ -1,5 +1,4 @@
 import React from 'react'
-import Header from '@/components/header'
 import { Locale, locales } from '@/navigation'
 import { unstable_setRequestLocale } from 'next-intl/server'
 import { SideNav } from '@/components/side-nav/index'

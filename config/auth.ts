@@ -12,7 +12,7 @@ export const config = {
       return !!auth && !!auth?.user?.accessToken
     },
     async jwt({ token, user, session, account, trigger }): Promise<JWT | null> {
-      if (trigger === 'update' && session) {
+      if (trigger === 'update') {
         token = {
           ...token,
           activeOrg: session?.user?.activeOrg,
@@ -54,7 +54,11 @@ export const config = {
 
       return token
     },
-    async session({ session, user, token }) {
+    async session({ session, user, token, trigger, newSession }) {
+      if (trigger === 'update') {
+        return newSession
+      }
+
       session.user = { ...token, ...user }
       session.token = token
       session.refresh_token = token.refresh_token

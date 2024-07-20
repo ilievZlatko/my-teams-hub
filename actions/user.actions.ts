@@ -46,7 +46,6 @@ export async function getAllUsers(): Promise<IUser[] | { error: string }> {
 export const getUserProfile = async (): Promise<IUser | { error: string }> => {
   try {
     const session = await auth()
-    // console.log(session?.access_token)
     if (!session || !session.token?.access_token) {
       return { error: 'Session not found or token is missing' }
     }
@@ -60,7 +59,7 @@ export const getUserProfile = async (): Promise<IUser | { error: string }> => {
       method: 'GET',
       headers,
     })
-    // console.log(headers)
+
     if (!res.ok) {
       return { error: `Network response was not ok: ${res.statusText}` }
     }
@@ -79,13 +78,14 @@ export const getUserProfile = async (): Promise<IUser | { error: string }> => {
   }
 }
 
-export const updateUserProfile = async (userData: any): Promise<IUser | { error: string }> => {
+export const updateUserProfile = async (
+  userData: EditUserFormData,
+): Promise<IUser | { error: string }> => {
   try {
     const session = await auth()
     if (!session || !session.token?.access_token) {
       return { error: 'Session not found or token is missing' }
     }
-
 
     const headers = new Headers()
     headers.append('Content-Type', 'application/json')
@@ -103,7 +103,6 @@ export const updateUserProfile = async (userData: any): Promise<IUser | { error:
       return { error: 'error_occurred_msg' }
     }
     return jsonResponse?.data ?? null
-    
   } catch (error) {
     const customError = error as CustomError
     return { error: customError.message || 'An unexpected error occurred' }
