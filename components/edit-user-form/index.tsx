@@ -70,6 +70,7 @@ const EditUserForm: React.FC = () => {
       toast.success('Profile successfully updated!')
     } catch (err) {
       toast.error(error)
+      console.error(err)
     } finally {
       setLoading(false)
     }

@@ -17,7 +17,7 @@ export default function Header({ user }: HeaderProps) {
   const [currentUser, setCurrentUser] = useState<IUser>(user)
 
   useEffect(() => {
-    listenFor([EventType.UPDATE_USER], (payload: any) => {
+    listenFor([EventType.UPDATE_USER], (payload) => {
       setCurrentUser(payload.payload.data)
     })
   }, [])

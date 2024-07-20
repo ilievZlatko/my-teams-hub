@@ -1,10 +1,12 @@
+import { IUser } from '@/types/user'
+
 export enum EventType {
   UPDATE_USER = 'update_user',
 }
 
 export type MessageEvent = {
   type: EventType
-  payload: any
+  payload: { data: IUser }
 }
 
 export const listenFor = (
@@ -25,6 +27,6 @@ export const listenFor = (
   })
 }
 
-export const sendEvent = (type: EventType, payload: any) => {
+export const sendEvent = (type: EventType, payload: { data: IUser }) => {
   window.postMessage(JSON.stringify({ type, payload }), '*')
 }

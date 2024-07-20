@@ -1,6 +1,14 @@
-import { FunctionComponent, useState } from 'react'
+import { ChangeEvent, FunctionComponent, useState } from 'react'
 
-const DragAndDrop: FunctionComponent = () => {
+type Props = {
+  handleDrop?: (e: React.DragEvent<HTMLDivElement>) => void
+  handleFileSelect?: (e: ChangeEvent<HTMLInputElement>) => void
+}
+
+const DragAndDrop: FunctionComponent<Props> = ({
+  handleDrop,
+  handleFileSelect,
+}) => {
   const [dragOver, setDragOver] = useState(false)
 
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
@@ -13,11 +21,12 @@ const DragAndDrop: FunctionComponent = () => {
   }
 
   const onDrop = (e: React.DragEvent<HTMLDivElement>) => {
-    // handleDrop(e, setDragOver, allowedTypes, setItems, items);
+    handleDrop && handleDrop(e)
   }
 
-  const onAddImageHandler = (e: any) => {
-    // handleFileSelect(e, allowedTypes, setItems, items);
+  const onAddImageHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    handleFileSelect && handleFileSelect(e)
+
     clearFileFromInput()
   }
 
@@ -43,7 +52,9 @@ const DragAndDrop: FunctionComponent = () => {
             id="file-input"
             multiple
             style={{ display: 'none' }}
-            onChange={(e) => onAddImageHandler(e)}
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              onAddImageHandler(e)
+            }
           />
           <svg
             xmlns="http://www.w3.org/2000/svg"
