@@ -4,11 +4,11 @@ import { getAllUsers } from '@/actions/user.actions'
 import { toast } from 'sonner'
 
 export default async function UsersPage() {
-  const users = await getAllUsers()
+    const users = await getAllUsers()
 
-  if ('error' in users) {
-    return toast.error(users.error)
-  }
+    if ('error' in users) {
+         return toast.error(users.error)
+    }
 
-  return <GetAllUsersComponent users={users} />
+    return <GetAllUsersComponent users={users} />
 }

@@ -89,7 +89,9 @@
         "creation_date": "Дата на създаване",
         "action": "Действие",
         "team": "Отбор",
-        "status": "Статус"
+        "status": "Статус",
+        "create_user_btn": "Създай потребител",
+        "see-profile": "Виж профил"
       }
     },
     "team": {

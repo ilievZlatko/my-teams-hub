@@ -6,6 +6,7 @@ export interface IUser {
   status: number
   creationDate: Date
   teams: IUserTeam[]
+  error?: string
 }
 
 export interface IUserTeam {

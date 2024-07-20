@@ -89,7 +89,9 @@
         "creation_date": "Date of Creation",
         "action": "Action",
         "team": "Team",
-        "status": "Status"
+        "status": "Status",
+        "create_user_btn": "Create User",
+        "see-profile": "See profile"
       }
     },
     "team": {
