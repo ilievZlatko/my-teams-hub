@@ -72,15 +72,26 @@ export const AvatarCirclesComponent = ({
     <div
       className={cn(
         'relative min-h-[37px] *:rounded-full',
-        isForCard && teamMembers.length === 1 && 'ml-[49px]',
-        isForCard && teamMembers.length === 2 && 'ml-[33px]',
-        isForCard && teamMembers.length === 3 && 'ml-[19px]',
-
+        isForCard &&
+          teamMembers.length === 1 &&
+          'ml-[41px] max-md:ml-[48px] max-sm:ml-[70px] lg:ml-[44px]',
+        isForCard &&
+          teamMembers.length === 2 &&
+          'ml-[28px] max-md:ml-[32px] max-sm:ml-[52px] md:ml-[30px]',
+        isForCard &&
+          teamMembers.length === 3 &&
+          'ml-[17px] max-md:ml-[19px] max-sm:ml-[39px]',
+        isForCard &&
+          teamMembers.length === 4 &&
+          'max-md:ml-1 max-sm:ml-[23px] md:ml-[2px] lg:ml-0',
+        isForCard && teamMembers.length > 4 && 'max-sm:ml-[19px] lg:-ml-[7px]',
         !isForCard && teamMembers.length <= 3 && 'ml-0',
       )}
     >
       {teamMembers?.length === 0 ? (
-        <p className="px-4 text-xs text-mth-dark-300">{t('no_members_yet')}</p>
+        <p className="h-[37px] w-full px-4 pt-2 align-middle text-xs text-mth-dark-300">
+          {t('no_members_yet')}
+        </p>
       ) : teamMembers && teamMembers.length > 0 && teamMembers.length <= 4 ? (
         teamMembers.map((member, i) => (
           <Image
@@ -91,14 +102,10 @@ export const AvatarCirclesComponent = ({
             width={37}
             className={cn(
               'absolute top-0 h-[37px] w-[37px] border-[1.6px] border-mth-white-50 bg-mth-silver-100',
-              i === 0 && 'left-[24px] z-10',
-              i === 1 && 'left-[55px] z-20',
-              i === 2 && 'left-[86px] z-30',
-              i === 3 && 'left-[117px] z-40',
-              !isForCard && i === 0 && 'left-[16px]',
-              !isForCard && i === 1 && 'left-[47px]',
-              !isForCard && i === 2 && 'left-[78px]',
-              !isForCard && i === 3 && 'left-[109px]',
+              i === 0 && 'left-[16px] z-10',
+              i === 1 && 'left-[47px] z-20',
+              i === 2 && 'left-[78px] z-30',
+              i === 3 && 'left-[109px] z-40',
             )}
           />
         ))
@@ -112,21 +119,17 @@ export const AvatarCirclesComponent = ({
             width={37}
             className={cn(
               'absolute top-0 h-[37px] w-[37px] border-[1.6px] border-mth-white-50 bg-mth-silver-100',
-              i === 0 && 'left-[12px] z-0',
-              i === 1 && 'left-[44px] z-20',
-              i === 2 && 'left-[76px] z-30',
-              i === 3 && 'left-[108px] z-40',
-              !isForCard && i === 0 && 'left-[10px]',
-              !isForCard && i === 1 && 'left-[42px]',
-              !isForCard && i === 2 && 'left-[74px]',
-              !isForCard && i === 3 && 'left-[106px]',
+              i === 0 && 'left-[10px] z-0',
+              i === 1 && 'left-[42px] z-20',
+              i === 2 && 'left-[74px] z-30',
+              i === 3 && 'left-[106px] z-40',
             )}
           />
         ))
       )}
       <span
         className={cn(
-          'absolute left-[146px] top-[7px] z-50',
+          'absolute left-[147px] top-[7px] z-50',
           teamMembers.length > 4 ? 'flex items-center' : 'hidden',
         )}
       >

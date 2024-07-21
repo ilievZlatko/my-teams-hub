@@ -157,14 +157,14 @@ export const GetAllTeamsComponent = () => {
 
         <CardContent
           className={
-            !isLayoutGrid ? 'rounded-[12px] max-sm:px-1' : 'max-sm:px-1'
+            !isLayoutGrid ? 'rounded-[12px]' : 'mx-auto px-0 max-sm:px-1'
           }
         >
           <div className="mx-auto mb-8 flex w-full max-w-[1100px] items-center justify-center max-lg:gap-3 max-sm:gap-1 lg:justify-start lg:pl-4">
             <Image
               src="/assets/images/vector.svg"
-              className="me-3 select-none max-lg:me-0 max-sm:size-4"
-              alt="vector logo"
+              className="me-3 select-none max-lg:me-0 max-sm:size-[14px]"
+              alt="filter icon"
               width={16}
               height={16}
               priority
@@ -208,7 +208,7 @@ export const GetAllTeamsComponent = () => {
               <Link
                 href="/teams/create"
                 prefetch
-                className="flex items-center justify-center gap-2 rounded-xl bg-mth-blue-500 px-3 py-2.5 font-normal text-white transition hover:bg-mth-blue-500/70 max-sm:h-[40px] max-sm:w-[36px] max-sm:p-0 lg:me-14"
+                className="flex items-center justify-center gap-2 rounded-xl bg-mth-blue-500 px-3 py-2.5 font-normal text-white transition hover:bg-mth-blue-500/70 max-sm:h-[40px] max-sm:w-[36px] max-sm:p-0 sm:ml-1 lg:me-14 lg:ml-2"
               >
                 {width >= 1024 ? (
                   <>
@@ -239,66 +239,74 @@ export const GetAllTeamsComponent = () => {
 
           {width >= 1024 ? (
             isLayoutGrid ? (
-              <div className="mx-auto flex w-full max-w-[1100px] flex-wrap items-stretch justify-center gap-10">
-                {debouncedSearch.trim() !== '' && filteredTeams.length === 0 ? (
-                  <p className="flex min-h-[200px] items-center justify-center text-lg text-mth-dark-200 max-sm:text-sm">
-                    {t('no_results')}
-                  </p>
-                ) : (
-                  filteredTeams.map((team: Team) => (
-                    <TeamCard
-                      key={team.teamId}
-                      {...team}
-                      orgName={currentOrg ? currentOrg.organizationName : ''}
-                    />
-                  ))
-                )}
-              </div>
+              debouncedSearch.trim() !== '' && filteredTeams.length === 0 ? (
+                <p className="flex min-h-[200px] items-center justify-center text-lg text-mth-dark-200 max-sm:text-sm">
+                  {t('no_results')}
+                </p>
+              ) : (
+                <div className="mx-auto w-full">
+                  <div className="mx-0 grid grid-cols-3 gap-2 xl:grid-cols-4">
+                    {filteredTeams.map((team: Team) => (
+                      <TeamCard
+                        key={team.teamId}
+                        {...team}
+                        orgName={currentOrg ? currentOrg.organizationName : ''}
+                      />
+                    ))}
+                  </div>
+                </div>
+              )
             ) : debouncedSearch.trim() !== '' && filteredTeams.length === 0 ? (
               <p className="flex min-h-[200px] items-center justify-center text-lg text-mth-dark-200 max-sm:text-sm">
                 {t('no_results')}
               </p>
             ) : (
-              <TeamTableComponent teams={filteredTeams} />
+              <div className="px-[6px]">
+                <TeamTableComponent teams={filteredTeams} />
+              </div>
             )
           ) : debouncedSearch.trim() !== '' && filteredTeams.length === 0 ? (
             <p className="flex min-h-[200px] items-center justify-center text-lg text-mth-dark-200 max-sm:text-sm">
               {t('no_results')}
             </p>
           ) : (
-            <div className="flex w-full flex-wrap items-stretch justify-center gap-10 max-sm:flex-col max-sm:items-center">
-              {filteredTeams?.map((team: Team) => (
-                <TeamCard
-                  key={team.teamId}
-                  {...team}
-                  orgName={currentOrg ? currentOrg.organizationName : ''}
-                />
-              ))}
+            <div className="mx-auto w-full px-0 md:px-1">
+              <div className="grid gap-3 max-md:grid-cols-2 max-md:gap-5 max-sm:grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
+                {filteredTeams?.map((team: Team) => (
+                  <TeamCard
+                    key={team.teamId}
+                    {...team}
+                    orgName={currentOrg ? currentOrg.organizationName : ''}
+                  />
+                ))}
+              </div>
             </div>
           )}
-        </CardContent>
 
-        <div className="mt-[16px] flex items-center justify-end gap-[10px] text-xs">
-          <p>{t('show')}</p>
-          <div className="w-[60px]">
-            <Select onValueChange={valueChange}>
-              <SelectTrigger className="h-9 border-none bg-mth-dark-50 px-2.5 py-1">
-                <SelectValue placeholder={valueState} className="text-sm" />
-              </SelectTrigger>
-              <SelectContent className="min-w-[60px]">
-                {pages?.map((page) => (
-                  <SelectItem
-                    key={page}
-                    value={page.toString()}
-                    className="flex justify-center pl-3 pr-1 text-xs"
-                  >
-                    {page}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+          <div className="grid w-full grid-cols-1 place-items-end *:text-xs">
+            <div className="mt-8 flex items-center gap-2 pr-1 max-sm:pr-[18px]">
+              <p>{t('show')}</p>
+              <div className="w-[60px] max-sm-[319px]:-mr-4">
+                <Select onValueChange={valueChange}>
+                  <SelectTrigger className="h-9 border-none bg-mth-dark-50 px-2.5 py-1 text-xs">
+                    <SelectValue placeholder={valueState} className="text-xs" />
+                  </SelectTrigger>
+                  <SelectContent className="min-w-[60px]">
+                    {pages?.map((page) => (
+                      <SelectItem
+                        key={page}
+                        value={page.toString()}
+                        className="flex justify-center pl-3 pr-1 text-xs"
+                      >
+                        {page}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
           </div>
-        </div>
+        </CardContent>
 
         <CardFooter className="mt-[40px] max-sm:pb-20">
           <PaginationComponent

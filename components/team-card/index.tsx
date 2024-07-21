@@ -31,8 +31,8 @@ export const TeamCard = ({
   const t = useTranslations('page.team.index')
 
   return (
-    <div>
-      <Card className="flex h-full w-[226px] flex-col space-y-14 border-0 shadow-md *:space-y-4 *:rounded-xl *:text-center *:font-poppins">
+    <div className="my-1 w-full px-1 max-md:w-[226px] max-sm:mx-auto max-sm:w-[266px] md:w-[220px] lg:my-2 lg:w-[226px] lg:px-2">
+      <Card className="space-y-14 overflow-hidden border-0 shadow-md *:space-y-4 *:rounded-xl *:text-center *:font-poppins">
         <CardHeader className="relative h-[90px] items-center bg-mth-blue-100">
           <Image
             src="/assets/images/team-card-image.svg"
