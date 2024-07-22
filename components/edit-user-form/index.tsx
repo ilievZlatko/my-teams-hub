@@ -27,7 +27,6 @@ const EditUserForm: React.FC = () => {
   const t = useTranslations('page.user.edit')
   const { data: session, update } = useSession({ required: true })
 
-
   const form = useForm<EditUserFormData>({
     resolver: zodResolver(EditUserSchema),
     defaultValues: { firstName: '', lastName: '', email: '', phone: '' },
@@ -55,10 +54,6 @@ const EditUserForm: React.FC = () => {
       })
   }, [form, setError, setUser])
 
-  useEffect(() => {
-    console.log(session)
-  },[])
-
   const onSubmit = async (data: EditUserFormData) => {
     setError('')
 
@@ -76,8 +71,9 @@ const EditUserForm: React.FC = () => {
       await updateUserProfile(userData)
       toast.success('Profile successfully updated!')
       handleUpdateSession(userData)
-
-    } catch (err) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
+      setError(err.message)
       console.error(err)
     } finally {
       setLoading(false)
