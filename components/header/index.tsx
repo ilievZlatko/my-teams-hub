@@ -1,15 +1,17 @@
+'use client'
+
 import OrganizationSwitcher from '../organization-switcher'
 import { SelectLocale } from '../select-locale'
 import { UserMenu } from '../user-menu'
 import { ResponsiveSideNav } from '../responsive-sidenav'
 import { IoIosGlobe } from 'react-icons/io'
-import { auth } from '@/config/auth'
 
-export default async function Header() {
-  const session = await auth()
-  const name = session?.user.firstName
-  const email = session?.user.email
+interface HeaderProps {
+  name: string
+  email: string
+}
 
+export default function Header({ name, email }: HeaderProps) {
   return (
     <header className="w-full bg-mth-grey-blue-600">
       <nav className="container flex items-center justify-between px-4 py-3 lg:px-8">

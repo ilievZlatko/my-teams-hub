@@ -4,8 +4,9 @@ export interface IUser {
   lastName: string
   email: string
   status: number
-  creationDate: Date
-  teams: IUserTeam[]
+  creationDate?: Date
+  phoneNumber?: string
+  teams?: IUserTeam[]
 }
 
 export interface IUserTeam {

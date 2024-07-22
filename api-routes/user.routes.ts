@@ -5,4 +5,7 @@ export const userRoutes = {
   allUsers: {
     get: '/api/v1/users',
   },
+  updateUser: {
+    patch: '/api/v1/users',
+  },
 }

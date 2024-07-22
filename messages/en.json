@@ -121,6 +121,22 @@
         "title": "Team Details"
       }
     },
+    "user": {
+      "edit": {
+        "title": "Edit User",
+        "user_first_name_label": "First name",
+        "user_last_name_label": "Last name",
+        "user_email_label": "Email",
+        "user_phone_number_label": "Phone number",
+        "save_btn": "Save",
+        "cancel_btn": "Cancel",
+        "success_message": "User updated successfuly!",
+        "error_message": "Sorry, something went wrong!",
+        "schema_msg_first_name_require": "First name is required!",
+        "schema_msg_last_name_require": "First name is required!",
+        "schema_msg_email_require": "Invalid email!!!"
+      }
+    },
     "continue": "Continue",
     "save": "Save",
     "organization_switcher_placeholder": "Select organization",

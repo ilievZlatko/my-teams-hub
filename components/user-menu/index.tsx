@@ -10,6 +10,7 @@ import {
 } from '../ui/dropdown-menu'
 import { logout } from '@/actions/logout'
 import { useLocale } from 'next-intl'
+import Link from 'next/link'
 
 export type UserMenuProps = {
   name?: string
@@ -44,7 +45,13 @@ export const UserMenu = ({ name, email }: UserMenuProps) => {
             <p>{email}</p>
           </div>
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => logout(locale)}>
+        <DropdownMenuItem>
+          <Link href={'/users/edit'}>Edit ptofile</Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem
+          className="cursor-pointer"
+          onClick={() => logout(locale)}
+        >
           Sign out
         </DropdownMenuItem>
       </DropdownMenuContent>

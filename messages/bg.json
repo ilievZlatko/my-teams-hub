@@ -121,6 +121,22 @@
         "title": "Детайли за Екипа"
       }
     },
+    "user": {
+      "edit": {
+        "title": "Редакция на Профила",
+        "user_first_name_label": "Име",
+        "user_last_name_label": "Фамилия",
+        "user_email_label": "Имейл",
+        "user_phone_number_label": "Телефон",
+        "save_btn": "Запази",
+        "cancel_btn": "Откажи",
+        "success_message": "Профилът беше редактиран успешно!",
+        "error_message": "Съжаляваме, възникна грешка!",
+        "schema_msg_first_name_require": "Името е задължително!",
+        "schema_msg_last_name_require": "Фамилията е задължителна!",
+        "schema_msg_email_require": "Невалиден имейл!!"
+      }
+    },
     "continue": "Продължи",
     "save": "Запази",
     "organization_switcher_placeholder": "Избери организация",
