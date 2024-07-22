@@ -1,12 +1,9 @@
 'use client'
 
 import Link from 'next/link'
-import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import { Trash2, FilePenLine } from 'lucide-react'
 
-import { TeamMember } from '@/types/team'
-import { cn, getRandomNumber } from '@/lib/utils'
 import { TableCell, TableRow } from '@/components/ui/table'
 import {
     Tooltip,
@@ -38,7 +35,7 @@ export const UserTableComponent = ({
     const t = useTranslations('page.user.index')
 
     const [year, month, day] = creationDate.split("T")[0].split("-")
-    console.log(teams[0].name)
+
 
 
 
@@ -51,14 +48,13 @@ export const UserTableComponent = ({
             <TableCell>
                 {`${day}/${month}/${year}`}
             </TableCell>
-            {/* //TODO: make dynamic or remove?  */}
             <TableCell>{status}</TableCell>
             <TableCell>
                 <div className="flex justify-start gap-[18px]">
                     <TooltipProvider>
                         <Tooltip>
                             <TooltipTrigger asChild>
-                                <Link href={`/teams/${userId}/edit`}>
+                                <Link href={`/users/${userId}/edit`}>
                                     <FilePenLine
                                         strokeWidth={'1.8'}
                                         className="cursor-pointer bg-transparent text-mth-blue-500"

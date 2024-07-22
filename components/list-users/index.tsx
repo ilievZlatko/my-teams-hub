@@ -48,7 +48,6 @@ export const GetAllUsersComponent = ({ users }: GetAllUsersComponentProps) => {
     console.log(users)
     const { width } = useWindowSize(200)
     const t = useTranslations('page.user.index')
-    const tErrors = useTranslations('apierrors')
     const rowsPerPage = 1
     const [valueState, setValue] = useState(1)
     const [userView, setuserView] = useState(false)
