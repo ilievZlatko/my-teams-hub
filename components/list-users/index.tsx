@@ -47,14 +47,16 @@ interface GetAllUsersComponentProps {
 export const GetAllUsersComponent = ({ users }: GetAllUsersComponentProps) => {
     console.log(users)
     const { width } = useWindowSize(200)
+
     const t = useTranslations('page.user.index')
+    // TODO: Add translations for api errors later
+    // const tErrors = useTranslations('apierrors')
     const rowsPerPage = 1
     const [valueState, setValue] = useState(1)
     const [userView, setuserView] = useState(false)
     const [currentPage, setCurrentPage] = useState(rowsPerPage)
     const [searchValue, setSearchValue] = useState('')
     const debouncedSearch = useDebounce(searchValue, 200)
-
     let filteredUsers = users
 
     const { data: session, status } = useSession()
