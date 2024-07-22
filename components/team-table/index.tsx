@@ -36,7 +36,7 @@ export const TeamTableComponent = ({ teams }: TeamTableProps) => {
           <TableRow className="items-center border-none">
             <TableHead>{t('team_id')}</TableHead>
             <TableHead>
-              <span className="flex items-center gap-1 max-sm:items-start">
+              <span className="flex items-center gap-2 max-sm:items-start">
                 {t('name')}
                 <Image
                   src="/assets/images/up_and_down_arrow.svg"
@@ -47,7 +47,7 @@ export const TeamTableComponent = ({ teams }: TeamTableProps) => {
               </span>
             </TableHead>
             <TableHead>
-              <span className="flex w-[166px] items-center justify-start gap-1 text-left">
+              <span className="flex w-[166px] items-center justify-start gap-2 text-left">
                 {t('members')}
                 <Image
                   src="/assets/images/up_and_down_arrow.svg"
@@ -58,7 +58,7 @@ export const TeamTableComponent = ({ teams }: TeamTableProps) => {
               </span>
             </TableHead>
             <TableHead>
-              <span className="flex items-center gap-1">
+              <span className="flex items-center gap-2">
                 {t('creation_date')}
                 <Image
                   src="/assets/images/up_and_down_arrow.svg"
