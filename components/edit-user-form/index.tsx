@@ -18,11 +18,13 @@ import { useEffect, useState } from 'react'
 import { getUserProfile, updateUserProfile } from '@/actions/user.actions'
 import { EventType, sendEvent } from '@/actions/component-comunication.actions'
 import { toast } from 'sonner'
+import { useTranslations } from 'next-intl'
 
 const EditUserForm: React.FC = () => {
   const [user, setUser] = useState<IUser | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
+  const t = useTranslations('page.user.edit')
 
   const form = useForm<EditUserFormData>({
     resolver: zodResolver(EditUserSchema),
@@ -45,14 +47,14 @@ const EditUserForm: React.FC = () => {
           })
         }
       })
-      .catch((error) => {
-        setError(error.message)
-        toast.error(error.message)
+      .catch((err) => {
+        setError(error)
+        toast.error(err.message)
       })
   }, [form, setError, setUser])
 
   const onSubmit = async (data: EditUserFormData) => {
-    setError(null)
+    setError('')
 
     if (!user) {
       return
@@ -69,7 +71,6 @@ const EditUserForm: React.FC = () => {
       sendEvent(EventType.UPDATE_USER, { data: userData })
       toast.success('Profile successfully updated!')
     } catch (err) {
-      toast.error(error)
       console.error(err)
     } finally {
       setLoading(false)
@@ -82,8 +83,8 @@ const EditUserForm: React.FC = () => {
         onSubmit={form.handleSubmit(onSubmit)}
         className="flex w-full flex-col items-center gap-6 font-poppins max-sm:min-w-[70vw] sm:w-[500px] md:min-w-[400px] lg:min-w-[500px]"
       >
-        <h1 className="w-6/12 border-b-[2px] pb-1 text-center font-roboto text-[32px] leading-[42.2px] max-sm:w-fit max-sm:px-2 max-sm:text-[25px] max-sm:leading-[35px]">
-          Edit User
+        <h1 className="w-auto border-b-[2px] pb-1 text-center font-roboto text-[32px] leading-[42.2px] max-sm:w-fit max-sm:px-2 max-sm:text-[25px] max-sm:leading-[35px]">
+          {t('title')}
         </h1>
         <div className="space-y-4 max-sm:mx-auto max-sm:w-full sm:w-10/12 md:w-11/12">
           <FormField
@@ -91,11 +92,16 @@ const EditUserForm: React.FC = () => {
             name="firstName"
             render={({ field }) => (
               <FormItem className="space-y-1 *:rounded-xl">
-                <FormLabel className="font-normal">First Name</FormLabel>
+                <FormLabel className="font-normal">
+                  {t('user_first_name_label')}
+                </FormLabel>
                 <FormControl>
-                  <Input {...field} placeholder="First Name" />
+                  <Input {...field} placeholder={t('user_first_name_label')} />
                 </FormControl>
-                <FormMessage className="text-xs" />
+                <FormMessage
+                  className="text-xs"
+                  defaultValue={t('schema_msg_first_name_require')}
+                />
               </FormItem>
             )}
           />
@@ -104,11 +110,16 @@ const EditUserForm: React.FC = () => {
             name="lastName"
             render={({ field }) => (
               <FormItem className="space-y-1 *:rounded-xl">
-                <FormLabel className="font-normal">Last Name</FormLabel>
+                <FormLabel className="font-normal">
+                  {t('user_last_name_label')}
+                </FormLabel>
                 <FormControl>
-                  <Input {...field} placeholder="Last Name" />
+                  <Input {...field} placeholder={t('user_last_name_label')} />
                 </FormControl>
-                <FormMessage className="text-xs" />
+                <FormMessage
+                  className="text-xs"
+                  defaultValue={t('schema_msg_last_name_require')}
+                />
               </FormItem>
             )}
           />
@@ -117,11 +128,16 @@ const EditUserForm: React.FC = () => {
             name="email"
             render={({ field }) => (
               <FormItem className="space-y-1 *:rounded-xl">
-                <FormLabel className="font-normal">Email</FormLabel>
+                <FormLabel className="font-normal">
+                  {t('user_email_label')}
+                </FormLabel>
                 <FormControl>
-                  <Input {...field} placeholder="Email" />
+                  <Input {...field} placeholder={t('user_email_label')} />
                 </FormControl>
-                <FormMessage className="text-xs" />
+                <FormMessage
+                  className="text-xs"
+                  defaultValue={t('schema_msg_email_require')}
+                />
               </FormItem>
             )}
           />
@@ -131,19 +147,36 @@ const EditUserForm: React.FC = () => {
             render={({ field }) => (
               <FormItem>
                 <FormLabel className="space-y-1 *:rounded-xl">
-                  Phone Number
+                  {t('user_phone_number_label')}
                 </FormLabel>
                 <FormControl className="font-normal">
-                  <Input {...field} placeholder="Phone Number" />
+                  <Input
+                    {...field}
+                    placeholder={t('user_phone_number_label')}
+                  />
                 </FormControl>
                 <FormMessage className="text-xs" />
               </FormItem>
             )}
           />
         </div>
-        <Button type="submit" disabled={loading}>
-          Save
-        </Button>
+        <div className="mt-4 flex w-full justify-between sm:w-10/12 md:w-11/12">
+          <Button
+            type="button"
+            className="w-40 border-2 bg-transparent text-mth-blue-500"
+            disabled={loading}
+            onClick={() => form.reset()}
+          >
+            {t('cancel_btn')}
+          </Button>
+          <Button
+            type="submit"
+            className="w-40 bg-mth-blue-500"
+            disabled={loading}
+          >
+            {t('save_btn')}
+          </Button>
+        </div>
       </form>
     </Form>
   )

@@ -33,7 +33,6 @@ export const UserMenu = ({ name, email }: UserMenuProps) => {
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuLabel>My Profile</DropdownMenuLabel>
-        <Link href={'/users/edit'}>Edit ptofile</Link>
         <DropdownMenuItem>
           <div className="flex gap-2">
             <p className="font-semibold">Name:</p>
@@ -46,7 +45,13 @@ export const UserMenu = ({ name, email }: UserMenuProps) => {
             <p>{email}</p>
           </div>
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => logout(locale)}>
+        <DropdownMenuItem>
+          <Link href={'/users/edit'}>Edit ptofile</Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem
+          className="cursor-pointer"
+          onClick={() => logout(locale)}
+        >
           Sign out
         </DropdownMenuItem>
       </DropdownMenuContent>

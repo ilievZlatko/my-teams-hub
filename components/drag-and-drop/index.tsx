@@ -40,7 +40,7 @@ const DragAndDrop: FunctionComponent<Props> = ({
   return (
     <div
       id="drop-zone"
-      className={`mx-auto flex h-48 w-full cursor-pointer items-center justify-center rounded border border-dashed border-mth-grey-blue-500 px-5 py-6 text-center ${dragOver ? 'transition-border border-primary duration-300 ease-in-out' : ''}`}
+      className={`mx-auto flex h-44 w-full cursor-pointer items-center justify-center rounded border border-dashed border-mth-grey-blue-500 px-5 py-6 text-center ${dragOver ? 'transition-border border-primary duration-300 ease-in-out' : ''}`}
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
       onDrop={onDrop}
