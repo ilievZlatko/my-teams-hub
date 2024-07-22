@@ -33,7 +33,8 @@ interface GetAllUsersComponentProps {
 
 export const GetAllUsersComponent = ({ users }: GetAllUsersComponentProps) => {
   const t = useTranslations('page.user.index')
-  const tErrors = useTranslations('apierrors')
+  // TODO: Add translations for api errors later
+  // const tErrors = useTranslations('apierrors')
   const rowsPerPage = 1
   const [valueState, setValue] = useState(1)
   const [userView, setuserView] = useState(false)
