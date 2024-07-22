@@ -85,16 +85,14 @@ const EditUserForm: React.FC = () => {
       ...session,
       user: {
         ...session?.user,
-        ...user,
         firstName: user.firstName,
-        first_name: user.firstName,
         lastName: user.lastName,
-        last_name: user.lastName,
         email: user.email,
       },
     }
 
     await update(updatedSession)
+    location.reload()
   }
 
   return (
