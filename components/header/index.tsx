@@ -1,37 +1,25 @@
 'use client'
 
-import { useState, useEffect } from 'react'
 import OrganizationSwitcher from '../organization-switcher'
 import { SelectLocale } from '../select-locale'
 import { UserMenu } from '../user-menu'
 import { ResponsiveSideNav } from '../responsive-sidenav'
 import { IoIosGlobe } from 'react-icons/io'
 import { IUser } from '@/types/user'
-import { EventType, listenFor } from '@/actions/component-comunication.actions'
 
 interface HeaderProps {
-  user: IUser
+  name: string, 
+  email: string
 }
 
-export default function Header({ user }: HeaderProps) {
-  const [currentUser, setCurrentUser] = useState<IUser>(user)
-
-  useEffect(() => {
-    listenFor([EventType.UPDATE_USER], (payload) => {
-      setCurrentUser(payload.payload.data)
-    })
-  }, [])
-
-  useEffect(() => {
-    setCurrentUser(user)
-  }, [user])
+export default function Header({ name, email }: HeaderProps) {
 
   return (
     <header className="w-full bg-mth-grey-blue-600">
       <nav className="container flex items-center justify-between px-4 py-3 lg:px-8">
         <ResponsiveSideNav
-          name={currentUser.firstName}
-          email={currentUser.email}
+          name={name}
+          email={email}
         />
         <div className="flex w-72 items-center justify-between gap-x-4 lg:ml-auto lg:w-80">
           <OrganizationSwitcher />
@@ -40,7 +28,9 @@ export default function Header({ user }: HeaderProps) {
             <SelectLocale />
           </div>
           <div className="hidden lg:block">
-            <UserMenu name={currentUser.firstName} email={currentUser.email} />
+            <UserMenu 
+              name={name}
+              email={email} />
           </div>
         </div>
       </nav>

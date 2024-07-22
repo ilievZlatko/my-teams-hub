@@ -16,15 +16,17 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { useEffect, useState } from 'react'
 import { getUserProfile, updateUserProfile } from '@/actions/user.actions'
-import { EventType, sendEvent } from '@/actions/component-comunication.actions'
 import { toast } from 'sonner'
 import { useTranslations } from 'next-intl'
+import { useSession } from 'next-auth/react'
 
 const EditUserForm: React.FC = () => {
   const [user, setUser] = useState<IUser | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
   const t = useTranslations('page.user.edit')
+  const { data: session, update } = useSession({ required: true })
+
 
   const form = useForm<EditUserFormData>({
     resolver: zodResolver(EditUserSchema),
@@ -53,6 +55,10 @@ const EditUserForm: React.FC = () => {
       })
   }, [form, setError, setUser])
 
+  useEffect(() => {
+    console.log(session)
+  },[])
+
   const onSubmit = async (data: EditUserFormData) => {
     setError('')
 
@@ -68,13 +74,31 @@ const EditUserForm: React.FC = () => {
     setLoading(true)
     try {
       await updateUserProfile(userData)
-      sendEvent(EventType.UPDATE_USER, { data: userData })
       toast.success('Profile successfully updated!')
+      handleUpdateSession(userData)
+
     } catch (err) {
       console.error(err)
     } finally {
       setLoading(false)
     }
+  }
+
+  const handleUpdateSession = async (user: IUser) => {
+    const updatedSession = {
+      ...session,
+      user: {
+        ...session?.user,
+        ...user,
+        firstName: user.firstName,
+        first_name: user.firstName,
+        lastName: user.lastName,
+        last_name: user.lastName,
+        email: user.email,
+      },
+    }
+
+    await update(updatedSession)
   }
 
   return (
