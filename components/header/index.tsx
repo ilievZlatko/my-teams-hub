@@ -5,15 +5,13 @@ import { SelectLocale } from '../select-locale'
 import { UserMenu } from '../user-menu'
 import { ResponsiveSideNav } from '../responsive-sidenav'
 import { IoIosGlobe } from 'react-icons/io'
-import { IUser } from '@/types/user'
 
 interface HeaderProps {
-  name: string, 
+  name: string
   email: string
 }
 
 export default function Header({ name, email }: HeaderProps) {
-
   return (
     <header className="w-full bg-mth-grey-blue-600">
       <nav className="container flex items-center justify-between px-4 py-3 lg:px-8">
