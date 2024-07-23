@@ -25,7 +25,7 @@ const EditUserForm: React.FC = () => {
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
   const t = useTranslations('page.user.edit')
-  const { data: session, update } = useSession({ required: true })
+  const { data: session, update } = useSession()
 
   const form = useForm<EditUserFormData>({
     resolver: zodResolver(EditUserSchema),
@@ -69,8 +69,9 @@ const EditUserForm: React.FC = () => {
     setLoading(true)
     try {
       await updateUserProfile(userData)
+      await handleUpdateSession(userData)
       toast.success('Profile successfully updated!')
-      handleUpdateSession(userData)
+      // location.reload()
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       setError(err.message)
@@ -81,7 +82,9 @@ const EditUserForm: React.FC = () => {
   }
 
   const handleUpdateSession = async (user: IUser) => {
-    const updatedSession = {
+    if (!session) return
+
+    const newSession = {
       ...session,
       user: {
         ...session?.user,
@@ -89,10 +92,20 @@ const EditUserForm: React.FC = () => {
         lastName: user.lastName,
         email: user.email,
       },
+      token: {
+        ...session?.token,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+      },
     }
 
-    await update(updatedSession)
-    location.reload()
+    try {
+      await update(newSession)
+      location.reload()
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   return (

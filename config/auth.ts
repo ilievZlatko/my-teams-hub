@@ -15,6 +15,7 @@ export const config = {
       if (trigger === 'update') {
         token = {
           ...token,
+          ...session.token,
           activeOrg: session?.user?.activeOrg,
           organizations: session?.user?.organizations || token?.organizations,
         }
