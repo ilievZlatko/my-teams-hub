@@ -20,8 +20,13 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form'
+import { useTransition } from 'react'
+import { useRouter } from 'next/navigation'
 
-export const CreateOrganizationForm = () => {
+export const CreateOrganizationForm = ({ isPage = false }) => {
+  const [isPending, startTransition] = useTransition()
+  const router = useRouter()
+
   const t = useTranslations('page')
   const { data: session, update } = useSession()
   const form = useForm<z.infer<typeof CreateOrganizationSchema>>({
@@ -30,7 +35,7 @@ export const CreateOrganizationForm = () => {
   })
 
   const onSubmit = async (values: z.infer<typeof CreateOrganizationSchema>) => {
-    await createOrg(values)
+    startTransition(() => createOrg(values).then())
     const organizations = await getOrgs()
 
     const updatedSession = {
@@ -45,7 +50,12 @@ export const CreateOrganizationForm = () => {
       },
     }
     await update(updatedSession)
-    form.reset()
+
+    if (isPage) {
+      router.push('/organizations')
+    } else {
+      form.reset()
+    }
   }
 
   return (
@@ -102,10 +112,33 @@ export const CreateOrganizationForm = () => {
             )}
           />
         </div>
-
-        <Button type="submit" className="w-full">
-          {t('save')}
-        </Button>
+        {isPage ? (
+          <div className="flex justify-between">
+            <Button
+              variant="tertiary-outline"
+              type="button"
+              onClick={() => {
+                form.reset()
+                router.push('/organizations')
+              }}
+              className="basis-[45%] bg-transparent font-light"
+            >
+              Cancel
+            </Button>
+            <Button
+              variant="tertiary"
+              type="submit"
+              className="basis-[45%] font-light"
+              disabled={isPending}
+            >
+              Create
+            </Button>
+          </div>
+        ) : (
+          <Button type="submit" className="w-full">
+            {t('save')}
+          </Button>
+        )}
       </form>
     </Form>
   )

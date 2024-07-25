@@ -11,7 +11,7 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { Button } from '../ui/button'
 import { useLocale, useTranslations } from 'next-intl'
 import { useRouter } from 'next/navigation'
-import { CreateOrganizationForm } from '../create-organisation'
+import { CreateOrganizationForm } from '../create-organization-form'
 import { useEffect, useState } from 'react'
 import { useSession } from 'next-auth/react'
 
