@@ -30,7 +30,7 @@ export async function editTeam(
       members = teamMembers.map((member) => ({
         teamMemberId: member.memberId,
         email: member.email,
-        isLead: member.role === 2 ? false : true,
+        isLead: member.role !== 2 ? true : false,
       }))
     }
 

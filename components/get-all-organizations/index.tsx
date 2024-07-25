@@ -41,9 +41,6 @@ export const GetAllOrganizations = ({
 
   const t = useTranslations('page.organization.index')
 
-  const { data: session, status } = useSession()
-  const [hasSession, setHasSession] = useState(false)
-
   const [valueState, setValue] = useState(10)
   const [isLayoutGrid, setIsLayoutGrid] = useState(true)
   const [allOrgs, setAllOrgs] = useState<Organisation[]>(organizations)
@@ -54,10 +51,6 @@ export const GetAllOrganizations = ({
   const [currentPage, setCurrentPage] = useState(rowsPerPage)
   const [searchValue, setSearchValue] = useState('')
   const debouncedSearch = useDebounce(searchValue, 200)
-
-  useEffect(() => {
-    if (session && status === 'authenticated') setHasSession(true)
-  }, [session])
 
   useEffect(() => {
     setAllOrgs(organizations)
@@ -113,7 +106,7 @@ export const GetAllOrganizations = ({
 
   filteredOrgs = filteredOrgs.slice(firstOrg, valueState * currentPage)
 
-  if (!hasSession || isFetchingData)
+  if (isFetchingData)
     return <Loader size={44} className="m-auto flex h-[50vh] items-center" />
 
   return (
