@@ -53,11 +53,11 @@ export const SelectOrganization = () => {
     <Card className="h-fit w-[400px] border-0 bg-transparent text-[#3C4B57] shadow-none max-sm:w-full">
       <CardHeader className="flex w-full flex-col items-center justify-center gap-y-3">
         <h1 className="px-0 text-center font-roboto text-[32px] font-medium leading-[38.4px] max-md:max-w-[80%] max-md:text-2xl max-sm:max-w-full max-sm:text-xl">
-          {showCreateOrg ? t('select.title') : t('create.title')}
+          {!showCreateOrg ? t('select.title') : t('create.title')}
         </h1>
         <p
           dangerouslySetInnerHTML={
-            showCreateOrg
+            !showCreateOrg
               ? { __html: t.raw('select.subtitle') }
               : { __html: t.raw('create.subtitle') }
           }

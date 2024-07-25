@@ -121,6 +121,23 @@
         "title": "Детайли за Екипа"
       }
     },
+    "organization": {
+      "index": {
+        "title": "Всички Организации",
+        "search_placeholder": "Търсене...",
+        "no_results": "Няма намерени резултати",
+        "create_org_btn": "Създай Организация",
+        "edit": "Редактирай",
+        "delete": "Изтрий",
+        "show": "Покажи",
+        "org_id": "ИД Номер",
+        "name": "Име",
+        "description": "Описание",
+        "creation_date": "Дата на създаване",
+        "see_teams": "Виж Екипите",
+        "action": "Действие"
+      }
+    },
     "user": {
       "edit": {
         "title": "Редакция на Профила",

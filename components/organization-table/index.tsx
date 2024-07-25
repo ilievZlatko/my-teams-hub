@@ -3,9 +3,8 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
-import { Trash2, FilePenLine } from 'lucide-react'
+import { Trash2, Users } from 'lucide-react'
 
-import { Team } from '@/types/team'
 import {
   Table,
   TableBody,
@@ -20,23 +19,24 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from '@/components/ui/tooltip'
-import { AvatarCirclesComponent } from '@/components/avatar-circles'
+import { Organisation } from '@/types/organisation.types'
 
-export type TeamTableProps = {
-  teams: Team[]
+export type OrganizationTableProps = {
+  organizations: Organisation[]
 }
 
-export const TeamTableComponent = ({ teams }: TeamTableProps) => {
-  const t = useTranslations('page.team.index')
+export const OrganizationTable = ({
+  organizations,
+}: OrganizationTableProps) => {
+  const t = useTranslations('page.organization.index')
 
   return (
     <div className="rounded-xl border-[3px] border-mth-blue-100 px-1 py-10 lg:px-4">
       <Table>
         <TableHeader className="border-none">
           <TableRow className="items-center border-none">
-            <TableHead>{t('team_id')}</TableHead>
             <TableHead>
-              <span className="flex items-center gap-2 max-sm:items-start">
+              <span className="flex items-center gap-4 max-sm:items-start">
                 {t('name')}
                 <Image
                   src="/assets/images/up_and_down_arrow.svg"
@@ -46,19 +46,11 @@ export const TeamTableComponent = ({ teams }: TeamTableProps) => {
                 />
               </span>
             </TableHead>
-            <TableHead>
-              <span className="flex w-[166px] items-center justify-start gap-2 text-left">
-                {t('members')}
-                <Image
-                  src="/assets/images/up_and_down_arrow.svg"
-                  width={11}
-                  height={11}
-                  alt="arrow"
-                />
-              </span>
+            <TableHead className="flex w-[166px] items-center justify-start text-left">
+              {t('description')}
             </TableHead>
             <TableHead>
-              <span className="flex items-center gap-2">
+              <span className="flex items-center gap-4">
                 {t('creation_date')}
                 <Image
                   src="/assets/images/up_and_down_arrow.svg"
@@ -73,47 +65,41 @@ export const TeamTableComponent = ({ teams }: TeamTableProps) => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {teams.map((team) => (
+          {organizations.map((org) => (
             <TableRow
-              key={team.teamId}
+              key={org.organizationId}
               className="border-none *:text-mth-grey-blue-700"
             >
-              <TableCell className="max-w-[50px] truncate">
-                #{team.teamId}
-              </TableCell>
               <TableCell className="flex items-center gap-2 max-sm:flex-col max-sm:items-start">
-                <Image
-                  src="/assets/images/team-card-image.svg"
-                  className="rounded-xl bg-mth-silver-100"
-                  width={32}
-                  height={32}
-                  alt="author"
-                  priority
-                />
-                <p>{team.name}</p>
+                <span className="flex h-[32px] w-[32px] items-center justify-center rounded-full bg-mth-blue-100 text-[20px] font-bold text-mth-grey-blue-500">
+                  {org.organizationName.substring(0, 1).toUpperCase()}
+                </span>
+                <p>{org.organizationName}</p>
               </TableCell>
-              <TableCell className="items-center pl-0 text-left">
-                <AvatarCirclesComponent
-                  teamMembers={team.teamMembers ?? []}
-                  isForCard={false}
-                />
+              <TableCell className="max-w-[200px] truncate text-left">
+                {/* //TODO: display description when the server does return it */}
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Sapiente, dignissimos.
               </TableCell>
-              {/* //TODO: make dynamic or remove?  */}
+              {/* //TODO: make dynamic when the server does return it  */}
               <TableCell>13/05/2022</TableCell>
               <TableCell>
                 <div className="flex justify-start gap-[18px]">
                   <TooltipProvider>
                     <Tooltip>
                       <TooltipTrigger asChild>
-                        <Link href={`/teams/${team.teamId}/edit`}>
-                          <FilePenLine
+                        <Link
+                          href={`/organizations/${org.organizationId}`}
+                          prefetch
+                        >
+                          <Users
                             strokeWidth={'1.8'}
                             className="cursor-pointer bg-transparent text-mth-blue-500"
                           />
                         </Link>
                       </TooltipTrigger>
                       <TooltipContent>
-                        <p className="text-xs">{t('edit')}</p>
+                        <p className="text-xs">{t('see_teams')}</p>
                       </TooltipContent>
                     </Tooltip>
                   </TooltipProvider>

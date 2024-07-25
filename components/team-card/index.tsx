@@ -51,10 +51,10 @@ export const TeamCard = ({
 
           <AvatarCirclesComponent teamMembers={teamMembers} isForCard />
 
-          <CardFooter className="mx-auto flex justify-center py-1">
+          <CardFooter className="px-0 py-1">
             <Link
               href={`/teams/${teamId}/edit`}
-              className="flex w-[142px] items-center justify-center rounded-xl bg-mth-blue-500 px-3 py-2.5 text-sm text-mth-white-50 transition hover:bg-mth-blue-500/70"
+              className="mx-auto w-full max-w-[171px] rounded-xl bg-mth-blue-500 px-3 py-2.5 text-sm text-mth-white-50 transition hover:bg-mth-blue-500/70"
               prefetch
             >
               {t('edit')}

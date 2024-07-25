@@ -24,12 +24,13 @@ export async function editTeam(
     }
 
     const { name, description, teamMembers } = validatedFields.data
-    let members: { teamMemberId: string; email: string }[] = []
+    let members: { teamMemberId: string; email: string; isLead: boolean }[] = []
 
     if (teamMembers && teamMembers.length > 0) {
       members = teamMembers.map((member) => ({
         teamMemberId: member.memberId,
         email: member.email,
+        isLead: member.role === 2 ? false : true,
       }))
     }
 

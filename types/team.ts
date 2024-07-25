@@ -13,12 +13,17 @@ export interface TeamMember {
   email: string
   phone: string
   status: number
+  role: number
 }
 
 export interface PatchTeam {
   name: string
   description?: string
-  teamMembers: { teamMemberId: string; email: string }[]
+  teamMembers: {
+    teamMemberId: string
+    email: string
+    isLead: boolean
+  }[]
 }
 
 // get teams for organization
