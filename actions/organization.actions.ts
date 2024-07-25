@@ -3,7 +3,8 @@
 import routes from '@/api-routes'
 import { auth } from '@/config/auth'
 import { CreateOrganizationType } from '@/schemas/create-organization.schema'
-import { Organisation } from '@/types/organisation.types'
+import { Organisation } from '@/types'
+
 import { revalidateTag } from 'next/cache'
 
 export async function createOrg(

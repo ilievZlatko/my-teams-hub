@@ -7,11 +7,11 @@ import { useRouter } from 'next/navigation'
 import { useSession } from 'next-auth/react'
 
 import { EditTeamForm } from '@/components/edit-team-form'
-import { Team } from '@/types/team'
+
 import { getAllUsers } from '@/actions/user.actions'
-import { IUser } from '@/types/user'
-import { getTeam } from '@/actions/edit-team.actions'
 import { Loader } from '@/components/loader'
+import { getTeam } from '@/actions/team.actions'
+import { IUser, Team } from '@/types'
 
 export default function Edit({ params: { id } }: { params: { id: string } }) {
   const router = useRouter()

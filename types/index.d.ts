@@ -1,4 +1,8 @@
-// following interfaces are used for 'Edit Team' functionality
+export interface Example {
+  someField: string
+  anotherField: number
+}
+
 export interface Team {
   teamId: string
   name: string
@@ -21,8 +25,27 @@ export interface PatchTeam {
   teamMembers: { teamMemberId: string; email: string }[]
 }
 
-// get teams for organization
 export interface TeamList {
   total: number
   teams: Team[]
+}
+export interface Organisation {
+  organizationId: string
+  organizationName: string
+  role: number
+}
+export interface IUser {
+  userId: string
+  firstName: string
+  lastName: string
+  email: string
+  status: number
+  creationDate?: Date
+  phoneNumber?: string
+  teams?: IUserTeam[]
+}
+
+export interface IUserTeam {
+  teamId: string
+  name: string
 }
