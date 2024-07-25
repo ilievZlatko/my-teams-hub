@@ -1,10 +1,8 @@
 'use client'
 
-import { useTranslations } from 'next-intl'
 import Image from 'next/image'
-
+import { useTranslations } from 'next-intl'
 import { cn, getRandomNumber } from '@/lib/utils'
-import { TeamMember } from '@/types/team'
 
 const _fakeMembers = [
   {

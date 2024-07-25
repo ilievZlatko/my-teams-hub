@@ -1,12 +1,10 @@
 'use server'
 
+import { revalidateTag } from 'next/cache'
 import routes from '@/api-routes'
 import { auth } from '@/config/auth'
 import { CreateTeamSchema, CreateTeamType } from '@/schemas/create-team.schema'
-import { EditTeamType, EditTeamSchema } from '@/schemas/edit-team.schema'
-import { Team, TeamList, PatchTeam } from '@/types'
-
-import { revalidateTag } from 'next/cache'
+import { EditTeamSchema, EditTeamType } from '@/schemas/edit-team.schema'
 
 export async function createTeam(
   data: CreateTeamType,
@@ -102,7 +100,7 @@ export async function editTeam(
       }))
     }
 
-    const data: PatchTeam = { name, description, teamMembers: members }
+    const data: PatchTeamPayload = { name, description, teamMembers: members }
 
     const headers = new Headers()
     headers.append('Content-Type', 'application/json')

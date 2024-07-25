@@ -11,7 +11,6 @@ import { EditTeamForm } from '@/components/edit-team-form'
 import { getAllUsers } from '@/actions/user.actions'
 import { Loader } from '@/components/loader'
 import { getTeam } from '@/actions/team.actions'
-import { IUser, Team } from '@/types'
 
 export default function Edit({ params: { id } }: { params: { id: string } }) {
   const router = useRouter()

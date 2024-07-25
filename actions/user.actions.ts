@@ -7,7 +7,6 @@ interface CustomError extends Error {
 import routes from '@/api-routes'
 import { auth } from '@/config/auth'
 import { EditUserFormData } from '@/schemas/edit-user.schema'
-import { IUser } from '@/types'
 
 export async function getAllUsers(): Promise<IUser[] | { error: string }> {
   try {

@@ -4,8 +4,6 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import { Trash2, FilePenLine } from 'lucide-react'
-
-import { Team } from '@/types/team'
 import {
   Table,
   TableBody,

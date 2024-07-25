@@ -1,16 +1,17 @@
-export interface Example {
-  someField: string
-  anotherField: number
+declare interface Organisation {
+  organizationId: string
+  organizationName: string
+  role: number
 }
 
-export interface Team {
+declare interface Team {
   teamId: string
   name: string
   description?: string
   teamMembers: TeamMember[]
 }
 
-export interface TeamMember {
+declare interface TeamMember {
   memberId: string
   firstName: string
   lastName: string
@@ -19,22 +20,18 @@ export interface TeamMember {
   status: number
 }
 
-export interface PatchTeam {
+declare interface PatchTeamPayload {
   name: string
   description?: string
   teamMembers: { teamMemberId: string; email: string }[]
 }
 
-export interface TeamList {
+declare interface TeamList {
   total: number
   teams: Team[]
 }
-export interface Organisation {
-  organizationId: string
-  organizationName: string
-  role: number
-}
-export interface IUser {
+
+declare interface IUser {
   userId: string
   firstName: string
   lastName: string
@@ -45,7 +42,7 @@ export interface IUser {
   teams?: IUserTeam[]
 }
 
-export interface IUserTeam {
+declare interface IUserTeam {
   teamId: string
   name: string
 }

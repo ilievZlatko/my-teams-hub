@@ -11,7 +11,6 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import { TeamMember } from '@/types/team'
 import { AvatarCirclesComponent } from '@/components/avatar-circles'
 
 export type TeamCardProps = {
