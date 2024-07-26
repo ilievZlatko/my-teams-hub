@@ -121,6 +121,23 @@
         "title": "Team Details"
       }
     },
+    "organization": {
+      "index": {
+        "title": "All Organizations",
+        "search_placeholder": "Search...",
+        "no_results": "No results found",
+        "create_org_btn": "Create Organization",
+        "edit": "Edit",
+        "delete": "Delete",
+        "show": "Show",
+        "org_id": "Organization ID",
+        "name": "Name",
+        "description": "Description",
+        "creation_date": "Date of Creation",
+        "see_teams": "See Teams",
+        "action": "Action"
+      }
+    },
     "user": {
       "edit": {
         "title": "Edit User",

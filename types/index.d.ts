@@ -18,12 +18,13 @@ declare interface TeamMember {
   email: string
   phone: string
   status: number
+  role: number
 }
 
 declare interface PatchTeamPayload {
   name: string
   description?: string
-  teamMembers: { teamMemberId: string; email: string }[]
+  teamMembers: { teamMemberId: string; email: string; isLead: boolean }[]
 }
 
 declare interface TeamList {
