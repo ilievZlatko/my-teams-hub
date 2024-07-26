@@ -7,9 +7,7 @@ import { Search, LayoutGrid, List, X, Plus } from 'lucide-react'
 import { useSession } from 'next-auth/react'
 import useWindowSize from '@custom-react-hooks/use-window-size'
 
-import { Organisation } from '@/types/organisation.types'
 import { getAllTeams } from '@/actions/team.actions'
-import { TeamList, Team } from '@/types/team'
 import useDebounce from '@/hooks/useDebounce'
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
 import {

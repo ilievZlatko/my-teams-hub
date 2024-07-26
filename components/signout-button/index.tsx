@@ -5,7 +5,7 @@ import { LogOutIcon } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
 import { Button } from '@/components/ui/button'
-import { logout } from '@/actions/logout'
+import { logout } from '@/actions/auth.actions'
 
 export const SignOutButton = () => {
   const locale = useLocale()

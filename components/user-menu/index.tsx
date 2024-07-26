@@ -8,7 +8,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from '../ui/dropdown-menu'
-import { logout } from '@/actions/logout'
+import { logout } from '@/actions/auth.actions'
 import { useLocale } from 'next-intl'
 import Link from 'next/link'
 

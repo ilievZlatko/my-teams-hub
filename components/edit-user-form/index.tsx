@@ -11,7 +11,6 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { EditUserFormData, EditUserSchema } from '@/schemas/edit-user.schema'
-import { IUser } from '@/types/user'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { useEffect, useState } from 'react'
