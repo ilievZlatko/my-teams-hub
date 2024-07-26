@@ -12,9 +12,7 @@ import { toast } from 'sonner'
 
 import { EditTeamSchema, EditTeamType } from '@/schemas/edit-team.schema'
 import { cn } from '@/lib/utils'
-import { Team, TeamMember } from '@/types/team'
-import { IUser } from '@/types/user'
-import { editTeam, deleteTeam } from '@/actions/edit-team.actions'
+import { editTeam, deleteTeam } from '@/actions/team.actions'
 import {
   Form,
   FormControl,
