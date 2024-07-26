@@ -19,7 +19,6 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from '@/components/ui/tooltip'
-import { Organisation } from '@/types/organisation.types'
 
 export type OrganizationTableProps = {
   organizations: Organisation[]

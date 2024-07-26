@@ -4,7 +4,6 @@ import Link from 'next/link'
 import { useTranslations } from 'next-intl'
 import { Phone, User } from 'lucide-react'
 
-import { Organisation } from '@/types/organisation.types'
 import {
   Card,
   CardContent,

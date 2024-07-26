@@ -7,8 +7,6 @@ import { useTranslations } from 'next-intl'
 import { Search, LayoutGrid, List, X, Plus } from 'lucide-react'
 import useWindowSize from '@custom-react-hooks/use-window-size'
 
-import { Organisation } from '@/types/organisation.types'
-
 import useDebounce from '@/hooks/useDebounce'
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
 import {
