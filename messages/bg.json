@@ -2,12 +2,13 @@
   "navigation": {
     "home": "Начало",
     "dashboard": "Дашборд",
-    "sidenav" : {
-      "overview" : "Дашборд",
-      "teams" : "Екипи",
-      "users" : "Потребители",
-      "org-chart" : "Диаграма",
-      "evaluation" : "Оценка"
+    "sidenav": {
+      "overview": "Дашборд",
+      "teams": "Екипи",
+      "users": "Потребители",
+      "organizations": "Организации",
+      "org-chart": "Диаграма",
+      "evaluation": "Оценка"
     }
   },
   "auth": {

@@ -20,9 +20,14 @@ export const routes = [
   },
   {
     image: '/assets/images/organisations-chart.svg',
-    routeName: SidenavKeys.ORG_CHART,
+    routeName: SidenavKeys.ORGS,
     url: '/organizations',
   },
+  // {
+  //   image: '/assets/images/organisations-chart.svg',
+  //   routeName: SidenavKeys.ORG_CHART,
+  //   url: '/organizations/org-chart',
+  // },
   {
     image: '/assets/images/evaluation.svg',
     routeName: SidenavKeys.EVALUATION,

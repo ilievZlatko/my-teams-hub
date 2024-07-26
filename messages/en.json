@@ -2,12 +2,13 @@
   "navigation": {
     "home": "Home",
     "dashboard": "Dashboard",
-    "sidenav" : {
-      "overview" : "Dashboard",
-      "teams" : "Teams",
-      "users" : "Users",
-      "org-chart" : "Organization`s chart",
-      "evaluation" : "Evaluation"
+    "sidenav": {
+      "overview": "Dashboard",
+      "teams": "Teams",
+      "users": "Users",
+      "organizations": "Organizations",
+      "org-chart": "Organization`s chart",
+      "evaluation": "Evaluation"
     }
   },
   "auth": {
