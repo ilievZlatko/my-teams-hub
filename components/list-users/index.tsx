@@ -121,6 +121,8 @@ export const GetAllUsersComponent = ({ users }: GetAllUsersComponentProps) => {
   const countPages = users ? Math.ceil(users.length / valueState) : 1
   filteredUsers = filteredUsers.slice(firstUser, valueState * currentPage)
 
+  if (users?.length === 0) return <p>No users found</p>
+
   return (
     <div className="flex w-full flex-col lg:flex-row lg:gap-1 xl:max-w-[1100px]">
       <Card className="flex w-full flex-col border-none bg-transparent shadow-none">
@@ -268,7 +270,12 @@ export const GetAllUsersComponent = ({ users }: GetAllUsersComponentProps) => {
                 </TableHeader>
                 <TableBody>
                   {filteredUsers.map((user: IUser) => (
-                    <UserTableComponent key={user.userId} {...user} />
+                    <UserTableComponent
+                      key={user.userId}
+                      {...user}
+                      creationDate={user.creationDate || new Date()}
+                      teams={user.teams || []}
+                    />
                   ))}
                 </TableBody>
               </Table>
@@ -276,7 +283,12 @@ export const GetAllUsersComponent = ({ users }: GetAllUsersComponentProps) => {
           ) : (
             <div className="flex flex-col flex-wrap items-center gap-6 lg:flex-row lg:items-stretch lg:justify-center">
               {filteredUsers.map((user: IUser) => (
-                <UserCard key={user.userId} {...user} />
+                <UserCard
+                  key={user.userId}
+                  {...user}
+                  creationDate={user.creationDate || new Date()}
+                  teams={user.teams || []}
+                />
               ))}
             </div>
           )}
