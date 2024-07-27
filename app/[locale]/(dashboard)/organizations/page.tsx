@@ -11,8 +11,6 @@ export default async function Organizations() {
 
   const organizations = await getOrgs()
 
-  console.log(organizations)
-
   if (!Array.isArray(organizations)) {
     return toast.error('An Error Occurred!')
   }
