@@ -46,7 +46,6 @@ interface GetAllUsersComponentProps {
 }
 
 export const GetAllUsersComponent = ({ users }: GetAllUsersComponentProps) => {
-    console.log(users)
     const { width } = useWindowSize(200)
 
     const t = useTranslations('page.user.index')
