@@ -155,7 +155,7 @@
         "status": "Статус",
         "create_user_btn": "Създай потребител",
         "see-profile": "Виж профил"
-      }
+      },
       "edit": {
         "title": "Редакция на Профила",
         "user_first_name_label": "Име",
