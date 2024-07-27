@@ -28,8 +28,17 @@ export const UserCard = ({
     email,
     firstName,
     lastName,
+    teams
 }: UserCardProps) => {
     const t = useTranslations('page.user.index')
+
+    let teamsText = teams[0].name
+
+    if (teams[1] != undefined) {
+        teamsText = `${teams[0]}, ${teams[1]}`
+    } else if (teams[2] != undefined) {
+        teamsText = `${teams[0]}, ${teams[1]}, ...`
+    }
 
     return (
         <div>
@@ -45,9 +54,10 @@ export const UserCard = ({
                     />
                 </CardHeader>
                 <CardContent>
-                    <CardTitle className="line-clamp-2 min-h-[64px] text-[20px] font-normal leading-[30px]">
+                    <CardTitle className="line-clamp-2 min-h-[44px] text-[20px] font-normal leading-[30px]">
                         {`${firstName} ${lastName}`}
                     </CardTitle>
+                    <span>{teamsText}</span>
                     <div className=' flex flex-col gap-3'>
                         <span className="flex items-center gap-1 max-sm:items-start">
                             <Image

@@ -3,7 +3,6 @@
 import Link from 'next/link'
 import { useTranslations } from 'next-intl'
 import { Trash2, FilePenLine } from 'lucide-react'
-
 import { TableCell, TableRow } from '@/components/ui/table'
 import {
     Tooltip,
@@ -12,6 +11,7 @@ import {
     TooltipTrigger,
 } from '@/components/ui/tooltip'
 import { IUserTeam } from '@/types/user'
+import { useState } from 'react'
 
 export type UserTableProps = {
     userId: string
@@ -33,22 +33,30 @@ export const UserTableComponent = ({
     teams
 }: UserTableProps) => {
     const t = useTranslations('page.user.index')
-
     const [year, month, day] = creationDate.split("T")[0].split("-")
+    const [isActive, setIsActive] = useState(true)
+    let teamsText = teams[0].name
 
+    if (teams[1] != undefined) {
+        teamsText = `${teams[0]}, ${teams[1]}`
+    } else if (teams[2] != undefined) {
+        teamsText = `${teams[0]}, ${teams[1]}, ...`
+    }
 
-
+    if(status == 1) {
+        setIsActive(false)
+    }
 
     return (
         <TableRow className="border-none *:text-mth-grey-blue-700">
             <TableCell className="max-w-[50px] truncate">{`${firstName} ${lastName}`}</TableCell>
-            <TableCell className="flex items-center gap-2 max-sm:flex-col max-sm:items-start">
-                {teams[0].name}
+            <TableCell>
+                {teamsText}
             </TableCell>
             <TableCell>
                 {`${day}/${month}/${year}`}
             </TableCell>
-            <TableCell>{status}</TableCell>
+            <TableCell>{isActive ? <p className='text-customGreenText bg-customGreenBg text-center rounded-lg p-1.5'>Active</p> : <p className='text-red-600 bg-red-100 text-center rounded-lg p-1.5'>Not Active</p>}</TableCell>
             <TableCell>
                 <div className="flex justify-start gap-[18px]">
                     <TooltipProvider>

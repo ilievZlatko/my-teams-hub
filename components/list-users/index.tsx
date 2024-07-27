@@ -7,6 +7,7 @@ import { Search, LayoutGrid, List, X, Plus } from 'lucide-react'
 import { useSession } from 'next-auth/react'
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
 import { UserTableComponent } from '../user-table'
+import { Organisation } from '@/types/organisation.types'
 import {
     Select,
     SelectContent,
@@ -57,6 +58,10 @@ export const GetAllUsersComponent = ({ users }: GetAllUsersComponentProps) => {
     const [currentPage, setCurrentPage] = useState(rowsPerPage)
     const [searchValue, setSearchValue] = useState('')
     const debouncedSearch = useDebounce(searchValue, 200)
+    const [hasSession, setHasSession] = useState(false)
+    const [currentOrg, setCurrentOrg] = useState<Organisation | undefined>(
+        undefined,
+    )
     let filteredUsers = users
 
     const { data: session, status } = useSession()
@@ -64,6 +69,18 @@ export const GetAllUsersComponent = ({ users }: GetAllUsersComponentProps) => {
     function handleSearchChange(e: ChangeEvent<HTMLInputElement>) {
         setSearchValue(e.target.value)
     }
+    useEffect(() => {
+        if (session?.user?.activeOrg) {
+            setCurrentOrg(
+                () =>
+                    session.user.organizations.filter(
+                        (org: Organisation) =>
+                            org.organizationId === session.user.activeOrg,
+                    )[0],
+            )
+
+        }
+    }, [hasSession, session?.user.activeOrg])
 
     useEffect(() => {
         setCurrentPage(1)
@@ -110,13 +127,12 @@ export const GetAllUsersComponent = ({ users }: GetAllUsersComponentProps) => {
     const countPages = users ? Math.ceil(users.length / valueState) : 1
     filteredUsers = filteredUsers.slice(firstUser, valueState * currentPage)
 
-
     return (
         <div className="flex w-full flex-col lg:flex-row lg:gap-1 xl:max-w-[1100px]">
             <Card className="flex w-full flex-col border-none bg-transparent shadow-none">
                 <CardHeader className="relative mb-1 flex w-full lg:mb-3">
                     <h1 className="text-center font-roboto text-[32px] font-normal leading-[38.4px] text-mth-grey-blue-700">
-                        Team name
+                        {currentOrg?.organizationName}
                     </h1>
                     <span className="relative left-[50%] max-w-[220px] translate-x-[-50%] rounded border" />
 
