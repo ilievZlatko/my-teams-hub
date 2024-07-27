@@ -17,11 +17,11 @@ export default function AuthLayout({
   unstable_setRequestLocale(params.locale)
 
   return (
-    <div className="flex min-h-screen flex-col justify-between bg-gradient-to-tr from-[#CFDDE1] from-0% via-[#FDFDFF] via-50% to-[#EFF4F5] to-80% bg-no-repeat py-0 lg:px-6">
-      <div className="m-4 flex h-auto justify-end text-black">
+    <div className="flex min-h-screen flex-col bg-gradient-to-tr from-[#CFDDE1] from-0% via-[#FDFDFF] via-50% to-[#EFF4F5] to-80% bg-no-repeat py-0 lg:px-6">
+      <div className="flex h-auto justify-end p-4 text-black">
         <SelectLocale className="bg-transparent text-black" variant="black" />
       </div>
-      <div className="flex flex-col justify-center lg:flex-row lg:gap-20">
+      <div className="my-auto flex flex-col justify-center lg:my-0 lg:flex-1 lg:flex-row lg:gap-20">
         <aside className="flex flex-col justify-end gap-6 lg:w-5/12 lg:gap-[32vh] xl:gap-[25vh]">
           <Image
             src="/assets/images/title-logo.svg"
