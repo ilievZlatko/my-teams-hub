@@ -1,10 +1,8 @@
 'use client'
 
-import { useTranslations } from 'next-intl'
 import Image from 'next/image'
-
+import { useTranslations } from 'next-intl'
 import { cn, getRandomNumber } from '@/lib/utils'
-import { TeamMember } from '@/types/team'
 
 const _fakeMembers = [
   {
@@ -14,6 +12,7 @@ const _fakeMembers = [
     email: 'jane.doe@mail.com',
     phone: '+123569878',
     status: 0,
+    role: 1,
   },
   {
     memberId: '895-37i7-ass-57t7-87ggcx',
@@ -22,6 +21,7 @@ const _fakeMembers = [
     email: 'john.doe@mail.com',
     phone: '+0003569778',
     status: 2,
+    role: 2,
   },
   {
     memberId: '10hy77-asss-47t7-87gjix',
@@ -30,6 +30,7 @@ const _fakeMembers = [
     email: 'mark.stale@gmail.com',
     phone: '+3535600078',
     status: 1,
+    role: 2,
   },
   {
     memberId: '10hy77-asss-47t7-87gjix',
@@ -38,6 +39,7 @@ const _fakeMembers = [
     email: 'bloom.alex@gmail.com',
     phone: '+1478801078',
     status: 0,
+    role: 2,
   },
   {
     memberId: 'b78a77-asss-47t7-8788oj',
@@ -46,6 +48,7 @@ const _fakeMembers = [
     email: 'bloom.alex@gmail.com',
     phone: '+3598981078',
     status: 1,
+    role: 2,
   },
 ]
 

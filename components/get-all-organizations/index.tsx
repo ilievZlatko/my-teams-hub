@@ -2,12 +2,11 @@
 
 import { ChangeEvent, useEffect, useState } from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 import { useTranslations } from 'next-intl'
 import { Search, LayoutGrid, List, X, Plus } from 'lucide-react'
-import { useSession } from 'next-auth/react'
 import useWindowSize from '@custom-react-hooks/use-window-size'
 
-import { getAllTeams } from '@/actions/team.actions'
 import useDebounce from '@/hooks/useDebounce'
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
 import {
@@ -17,11 +16,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-
-import { TeamCard } from '@/components/team-card'
 import { Input } from '@/components/ui/input'
 import { PaginationComponent } from '@/components/pagination'
-import { TeamTableComponent } from '@/components/team-table'
 import { Loader } from '@/components/loader'
 import { cn } from '@/lib/utils'
 import {
@@ -30,70 +26,35 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip'
-import Link from 'next/link'
+import { OrganizationCard } from '@/components/organization-card'
+import { OrganizationTable } from '@/components/organization-table'
 
-export const GetAllTeamsComponent = () => {
+export const GetAllOrganizations = ({
+  organizations,
+}: {
+  organizations: Organisation[]
+}) => {
   const { width } = useWindowSize(200)
 
-  const t = useTranslations('page.team.index')
-  const tErrors = useTranslations('apierrors')
-
-  const { data: session, status } = useSession()
-  const [hasSession, setHasSession] = useState(false)
+  const t = useTranslations('page.organization.index')
 
   const [valueState, setValue] = useState(10)
   const [isLayoutGrid, setIsLayoutGrid] = useState(true)
-  const [allTeams, setAllTeams] = useState<TeamList | undefined>(undefined)
+  const [allOrgs, setAllOrgs] = useState<Organisation[]>(organizations)
 
-  const [isFetchingData, setIsFetchingData] = useState(false)
-  const [currentOrg, setCurrentOrg] = useState<Organisation | undefined>(
-    undefined,
-  )
+  const [isFetchingData, setIsFetchingData] = useState(true)
 
   const rowsPerPage = 1
   const [currentPage, setCurrentPage] = useState(rowsPerPage)
   const [searchValue, setSearchValue] = useState('')
   const debouncedSearch = useDebounce(searchValue, 200)
 
-  let filteredTeams = allTeams && allTeams?.teams ? allTeams.teams : []
-
   useEffect(() => {
-    if (session && status === 'authenticated') setHasSession(true)
-  }, [session])
+    setAllOrgs(organizations)
+    setIsFetchingData(false)
+  }, [])
 
-  useEffect(() => {
-    if (session?.user?.activeOrg) {
-      setCurrentOrg(
-        () =>
-          session.user.organizations.filter(
-            (org: Organisation) =>
-              org.organizationId === session.user.activeOrg,
-          )[0],
-      )
-
-      fetchTeams()
-    }
-  }, [hasSession, session?.user.activeOrg])
-
-  function fetchTeams() {
-    if (!session) return
-    setIsFetchingData(true)
-
-    getAllTeams(session.user.activeOrg!)
-      .then((data) => {
-        if (Object.keys(data).find((key) => key === 'teams')) {
-          setAllTeams(data as TeamList)
-        } else {
-          setAllTeams(undefined)
-
-          //@ts-expect-error: unknown error type
-          toast.error(tErrors(data.error))
-        }
-      })
-      .finally(() => {
-        setIsFetchingData(false)
-      })
-  }
+  let filteredOrgs = allOrgs ?? []
 
   useEffect(() => {
     setCurrentPage(1)
@@ -125,32 +86,34 @@ export const GetAllTeamsComponent = () => {
     setCurrentPage(data)
   }
 
-  let firstTeam = 0
+  let firstOrg = 0
   if (currentPage !== 1) {
-    firstTeam = valueState * (currentPage - 1)
+    firstOrg = valueState * (currentPage - 1)
   }
 
   if (debouncedSearch.trim() !== '') {
-    filteredTeams = filteredTeams.filter((team) =>
-      team.name.toLowerCase().includes(debouncedSearch.toLowerCase()),
+    filteredOrgs = filteredOrgs.filter((organization) =>
+      organization.organizationName
+        .toLowerCase()
+        .includes(debouncedSearch.toLowerCase()),
     )
   }
 
-  const countPages = Math.ceil(filteredTeams.length / valueState) ?? 1
+  const countPages = Math.ceil(filteredOrgs.length / valueState) ?? 1
 
-  filteredTeams = filteredTeams.slice(firstTeam, valueState * currentPage)
+  filteredOrgs = filteredOrgs.slice(firstOrg, valueState * currentPage)
 
-  if (!session || isFetchingData)
+  if (isFetchingData)
     return <Loader size={44} className="m-auto flex h-[50vh] items-center" />
 
   return (
     <div className="flex w-full flex-col lg:flex-row lg:gap-1 xl:max-w-[1100px]">
       <Card className="flex w-full flex-col border-none bg-transparent shadow-none">
         <CardHeader className="relative mb-1 flex w-full lg:mb-3">
-          <h1 className="text-center font-roboto text-[32px] font-normal leading-[38.4px] text-mth-grey-blue-700">
+          <h1 className="mb-1 text-center font-roboto text-[32px] font-normal leading-[38.4px] text-mth-grey-blue-700">
             {t('title')}
           </h1>
-          <span className="relative left-[50%] max-w-[220px] translate-x-[-50%] rounded border" />
+          <span className="relative left-[50%] max-w-[300px] translate-x-[-50%] rounded border lg:max-w-[340px]" />
         </CardHeader>
 
         <CardContent
@@ -204,29 +167,29 @@ export const GetAllTeamsComponent = () => {
                 )
               ) : null}
               <Link
-                href="/teams/create"
+                href="/organizations/create"
                 prefetch
                 className="flex items-center justify-center gap-2 rounded-xl bg-mth-blue-500 px-3 py-2.5 font-normal text-white transition hover:bg-mth-blue-500/70 max-sm:h-[40px] max-sm:w-[36px] max-sm:p-0 sm:ml-1 lg:me-14 lg:ml-2"
               >
                 {width >= 1024 ? (
                   <>
                     <Plus size={16} />
-                    {t('create_team_btn')}
+                    {t('create_org_btn')}
                   </>
                 ) : (
                   <TooltipProvider>
                     <Tooltip>
                       <TooltipTrigger asChild>
                         <Image
-                          src="/assets/images/users-add.svg"
+                          src="/assets/images/building-plus.svg"
                           alt="create team"
                           width={20}
                           height={20}
-                          className="max-sm:w-[18px]"
+                          className="invert max-sm:w-[18px]"
                         />
                       </TooltipTrigger>
                       <TooltipContent>
-                        <p className="text-xs">{t('create_team_btn')}</p>
+                        <p className="text-xs">{t('create_org_btn')}</p>
                       </TooltipContent>
                     </Tooltip>
                   </TooltipProvider>
@@ -237,44 +200,42 @@ export const GetAllTeamsComponent = () => {
 
           {width >= 1024 ? (
             isLayoutGrid ? (
-              debouncedSearch.trim() !== '' && filteredTeams.length === 0 ? (
+              debouncedSearch.trim() !== '' && filteredOrgs.length === 0 ? (
                 <p className="flex min-h-[200px] items-center justify-center text-lg text-mth-dark-200 max-sm:text-sm">
                   {t('no_results')}
                 </p>
               ) : (
                 <div className="mx-auto w-full">
                   <div className="mx-0 grid grid-cols-3 gap-2 xl:grid-cols-4">
-                    {filteredTeams.map((team: Team) => (
-                      <TeamCard
-                        key={team.teamId}
-                        {...team}
-                        orgName={currentOrg ? currentOrg.organizationName : ''}
+                    {filteredOrgs.map((organization) => (
+                      <OrganizationCard
+                        key={organization.organizationId}
+                        organization={organization}
                       />
                     ))}
                   </div>
                 </div>
               )
-            ) : debouncedSearch.trim() !== '' && filteredTeams.length === 0 ? (
+            ) : debouncedSearch.trim() !== '' && filteredOrgs.length === 0 ? (
               <p className="flex min-h-[200px] items-center justify-center text-lg text-mth-dark-200 max-sm:text-sm">
                 {t('no_results')}
               </p>
             ) : (
               <div className="px-[6px]">
-                <TeamTableComponent teams={filteredTeams} />
+                <OrganizationTable organizations={filteredOrgs} />
               </div>
             )
-          ) : debouncedSearch.trim() !== '' && filteredTeams.length === 0 ? (
+          ) : debouncedSearch.trim() !== '' && filteredOrgs.length === 0 ? (
             <p className="flex min-h-[200px] items-center justify-center text-lg text-mth-dark-200 max-sm:text-sm">
               {t('no_results')}
             </p>
           ) : (
             <div className="mx-auto w-full px-0 md:px-1">
               <div className="grid gap-3 max-md:grid-cols-2 max-md:gap-5 max-sm:grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
-                {filteredTeams?.map((team: Team) => (
-                  <TeamCard
-                    key={team.teamId}
-                    {...team}
-                    orgName={currentOrg ? currentOrg.organizationName : ''}
+                {filteredOrgs?.map((organization) => (
+                  <OrganizationCard
+                    key={organization.organizationId}
+                    organization={organization}
                   />
                 ))}
               </div>

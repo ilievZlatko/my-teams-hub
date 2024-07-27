@@ -15,6 +15,7 @@ export const config = {
       if (trigger === 'update') {
         token = {
           ...token,
+          ...session.token,
           activeOrg: session?.user?.activeOrg,
           organizations: session?.user?.organizations || token?.organizations,
         }
@@ -30,10 +31,7 @@ export const config = {
             access_token: String(user.accessToken),
             issued_at: Date.now(),
             expires_at: Date.now() + Number(account.expires_in) * 1000,
-            refresh_token: user.refreshToken,
             email: user.email,
-            first_name: user.firstName,
-            last_name: user.lastName,
           }
           return token
         }

@@ -2,12 +2,13 @@
   "navigation": {
     "home": "Home",
     "dashboard": "Dashboard",
-    "sidenav" : {
-      "overview" : "Dashboard",
-      "teams" : "Teams",
-      "users" : "Users",
-      "org-chart" : "Organization`s chart",
-      "evaluation" : "Evaluation"
+    "sidenav": {
+      "overview": "Dashboard",
+      "teams": "Teams",
+      "users": "Users",
+      "organizations": "Organizations",
+      "org-chart": "Organization`s chart",
+      "evaluation": "Evaluation"
     }
   },
   "auth": {
@@ -137,6 +138,39 @@
       },
       "details": {
         "title": "Team Details"
+      }
+    },
+    "organization": {
+      "index": {
+        "title": "All Organizations",
+        "search_placeholder": "Search...",
+        "no_results": "No results found",
+        "create_org_btn": "Create Organization",
+        "edit": "Edit",
+        "delete": "Delete",
+        "show": "Show",
+        "org_id": "Organization ID",
+        "name": "Name",
+        "description": "Description",
+        "creation_date": "Date of Creation",
+        "see_teams": "See Teams",
+        "action": "Action"
+      }
+    },
+    "user": {
+      "edit": {
+        "title": "Edit User",
+        "user_first_name_label": "First name",
+        "user_last_name_label": "Last name",
+        "user_email_label": "Email",
+        "user_phone_number_label": "Phone number",
+        "save_btn": "Save",
+        "cancel_btn": "Cancel",
+        "success_message": "User updated successfuly!",
+        "error_message": "Sorry, something went wrong!",
+        "schema_msg_first_name_require": "First name is required!",
+        "schema_msg_last_name_require": "First name is required!",
+        "schema_msg_email_require": "Invalid email!!!"
       }
     },
     "continue": "Continue",

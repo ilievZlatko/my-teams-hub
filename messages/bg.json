@@ -2,12 +2,13 @@
   "navigation": {
     "home": "Начало",
     "dashboard": "Дашборд",
-    "sidenav" : {
-      "overview" : "Дашборд",
-      "teams" : "Екипи",
-      "users" : "Потребители",
-      "org-chart" : "Диаграма",
-      "evaluation" : "Оценка"
+    "sidenav": {
+      "overview": "Дашборд",
+      "teams": "Екипи",
+      "users": "Потребители",
+      "organizations": "Организации",
+      "org-chart": "Диаграма",
+      "evaluation": "Оценка"
     }
   },
   "auth": {
@@ -137,6 +138,39 @@
       },
       "details": {
         "title": "Детайли за Екипа"
+      }
+    },
+    "organization": {
+      "index": {
+        "title": "Всички Организации",
+        "search_placeholder": "Търсене...",
+        "no_results": "Няма намерени резултати",
+        "create_org_btn": "Създай Организация",
+        "edit": "Редактирай",
+        "delete": "Изтрий",
+        "show": "Покажи",
+        "org_id": "ИД Номер",
+        "name": "Име",
+        "description": "Описание",
+        "creation_date": "Дата на създаване",
+        "see_teams": "Виж Екипите",
+        "action": "Действие"
+      }
+    },
+    "user": {
+      "edit": {
+        "title": "Редакция на Профила",
+        "user_first_name_label": "Име",
+        "user_last_name_label": "Фамилия",
+        "user_email_label": "Имейл",
+        "user_phone_number_label": "Телефон",
+        "save_btn": "Запази",
+        "cancel_btn": "Откажи",
+        "success_message": "Профилът беше редактиран успешно!",
+        "error_message": "Съжаляваме, възникна грешка!",
+        "schema_msg_first_name_require": "Името е задължително!",
+        "schema_msg_last_name_require": "Фамилията е задължителна!",
+        "schema_msg_email_require": "Невалиден имейл!!"
       }
     },
     "continue": "Продължи",

@@ -12,9 +12,7 @@ import { toast } from 'sonner'
 
 import { EditTeamSchema, EditTeamType } from '@/schemas/edit-team.schema'
 import { cn } from '@/lib/utils'
-import { Team, TeamMember } from '@/types/team'
-import { IUser } from '@/types/user'
-import { editTeam, deleteTeam } from '@/actions/edit-team.actions'
+import { editTeam, deleteTeam } from '@/actions/team.actions'
 import {
   Form,
   FormControl,
@@ -342,7 +340,7 @@ export const EditTeamForm = ({
                   />
                 </div>
               </div>
-
+              {/* -------------------- */}
               <div className="flex flex-col space-y-2 *:rounded-xl max-sm:w-full sm:w-10/12 md:w-11/12">
                 <FormError message={error} />
 

@@ -31,7 +31,7 @@ import { Button } from '../ui/button'
 import { Checkbox } from '../ui/checkbox'
 import { FormError } from '../form-error'
 import { FormSuccess } from '../form-success'
-import { register } from '@/actions/register'
+import { register } from '@/actions/auth.actions'
 import { cn } from '@/lib/utils'
 
 export const RegisterForm = () => {

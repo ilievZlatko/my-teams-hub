@@ -37,14 +37,14 @@ export const CreateTeamForm = () => {
 
   const onSubmit = async (values: CreateTeamType) => {
     startTransition(() => createTeam(values).then())
-    router.push('/')
+    router.push('/teams')
   }
 
   return (
-    <div className="flex w-full flex-col lg:flex-row lg:gap-1">
+    <div className="flex w-full flex-col lg:max-w-[1180px] lg:flex-row lg:gap-5">
       <Image
         src="/assets/images/team2.svg"
-        className="order-1 h-[400px] w-full self-end lg:order-none lg:h-[360px] lg:max-w-[35%]"
+        className="order-1 h-[400px] w-full self-end lg:order-none lg:h-[360px] lg:max-w-[45%]"
         width={444.24}
         height={404}
         alt="team"
@@ -103,7 +103,10 @@ export const CreateTeamForm = () => {
                 <Button
                   variant="tertiary-outline"
                   type="button"
-                  onClick={() => form.reset()}
+                  onClick={() => {
+                    form.reset()
+                    router.push('/teams')
+                  }}
                   className="basis-[45%] bg-transparent font-light"
                 >
                   Cancel

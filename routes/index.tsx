@@ -1,12 +1,6 @@
 'use client'
 
-export enum SidenavKeys {
-  OVERVIEW = 'overview',
-  TEAMS = 'teams',
-  USERS = 'users',
-  ORG_CHART = 'org-chart',
-  EVALUATION = 'evaluation',
-}
+import { SidenavKeys } from '@/enums/side-nav'
 
 export const routes = [
   {
@@ -26,9 +20,14 @@ export const routes = [
   },
   {
     image: '/assets/images/organisations-chart.svg',
-    routeName: SidenavKeys.ORG_CHART,
-    url: '/organisations',
+    routeName: SidenavKeys.ORGS,
+    url: '/organizations',
   },
+  // {
+  //   image: '/assets/images/organisations-chart.svg',
+  //   routeName: SidenavKeys.ORG_CHART,
+  //   url: '/organizations/org-chart',
+  // },
   {
     image: '/assets/images/evaluation.svg',
     routeName: SidenavKeys.EVALUATION,

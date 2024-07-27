@@ -27,7 +27,7 @@ import { Social } from '@/components/social'
 import { BackButton } from '@/components/back-button'
 import { FormError } from '@/components/form-error'
 import { FormSuccess } from '@/components/form-success'
-import { login } from '@/actions/login'
+import { login } from '@/actions/auth.actions'
 import { cn } from '@/lib/utils'
 import { DEFAULT_LOGIN_REDIRECT } from '@/consts/protectedRoutes'
 
