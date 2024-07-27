@@ -58,7 +58,6 @@ export const GetAllUsersComponent = ({ users }: GetAllUsersComponentProps) => {
     const [currentPage, setCurrentPage] = useState(rowsPerPage)
     const [searchValue, setSearchValue] = useState('')
     const debouncedSearch = useDebounce(searchValue, 200)
-    const [hasSession, setHasSession] = useState(false)
     const [currentOrg, setCurrentOrg] = useState<Organisation | undefined>(
         undefined,
     )
@@ -80,7 +79,7 @@ export const GetAllUsersComponent = ({ users }: GetAllUsersComponentProps) => {
             )
 
         }
-    }, [hasSession, session?.user.activeOrg])
+    }, [ session?.user.activeOrg])
 
     useEffect(() => {
         setCurrentPage(1)

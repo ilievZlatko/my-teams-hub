@@ -33,10 +33,11 @@ export const UserTableComponent = ({
     teams
 }: UserTableProps) => {
     const t = useTranslations('page.user.index')
-    const [year, month, day] = creationDate.split("T")[0].split("-")
     const [isActive, setIsActive] = useState(true)
     let teamsText = teams[0].name
-
+    const date = new Date(creationDate);
+    let dateString = date.toLocaleDateString();
+    let [day, month, year] = dateString.split(".")
     if (teams[1] != undefined) {
         teamsText = `${teams[0]}, ${teams[1]}`
     } else if (teams[2] != undefined) {
@@ -54,7 +55,7 @@ export const UserTableComponent = ({
                 {teamsText}
             </TableCell>
             <TableCell>
-                {`${day}/${month}/${year}`}
+                {`${day}/${month}/${year.split(" ")[0]}`}
             </TableCell>
             <TableCell>{isActive ? <p className='text-customGreenText bg-customGreenBg text-center rounded-lg p-1.5'>Active</p> : <p className='text-red-600 bg-red-100 text-center rounded-lg p-1.5'>Not Active</p>}</TableCell>
             <TableCell>
