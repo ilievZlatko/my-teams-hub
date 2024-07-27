@@ -11,7 +11,6 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import { IUserTeam } from '@/types/user'
 
 export type UserCardProps = {
   userId: string

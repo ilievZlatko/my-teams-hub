@@ -5,7 +5,6 @@ import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import { Trash2, FilePenLine } from 'lucide-react'
 
-import { TeamMember } from '@/types/team'
 import { cn, getRandomNumber } from '@/lib/utils'
 import { TableCell, TableRow } from '@/components/ui/table'
 import {

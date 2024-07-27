@@ -54,7 +54,7 @@ export const UserTableComponent = ({
       <TableCell>{`${day}/${month}/${year.split(' ')[0]}`}</TableCell>
       <TableCell>
         {isActive ? (
-          <p className="bg-customGreenBg text-customGreenText rounded-lg p-1.5 text-center">
+          <p className="rounded-lg bg-customGreenBg p-1.5 text-center text-customGreenText">
             Active
           </p>
         ) : (
