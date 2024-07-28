@@ -136,7 +136,8 @@
         "description": "Description",
         "creation_date": "Date of Creation",
         "see_teams": "See Teams",
-        "action": "Action"
+        "action": "Action",
+        "dialog_modal": "Are you sure you want to delete"
       }
     },
     "user": {

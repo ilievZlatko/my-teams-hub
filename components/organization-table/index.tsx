@@ -22,10 +22,12 @@ import {
 
 export type OrganizationTableProps = {
   organizations: Organisation[]
+  handleShowDeleteModal: (id: string, title: string) => void
 }
 
 export const OrganizationTable = ({
   organizations,
+  handleShowDeleteModal,
 }: OrganizationTableProps) => {
   const t = useTranslations('page.organization.index')
 
@@ -109,7 +111,12 @@ export const OrganizationTable = ({
                         <Trash2
                           strokeWidth={'1.8'}
                           className="cursor-pointer bg-transparent text-[#F63333]"
-                          onClick={() => {}}
+                          onClick={() => {
+                            handleShowDeleteModal(
+                              org.organizationId,
+                              org.organizationName,
+                            )
+                          }}
                         />
                       </TooltipTrigger>
                       <TooltipContent>

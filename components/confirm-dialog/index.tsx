@@ -15,6 +15,7 @@ type ModalProps = {
   buttonText?: string
   buttonIcon?: string
   image?: string
+  isLoading?: boolean
   handleClick?: () => void
 }
 
@@ -26,6 +27,7 @@ export const ConfirmDialog = ({
   buttonText,
   buttonIcon,
   image,
+  isLoading = false,
   handleClick,
 }: ModalProps) => {
   const t = useTranslations('page')
@@ -48,7 +50,11 @@ export const ConfirmDialog = ({
 
           {children}
 
-          <Button onClick={onClose} variant="tertiary-outline">
+          <Button
+            onClick={onClose}
+            variant="tertiary-outline"
+            disabled={isLoading}
+          >
             {buttonIcon && (
               <Image
                 src={buttonIcon}
@@ -61,7 +67,7 @@ export const ConfirmDialog = ({
             {t('cancel')}
           </Button>
 
-          <Button onClick={handleClick}>
+          <Button onClick={handleClick} disabled={isLoading}>
             {buttonIcon && (
               <Image
                 src={buttonIcon}

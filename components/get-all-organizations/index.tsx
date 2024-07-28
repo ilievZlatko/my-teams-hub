@@ -28,6 +28,9 @@ import {
 } from '@/components/ui/tooltip'
 import { OrganizationCard } from '@/components/organization-card'
 import { OrganizationTable } from '@/components/organization-table'
+import { ConfirmDialog } from '../confirm-dialog'
+import { deleteOrg } from '@/actions/organization.actions'
+import { toast } from 'sonner'
 
 export const GetAllOrganizations = ({
   organizations,
@@ -37,12 +40,20 @@ export const GetAllOrganizations = ({
   const { width } = useWindowSize(200)
 
   const t = useTranslations('page.organization.index')
+  const [openDeleteModal, setOpenDeleteModal] = useState<boolean>(false)
 
   const [valueState, setValue] = useState(10)
   const [isLayoutGrid, setIsLayoutGrid] = useState(true)
   const [allOrgs, setAllOrgs] = useState<Organisation[]>(organizations)
 
   const [isFetchingData, setIsFetchingData] = useState(true)
+  const [isDeleting, setIsDeleting] = useState(false)
+  const [orgToDeleteId, setOrgToDeleteId] = useState<string | undefined>(
+    undefined,
+  )
+  const [orgToDeleteTitle, setOrgToDeleteTitle] = useState<string | undefined>(
+    undefined,
+  )
 
   const rowsPerPage = 1
   const [currentPage, setCurrentPage] = useState(rowsPerPage)
@@ -84,6 +95,30 @@ export const GetAllOrganizations = ({
 
   function handleDataFromChild(data: number) {
     setCurrentPage(data)
+  }
+
+  const handleShowDeleteModal = (id: string, title: string) => {
+    setOpenDeleteModal(true)
+    setOrgToDeleteId(id)
+    setOrgToDeleteTitle(title)
+  }
+
+  const onOrgDelete = async () => {
+    if (!orgToDeleteId) return
+    setIsDeleting(true)
+
+    try {
+      const response = await deleteOrg(orgToDeleteId)
+
+      if (response === null) {
+        setIsDeleting(false)
+
+        location.reload()
+        toast.info('Deleted')
+      }
+    } catch (_: unknown) {
+      setIsDeleting(false)
+    }
   }
 
   let firstOrg = 0
@@ -222,7 +257,10 @@ export const GetAllOrganizations = ({
               </p>
             ) : (
               <div className="px-[6px]">
-                <OrganizationTable organizations={filteredOrgs} />
+                <OrganizationTable
+                  organizations={filteredOrgs}
+                  handleShowDeleteModal={handleShowDeleteModal}
+                />
               </div>
             )
           ) : debouncedSearch.trim() !== '' && filteredOrgs.length === 0 ? (
@@ -277,6 +315,13 @@ export const GetAllOrganizations = ({
           />
         </CardFooter>
       </Card>
+      <ConfirmDialog
+        isOpen={openDeleteModal}
+        isLoading={isDeleting}
+        onClose={() => setOpenDeleteModal(false)}
+        title={t('dialog_modal') + `  ${orgToDeleteTitle}`}
+        handleClick={onOrgDelete}
+      />
     </div>
   )
 }

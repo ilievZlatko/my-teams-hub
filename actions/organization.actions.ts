@@ -59,3 +59,37 @@ export async function getOrgs(): Promise<Organisation[] | { error: string }> {
     return { error: 'An error has occurred!' }
   }
 }
+
+export async function deleteOrg(
+  organizationId: string,
+): Promise<null | { error: string }> {
+  try {
+    const session = await auth()
+    const headers = new Headers()
+
+    headers.append('Content-Type', 'application/json')
+    headers.append('Authorization', `Bearer ${session?.token?.access_token}`)
+
+    const url = `${process.env.API_BASE_URL}${routes.organisation.delete(organizationId)}`
+    const res = await fetch(url, {
+      method: 'DELETE',
+      headers,
+    })
+
+    revalidateTag('organisations')
+
+    const jsonResponse = await res.json()
+
+    if (jsonResponse?.errors && jsonResponse.errors?.length > 0) {
+      return { error: 'error_occurred_msg' }
+    }
+
+    return jsonResponse?.data ?? null
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
+    if (error?.message) {
+      return { error: error.message }
+    }
+    return { error: 'error_occurred_msg' }
+  }
+}
