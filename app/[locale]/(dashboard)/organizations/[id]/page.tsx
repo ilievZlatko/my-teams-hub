@@ -1,7 +1,10 @@
+import { GetOrganizationDetails } from '@/components/get-organization-details'
 
-import { GetOrganizationDetails } from "@/components/get-organization-details";
-
-const OrganizationDetailsPage = ({ params: { id } }: { params: { id: string } }) => {
+const OrganizationDetailsPage = ({
+  params: { id },
+}: {
+  params: { id: string }
+}) => {
   return (
     <div>
       <GetOrganizationDetails id={id} />
@@ -9,4 +12,4 @@ const OrganizationDetailsPage = ({ params: { id } }: { params: { id: string } })
   )
 }
 
-export default OrganizationDetailsPage;
+export default OrganizationDetailsPage

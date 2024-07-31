@@ -7,7 +7,6 @@ import { Search, X, FilePenLine, Save } from 'lucide-react'
 import { useSession } from 'next-auth/react'
 import useWindowSize from '@custom-react-hooks/use-window-size'
 
-
 import { getAllTeams } from '@/actions/team.actions'
 import useDebounce from '@/hooks/useDebounce'
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
@@ -34,14 +33,13 @@ import { cn } from '@/lib/utils'
 
 import { OrganisationDetailsCard } from '../organization-details-card'
 
-
 export const GetOrganizationDetails = ({ id }: { id: string }) => {
   const { width } = useWindowSize(200)
 
-  const t = useTranslations('page.organization.details');
+  const t = useTranslations('page.organization.details')
   const tErrors = useTranslations('apierrors')
 
-  const { data: session, status, update } = useSession()
+  const { data: session, status } = useSession()
   const [hasSession, setHasSession] = useState(false)
 
   const [valueState, setValue] = useState(10)
@@ -49,7 +47,7 @@ export const GetOrganizationDetails = ({ id }: { id: string }) => {
 
   const [isFetchingData, setIsFetchingData] = useState(false)
 
-  const [hover, setHover] = useState(false);
+  const [hover, setHover] = useState(false)
 
   const [currentOrg, setCurrentOrg] = useState<Organisation | undefined>(
     undefined,
@@ -60,34 +58,35 @@ export const GetOrganizationDetails = ({ id }: { id: string }) => {
   const [searchValue, setSearchValue] = useState('')
   const debouncedSearch = useDebounce(searchValue, 200)
 
+  const [editName, setEditName] = useState(true)
+  const [nameValue, setNameValue] = useState('')
 
-    const [editName, setEditName] = useState(true)
-    const [nameValue, setNameValue] = useState('')
-  
-    const [editDescription , setEditDescription ] = useState(true)
-    const [descriptionValue, setDescriptionValue] = useState('Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum, consequuntur!')
+  const [editDescription, setEditDescription] = useState(true)
+  const [descriptionValue, setDescriptionValue] = useState(
+    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum, consequuntur!',
+  )
 
-    function handleNameChange(e: ChangeEvent<HTMLInputElement>) {
-      setNameValue(e.target.value)
-    }
+  function handleNameChange(e: ChangeEvent<HTMLInputElement>) {
+    setNameValue(e.target.value)
+  }
 
-    function handleNDescriptionChange(e: ChangeEvent<HTMLInputElement>) {
-      setDescriptionValue(e.target.value)
-    }
+  function handleNDescriptionChange(e: ChangeEvent<HTMLInputElement>) {
+    setDescriptionValue(e.target.value)
+  }
 
-    function saveNameHandler() {
-      // TODO: update session and save in database
-      setEditName(currState => !currState)
-    }
+  function saveNameHandler() {
+    // TODO: update session and save in database
+    setEditName((currState) => !currState)
+  }
 
-    function saveDescriptionHandler() {
-      // TODO: update session and save in database
-      setEditDescription(currState => !currState)
-    }
+  function saveDescriptionHandler() {
+    // TODO: update session and save in database
+    setEditDescription((currState) => !currState)
+  }
 
-    function changeLogoHandler() {
-      // TODO
-    }
+  function changeLogoHandler() {
+    // TODO
+  }
 
   let filteredTeams = allTeams && allTeams?.teams ? allTeams.teams : []
 
@@ -100,15 +99,18 @@ export const GetOrganizationDetails = ({ id }: { id: string }) => {
       setCurrentOrg(
         () =>
           session.user.organizations.filter(
-            (org: Organisation) =>
-              org.organizationId === id,
+            (org: Organisation) => org.organizationId === id,
           )[0],
       )
 
-      setNameValue(currentOrg?.organizationName!)
+      setNameValue(
+        () =>
+          session.user.organizations.filter(
+            (org: Organisation) => org.organizationId === id,
+          )[0].organizationName,
+      )
 
       fetchTeams()
-
     }
   }, [hasSession, session?.user.activeOrg])
 
@@ -118,7 +120,6 @@ export const GetOrganizationDetails = ({ id }: { id: string }) => {
 
     getAllTeams(id)
       .then((data) => {
-
         if (Object.keys(data).find((key) => key === 'teams')) {
           setAllTeams(data as TeamList)
         } else {
@@ -132,7 +133,6 @@ export const GetOrganizationDetails = ({ id }: { id: string }) => {
         setIsFetchingData(false)
       })
   }
-
 
   useEffect(() => {
     setCurrentPage(1)
@@ -180,125 +180,132 @@ export const GetOrganizationDetails = ({ id }: { id: string }) => {
 
   return (
     <div className="flex w-full flex-col lg:flex-row lg:gap-1 xl:max-w-[1100px]">
-
       <Card className="flex w-full flex-col border-none bg-transparent shadow-none">
-        <CardHeader className="flex relative mb-[20px] w-full lg:mb-3">
-          <div className='flex justify-center gap-[40px] h-[97px] mb-[20px]'>
-            <div className="relative flex justify-center content-center w-[97px] h-[97px] top-[0px] rounded-full border-[3px] border-white bg-mth-blue-100 overflow-hidden"
-              onMouseEnter={e => {
-                setHover(true);
+        <CardHeader className="relative mb-[20px] flex w-full lg:mb-3">
+          <div className="mb-[20px] flex h-[97px] justify-center gap-[40px]">
+            <div
+              className="relative top-[0px] flex h-[97px] w-[97px] content-center justify-center overflow-hidden rounded-full border-[3px] border-white bg-mth-blue-100"
+              onMouseEnter={() => {
+                setHover(true)
               }}
-              onMouseLeave={e => {
+              onMouseLeave={() => {
                 setHover(false)
-              }}>
-              {hover ?
-                <button onClick={changeLogoHandler} className='transition-opacity ease-in duration-500 opacity-0 hover:opacity-100 absolute w-[100%] h-[100%] bottom-0 z-10 text-sm rounded-br bg-mth-blue-500'>
+              }}
+            >
+              {hover ? (
+                <button
+                  onClick={changeLogoHandler}
+                  className="absolute bottom-0 z-10 h-[100%] w-[100%] rounded-br bg-mth-blue-500 text-sm opacity-0 transition-opacity duration-500 ease-in hover:opacity-100"
+                >
                   {t('change')}
                 </button>
-                :
-                <h1 className='self-center text-4xl font-bold text-mth-grey-blue-500'>{currentOrg?.organizationName.slice(0, 1).toUpperCase()}</h1>
-              }
-            </div>
-            <div className="flex-col justify-between content-center relative mb-1 flex lg:mb-3 ">
-              {editName ?
-              <div className="flex justify-center items-center gap-[30px]">
-                <h1 className="text-center font-roboto text-[32px] font-normal leading-[38.4px] text-mth-white-50">
-                  {currentOrg ? currentOrg.organizationName : ''}
+              ) : (
+                <h1 className="self-center text-4xl font-bold text-mth-grey-blue-500">
+                  {currentOrg?.organizationName.slice(0, 1).toUpperCase()}
                 </h1>
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <FilePenLine
-                        strokeWidth={'1.8'}
-                        className="cursor-pointer bg-transparent text-mth-blue-500"
-                        onClick={() => setEditName(currState => !currState)}
-                      />
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p className="text-xs">{t('edit')}</p>
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
-              </div>
-              :
-              <div className="flex justify-center items-center gap-[30px]">
-              <Input
-                type="text"
-                placeholder=''
-                className="w-[300px] px-[34px] placeholder:text-xs max-sm:w-[200px] max-sm:px-[31px]"
-                value={nameValue}
-                onChange={handleNameChange}
-              />
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <Save
-                        strokeWidth={'1.8'}
-                        className="cursor-pointer bg-transparent text-mth-blue-500"
-                        onClick={saveNameHandler}
-                      />
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p className="text-xs">{t('save')}</p>
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
-              </div>
-               }
+              )}
+            </div>
+            <div className="relative mb-1 flex flex-col content-center justify-between lg:mb-3">
+              {editName ? (
+                <div className="flex items-center justify-center gap-[30px]">
+                  <h1 className="text-center font-roboto text-[32px] font-normal leading-[38.4px] text-mth-white-50">
+                    {currentOrg ? currentOrg.organizationName : ''}
+                  </h1>
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <FilePenLine
+                          strokeWidth={'1.8'}
+                          className="cursor-pointer bg-transparent text-mth-blue-500"
+                          onClick={() => setEditName((currState) => !currState)}
+                        />
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p className="text-xs">{t('edit')}</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                </div>
+              ) : (
+                <div className="flex items-center justify-center gap-[30px]">
+                  <Input
+                    type="text"
+                    placeholder=""
+                    className="w-[300px] px-[34px] placeholder:text-xs max-sm:w-[200px] max-sm:px-[31px]"
+                    value={nameValue}
+                    onChange={handleNameChange}
+                  />
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Save
+                          strokeWidth={'1.8'}
+                          className="cursor-pointer bg-transparent text-mth-blue-500"
+                          onClick={saveNameHandler}
+                        />
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p className="text-xs">{t('save')}</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                </div>
+              )}
               <span className="relative left-[50%] max-w-[220px] translate-x-[-50%] rounded border" />
-              {editDescription ?
-              <div className="flex justify-center items-center gap-[30px]">
-              <p className="text-center font-roboto font-normal leading-[38.4px] text-mth-white-50">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum,
-                consequuntur!
-              </p>
-              <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <FilePenLine
-                        strokeWidth={'1.8'}
-                        className="cursor-pointer bg-transparent text-mth-blue-500"
-                        onClick={() => setEditDescription(currState => !currState)}
-                      />
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p className="text-xs">{t('edit')}</p>
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
-              </div>
-              :
-              <div className="flex justify-center items-center gap-[30px]">
-              <Input
-                type="text"
-                placeholder=''
-                className="w-[300px] px-[34px] placeholder:text-xs max-sm:w-[200px] max-sm:px-[31px]"
-                value={descriptionValue}
-                onChange={handleNDescriptionChange}
-              />
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <Save
-                        strokeWidth={'1.8'}
-                        className="cursor-pointer bg-transparent text-mth-blue-500"
-                        onClick={saveDescriptionHandler}
-                      />
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p className="text-xs">{t('save')}</p>
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
-              </div>
-               }
+              {editDescription ? (
+                <div className="flex items-center justify-center gap-[30px]">
+                  <p className="text-center font-roboto font-normal leading-[38.4px] text-mth-white-50">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Laborum, consequuntur!
+                  </p>
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <FilePenLine
+                          strokeWidth={'1.8'}
+                          className="cursor-pointer bg-transparent text-mth-blue-500"
+                          onClick={() =>
+                            setEditDescription((currState) => !currState)
+                          }
+                        />
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p className="text-xs">{t('edit')}</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                </div>
+              ) : (
+                <div className="flex items-center justify-center gap-[30px]">
+                  <Input
+                    type="text"
+                    placeholder=""
+                    className="w-[300px] px-[34px] placeholder:text-xs max-sm:w-[200px] max-sm:px-[31px]"
+                    value={descriptionValue}
+                    onChange={handleNDescriptionChange}
+                  />
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Save
+                          strokeWidth={'1.8'}
+                          className="cursor-pointer bg-transparent text-mth-blue-500"
+                          onClick={saveDescriptionHandler}
+                        />
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p className="text-xs">{t('save')}</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                </div>
+              )}
             </div>
           </div>
         </CardHeader>
 
         <CardContent>
           <div className="mx-auto mb-8 flex w-full max-w-[1100px] items-center justify-center max-lg:gap-3 max-sm:gap-1 lg:justify-start lg:pl-4">
-
             <div className="relative">
               <Input
                 type="text"
@@ -320,7 +327,6 @@ export const GetOrganizationDetails = ({ id }: { id: string }) => {
                 />
               </span>
             </div>
-
           </div>
 
           {width >= 1024 ? (
@@ -332,10 +338,7 @@ export const GetOrganizationDetails = ({ id }: { id: string }) => {
               <div className="mx-auto w-full">
                 <div className="mx-0 grid grid-cols-3 gap-2 xl:grid-cols-4">
                   {filteredTeams.map((team: Team) => (
-                    <OrganisationDetailsCard
-                      key={team.teamId}
-                      {...team}
-                    />
+                    <OrganisationDetailsCard key={team.teamId} {...team} />
                   ))}
                 </div>
               </div>
@@ -348,11 +351,7 @@ export const GetOrganizationDetails = ({ id }: { id: string }) => {
             <div className="mx-auto w-full px-0 md:px-1">
               <div className="grid gap-3 max-md:grid-cols-2 max-md:gap-5 max-sm:grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
                 {filteredTeams?.map((team: Team) => (
-                  <OrganisationDetailsCard
-                    key={team.teamId}
-                    {...team}
-
-                  />
+                  <OrganisationDetailsCard key={team.teamId} {...team} />
                 ))}
               </div>
             </div>
