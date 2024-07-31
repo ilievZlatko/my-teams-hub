@@ -137,6 +137,16 @@
         "creation_date": "Дата на създаване",
         "see_teams": "Виж Екипите",
         "action": "Действие"
+      },
+      "details": {
+        "title": "Team Details",
+        "change": "Промени", 
+        "view_more": "Виж повече",
+        "search_placeholder": "Търсене...",
+        "no_results": "Няма намерени резултати",
+        "show": "Покажи",
+        "edit": "Редактирай",
+        "save": "Запази"
       }
     },
     "user": {

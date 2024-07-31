@@ -137,6 +137,16 @@
         "creation_date": "Date of Creation",
         "see_teams": "See Teams",
         "action": "Action"
+      },
+      "details": {
+        "title": "Team Details",
+        "change": "Change",
+        "view_more": "View more",
+        "search_placeholder": "Search...",
+        "no_results": "No results found",
+        "show": "Show",
+        "edit": "Edit",
+        "save": "Save"
       }
     },
     "user": {

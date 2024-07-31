@@ -1,13 +1,12 @@
-export default function Details({
-  params: { id },
-}: {
-  params: { id: string }
-}) {
+
+import { GetOrganizationDetails } from "@/components/get-organization-details";
+
+const OrganizationDetailsPage = ({ params: { id } }: { params: { id: string } }) => {
   return (
-    // Add details code here
-    <>
-      <div>Organization Details Page</div>
-      <p>{id}</p>
-    </>
+    <div>
+      <GetOrganizationDetails id={id} />
+    </div>
   )
 }
+
+export default OrganizationDetailsPage;
