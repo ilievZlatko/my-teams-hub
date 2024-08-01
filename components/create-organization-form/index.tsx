@@ -20,11 +20,13 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form'
-import { useTransition } from 'react'
+import { useState, useTransition } from 'react'
 import { useRouter } from 'next/navigation'
+import { FormError } from '../form-error'
 
 export const CreateOrganizationForm = ({ isPage = false }) => {
   const [isPending, startTransition] = useTransition()
+  const [error, setError] = useState<string | undefined>('')
   const router = useRouter()
 
   const t = useTranslations('page')
@@ -35,7 +37,18 @@ export const CreateOrganizationForm = ({ isPage = false }) => {
   })
 
   const onSubmit = async (values: z.infer<typeof CreateOrganizationSchema>) => {
-    startTransition(() => createOrg(values).then())
+    setError('')
+    startTransition(async () => {
+      const response = await createOrg(values)
+
+      if (response && typeof response === 'object' && 'error' in response) {
+        setError(response.error)
+      } else if (isPage) {
+        router.push('/organizations')
+      } else {
+        form.reset()
+      }
+    })
     const organizations = await getOrgs()
 
     const updatedSession = {
@@ -50,12 +63,6 @@ export const CreateOrganizationForm = ({ isPage = false }) => {
       },
     }
     await update(updatedSession)
-
-    if (isPage) {
-      router.push('/organizations')
-    } else {
-      form.reset()
-    }
   }
 
   return (
@@ -113,27 +120,30 @@ export const CreateOrganizationForm = ({ isPage = false }) => {
           />
         </div>
         {isPage ? (
-          <div className="flex justify-between">
-            <Button
-              variant="tertiary-outline"
-              type="button"
-              onClick={() => {
-                form.reset()
-                router.push('/organizations')
-              }}
-              className="basis-[45%] bg-transparent font-light"
-            >
-              Cancel
-            </Button>
-            <Button
-              variant="tertiary"
-              type="submit"
-              className="basis-[45%] font-light"
-              disabled={isPending}
-            >
-              Create
-            </Button>
-          </div>
+          <>
+            <div className="flex justify-between">
+              <Button
+                variant="tertiary-outline"
+                type="button"
+                onClick={() => {
+                  form.reset()
+                  router.push('/organizations')
+                }}
+                className="basis-[45%] bg-transparent font-light"
+              >
+                Cancel
+              </Button>
+              <Button
+                variant="tertiary"
+                type="submit"
+                className="basis-[45%] font-light"
+                disabled={isPending}
+              >
+                Create
+              </Button>
+            </div>
+            <FormError message={error} />
+          </>
         ) : (
           <Button type="submit" className="w-full">
             {t('save')}

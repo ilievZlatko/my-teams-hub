@@ -1,6 +1,6 @@
 'use client'
 
-import { useTransition } from 'react'
+import { useState, useTransition } from 'react'
 import { useRouter } from 'next/navigation'
 
 import { useForm } from 'react-hook-form'
@@ -22,9 +22,11 @@ import { Input } from '../ui/input'
 import { Button } from '../ui/button'
 import { Textarea } from '../ui/textarea'
 import { createTeam } from '@/actions/team.actions'
+import { FormError } from '../form-error'
 
 export const CreateTeamForm = () => {
   const [isPending, startTransition] = useTransition()
+  const [error, setError] = useState<string | undefined>('')
   const router = useRouter()
 
   const form = useForm<CreateTeamType>({
@@ -36,8 +38,15 @@ export const CreateTeamForm = () => {
   })
 
   const onSubmit = async (values: CreateTeamType) => {
-    startTransition(() => createTeam(values).then())
-    router.push('/teams')
+    setError('')
+    startTransition(async () => {
+      const response = await createTeam(values)
+      if (response && typeof response === 'object' && 'error' in response) {
+        setError(response.error)
+      } else {
+        router.push('/teams')
+      }
+    })
   }
 
   return (
@@ -120,6 +129,8 @@ export const CreateTeamForm = () => {
                   Create
                 </Button>
               </div>
+
+              <FormError message={error} />
             </form>
           </Form>
         </CardContent>

@@ -28,6 +28,10 @@ export async function createTeam(
       headers,
       body: JSON.stringify(data),
     })
+
+    if (res.status === 400) {
+      throw new Error('A team with that name already exists!')
+    }
     const newTeam = await res.json()
 
     revalidateTag('teams')
