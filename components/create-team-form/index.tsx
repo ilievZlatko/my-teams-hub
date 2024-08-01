@@ -23,12 +23,14 @@ import { Button } from '../ui/button'
 import { Textarea } from '../ui/textarea'
 import { createTeam } from '@/actions/team.actions'
 import { FormError } from '../form-error'
+import { useTranslations } from 'next-intl'
 
 export const CreateTeamForm = () => {
   const [isPending, startTransition] = useTransition()
   const [error, setError] = useState<string | undefined>('')
   const router = useRouter()
-
+  const t = useTranslations('page')
+  const tErrors = useTranslations('apierrors')
   const form = useForm<CreateTeamType>({
     resolver: zodResolver(CreateTeamSchema),
     defaultValues: {
@@ -42,7 +44,7 @@ export const CreateTeamForm = () => {
     startTransition(async () => {
       const response = await createTeam(values)
       if (response && typeof response === 'object' && 'error' in response) {
-        setError(response.error)
+        setError(tErrors(response.error as any))
       } else {
         router.push('/teams')
       }
@@ -62,7 +64,7 @@ export const CreateTeamForm = () => {
       <Card className="flex basis-[60%] flex-col border-0 bg-transparent shadow-none lg:pt-10">
         <CardHeader className="relative mx-auto mb-2 w-fit lg:mb-10">
           <h1 className="font-roboto text-[32px] font-normal leading-[38.4px]">
-            Add New Team
+            {t('team.create.title')}
           </h1>
           <span className="relative bottom-0 left-[50%] h-[2px] w-[120%] translate-x-[-50%] rounded bg-border"></span>
         </CardHeader>
@@ -75,17 +77,22 @@ export const CreateTeamForm = () => {
                   name="name"
                   render={({ field }) => (
                     <FormItem className="relative">
-                      <FormLabel className="text-xs">Team Name</FormLabel>
+                      <FormLabel className="text-xs">
+                        {t('team.create.name_label')}
+                      </FormLabel>
                       <FormControl className="">
                         <Input
                           {...field}
-                          placeholder="Marketing Team"
+                          placeholder={t('team.create.name_placeholder')}
                           type="text"
                           className="form-input"
                           disabled={isPending}
                         />
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage
+                        className="text-xs"
+                        defaultValue={t('team.create.schema_msg_name_required')}
+                      />
                     </FormItem>
                   )}
                 />
@@ -94,16 +101,21 @@ export const CreateTeamForm = () => {
                   name="description"
                   render={({ field }) => (
                     <FormItem className="relative">
-                      <FormLabel className="text-xs">Description</FormLabel>
+                      <FormLabel className="text-xs">
+                        {t('team.create.desc_label')}
+                      </FormLabel>
                       <FormControl>
                         <Textarea
                           {...field}
-                          placeholder="Write a short description of your team"
+                          placeholder={t('team.create.desc_placeholder')}
                           className="form-input"
                           disabled={isPending}
                         />
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage
+                        className="text-xs"
+                        defaultValue={t('team.create.schema_msg_desc_required')}
+                      />
                     </FormItem>
                   )}
                 />
@@ -118,7 +130,7 @@ export const CreateTeamForm = () => {
                   }}
                   className="basis-[45%] bg-transparent font-light"
                 >
-                  Cancel
+                  {t('cancel')}
                 </Button>
                 <Button
                   variant="tertiary"
@@ -126,7 +138,7 @@ export const CreateTeamForm = () => {
                   className="basis-[45%] font-light"
                   disabled={isPending}
                 >
-                  Create
+                  {t('team.index.create')}
                 </Button>
               </div>
 

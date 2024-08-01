@@ -14,7 +14,7 @@ export async function createOrg(
   const validatedFields = CreateOrganizationSchema.safeParse(data)
 
   if (!validatedFields.success) {
-    return { error: 'Invalid fields!' }
+    return { error: 'invalid_fields_msg' }
   }
   try {
     const session = await auth()
@@ -32,7 +32,7 @@ export async function createOrg(
     })
 
     if (res.status === 400) {
-      throw new Error('An organization with that name already exists!')
+      return { error: 'organization_already_exists' }
     }
 
     const newOrg = await res.json()

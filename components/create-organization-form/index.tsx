@@ -28,8 +28,9 @@ export const CreateOrganizationForm = ({ isPage = false }) => {
   const [isPending, startTransition] = useTransition()
   const [error, setError] = useState<string | undefined>('')
   const router = useRouter()
-
   const t = useTranslations('page')
+  const tErrors = useTranslations('apierrors')
+
   const { data: session, update } = useSession()
   const form = useForm<z.infer<typeof CreateOrganizationSchema>>({
     resolver: zodResolver(CreateOrganizationSchema),
@@ -42,7 +43,7 @@ export const CreateOrganizationForm = ({ isPage = false }) => {
       const response = await createOrg(values)
 
       if (response && typeof response === 'object' && 'error' in response) {
-        setError(response.error)
+        setError(tErrors(response.error as any))
       } else if (isPage) {
         router.push('/organizations')
       } else {
@@ -85,9 +86,12 @@ export const CreateOrganizationForm = ({ isPage = false }) => {
                     className="form-input placeholder:text-xs"
                   />
                 </FormControl>
-                <span className="absolute inset-y-[44px] end-0 flex items-center justify-center px-3">
-                  <Building2 className="size-5 text-[#63929e]" />
-                </span>
+                {isPage ? null : (
+                  <span className="absolute inset-y-[44px] end-0 flex items-center justify-center px-3">
+                    <Building2 className="size-5 text-[#63929e]" />
+                  </span>
+                )}
+
                 <FormMessage
                   defaultValue={t('create.schema_msg_name_required')}
                   className="text-xs"
@@ -131,7 +135,7 @@ export const CreateOrganizationForm = ({ isPage = false }) => {
                 }}
                 className="basis-[45%] bg-transparent font-light"
               >
-                Cancel
+                {t('cancel')}
               </Button>
               <Button
                 variant="tertiary"
@@ -139,7 +143,7 @@ export const CreateOrganizationForm = ({ isPage = false }) => {
                 className="basis-[45%] font-light"
                 disabled={isPending}
               >
-                Create
+                {t('organization.index.create')}
               </Button>
             </div>
             <FormError message={error} />

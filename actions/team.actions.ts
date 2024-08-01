@@ -12,7 +12,7 @@ export async function createTeam(
   const validatedFields = CreateTeamSchema.safeParse(data)
 
   if (!validatedFields.success) {
-    return { error: 'Invalid fields!' }
+    return { error: 'invalid_fields_msg' }
   }
   try {
     const session = await auth()
@@ -30,7 +30,7 @@ export async function createTeam(
     })
 
     if (res.status === 400) {
-      throw new Error('A team with that name already exists!')
+      return { error: 'team_already_exists' }
     }
     const newTeam = await res.json()
 
