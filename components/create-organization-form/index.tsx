@@ -20,14 +20,17 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form'
-import { useTransition } from 'react'
+import { useState, useTransition } from 'react'
 import { useRouter } from 'next/navigation'
+import { FormError } from '../form-error'
 
 export const CreateOrganizationForm = ({ isPage = false }) => {
   const [isPending, startTransition] = useTransition()
+  const [error, setError] = useState<string | undefined>('')
   const router = useRouter()
-
   const t = useTranslations('page')
+  const tErrors = useTranslations('apierrors')
+
   const { data: session, update } = useSession()
   const form = useForm<z.infer<typeof CreateOrganizationSchema>>({
     resolver: zodResolver(CreateOrganizationSchema),
@@ -35,7 +38,24 @@ export const CreateOrganizationForm = ({ isPage = false }) => {
   })
 
   const onSubmit = async (values: z.infer<typeof CreateOrganizationSchema>) => {
-    startTransition(() => createOrg(values).then())
+    setError('')
+    startTransition(async () => {
+      const response = await createOrg(values)
+
+      if (
+        response &&
+        typeof response === 'object' &&
+        'error' in response &&
+        (response.error === 'organization_already_exists' ||
+          response.error === 'error_occurred_msg')
+      ) {
+        setError(tErrors(response.error))
+      } else if (isPage) {
+        router.push('/organizations')
+      } else {
+        form.reset()
+      }
+    })
     const organizations = await getOrgs()
 
     const updatedSession = {
@@ -50,12 +70,6 @@ export const CreateOrganizationForm = ({ isPage = false }) => {
       },
     }
     await update(updatedSession)
-
-    if (isPage) {
-      router.push('/organizations')
-    } else {
-      form.reset()
-    }
   }
 
   return (
@@ -78,9 +92,12 @@ export const CreateOrganizationForm = ({ isPage = false }) => {
                     className="form-input placeholder:text-xs"
                   />
                 </FormControl>
-                <span className="absolute inset-y-[44px] end-0 flex items-center justify-center px-3">
-                  <Building2 className="size-5 text-[#63929e]" />
-                </span>
+                {isPage ? null : (
+                  <span className="absolute inset-y-[44px] end-0 flex items-center justify-center px-3">
+                    <Building2 className="size-5 text-[#63929e]" />
+                  </span>
+                )}
+
                 <FormMessage
                   defaultValue={t('create.schema_msg_name_required')}
                   className="text-xs"
@@ -113,27 +130,30 @@ export const CreateOrganizationForm = ({ isPage = false }) => {
           />
         </div>
         {isPage ? (
-          <div className="flex justify-between">
-            <Button
-              variant="tertiary-outline"
-              type="button"
-              onClick={() => {
-                form.reset()
-                router.push('/organizations')
-              }}
-              className="basis-[45%] bg-transparent font-light"
-            >
-              Cancel
-            </Button>
-            <Button
-              variant="tertiary"
-              type="submit"
-              className="basis-[45%] font-light"
-              disabled={isPending}
-            >
-              Create
-            </Button>
-          </div>
+          <>
+            <div className="flex justify-between">
+              <Button
+                variant="tertiary-outline"
+                type="button"
+                onClick={() => {
+                  form.reset()
+                  router.push('/organizations')
+                }}
+                className="basis-[45%] bg-transparent font-light"
+              >
+                {t('cancel')}
+              </Button>
+              <Button
+                variant="tertiary"
+                type="submit"
+                className="basis-[45%] font-light"
+                disabled={isPending}
+              >
+                {t('organization.index.create')}
+              </Button>
+            </div>
+            <FormError message={error} />
+          </>
         ) : (
           <Button type="submit" className="w-full">
             {t('save')}
