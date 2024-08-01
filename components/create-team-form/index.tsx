@@ -43,8 +43,14 @@ export const CreateTeamForm = () => {
     setError('')
     startTransition(async () => {
       const response = await createTeam(values)
-      if (response && typeof response === 'object' && 'error' in response) {
-        setError(tErrors(response.error as any))
+      if (
+        response &&
+        typeof response === 'object' &&
+        'error' in response &&
+        (response.error === 'team_already_exists' ||
+          response.error === 'error_occurred_msg')
+      ) {
+        setError(tErrors(response.error))
       } else {
         router.push('/teams')
       }

@@ -42,8 +42,14 @@ export const CreateOrganizationForm = ({ isPage = false }) => {
     startTransition(async () => {
       const response = await createOrg(values)
 
-      if (response && typeof response === 'object' && 'error' in response) {
-        setError(tErrors(response.error as any))
+      if (
+        response &&
+        typeof response === 'object' &&
+        'error' in response &&
+        (response.error === 'organization_already_exists' ||
+          response.error === 'error_occurred_msg')
+      ) {
+        setError(tErrors(response.error))
       } else if (isPage) {
         router.push('/organizations')
       } else {
