@@ -1,6 +1,6 @@
 'use client'
 
-import { ChangeEvent, useEffect, useState } from 'react'
+import { ChangeEvent, useEffect, useMemo, useState, useTransition } from 'react'
 
 import { useTranslations } from 'next-intl'
 import { Search, X, FilePenLine, Save } from 'lucide-react'
@@ -34,24 +34,18 @@ import { cn } from '@/lib/utils'
 import { OrganisationDetailsCard } from '../organization-details-card'
 
 export const GetOrganizationDetails = ({ id }: { id: string }) => {
+  const [startTransition, isPending] = useTransition();
   const { width } = useWindowSize(200)
 
   const t = useTranslations('page.organization.details')
   const tErrors = useTranslations('apierrors')
 
   const { data: session, status } = useSession()
-  const [hasSession, setHasSession] = useState(false)
 
   const [valueState, setValue] = useState(10)
   const [allTeams, setAllTeams] = useState<TeamList | undefined>(undefined)
 
   const [isFetchingData, setIsFetchingData] = useState(false)
-
-  const [hover, setHover] = useState(false)
-
-  const [currentOrg, setCurrentOrg] = useState<Organisation | undefined>(
-    undefined,
-  )
 
   const rowsPerPage = 1
   const [currentPage, setCurrentPage] = useState(rowsPerPage)
@@ -90,29 +84,25 @@ export const GetOrganizationDetails = ({ id }: { id: string }) => {
 
   let filteredTeams = allTeams && allTeams?.teams ? allTeams.teams : []
 
-  useEffect(() => {
-    if (session && status === 'authenticated') setHasSession(true)
-  }, [session])
+  const currentOrg = useMemo(() => {
+    return session?.user.organizations.find(
+       (org: Organisation) => org.organizationId === id,
+     )
+}, [session?.user?.activeOrg])
+
 
   useEffect(() => {
     if (session?.user?.activeOrg) {
-      setCurrentOrg(
-        () =>
-          session.user.organizations.filter(
-            (org: Organisation) => org.organizationId === id,
-          )[0],
-      )
-
       setNameValue(
-        () =>
-          session.user.organizations.filter(
-            (org: Organisation) => org.organizationId === id,
-          )[0].organizationName,
+        currentOrg.organizationName,
       )
-
-      fetchTeams()
+      // fetchTeams();
+      startTransition(() => {
+        fetchTeams();
+     });
     }
-  }, [hasSession, session?.user.activeOrg])
+  }, [session?.user.activeOrg])
+
 
   function fetchTeams() {
     if (!session) return
@@ -175,8 +165,10 @@ export const GetOrganizationDetails = ({ id }: { id: string }) => {
 
   filteredTeams = filteredTeams.slice(firstTeam, valueState * currentPage)
 
-  if (!session || isFetchingData)
+  // if (!session || isFetchingData)
+  if (isPending) {
     return <Loader size={44} className="m-auto flex h-[50vh] items-center" />
+  }
 
   return (
     <div className="flex w-full flex-col lg:flex-row lg:gap-1 xl:max-w-[1100px]">
@@ -185,25 +177,16 @@ export const GetOrganizationDetails = ({ id }: { id: string }) => {
           <div className="mb-[20px] flex h-[97px] justify-center gap-[40px]">
             <div
               className="relative top-[0px] flex h-[97px] w-[97px] content-center justify-center overflow-hidden rounded-full border-[3px] border-white bg-mth-blue-100"
-              onMouseEnter={() => {
-                setHover(true)
-              }}
-              onMouseLeave={() => {
-                setHover(false)
-              }}
             >
-              {hover ? (
-                <button
-                  onClick={changeLogoHandler}
-                  className="absolute bottom-0 z-10 h-[100%] w-[100%] rounded-br bg-mth-blue-500 text-sm opacity-0 transition-opacity duration-500 ease-in hover:opacity-100"
-                >
-                  {t('change')}
-                </button>
-              ) : (
-                <h1 className="self-center text-4xl font-bold text-mth-grey-blue-500">
-                  {currentOrg?.organizationName.slice(0, 1).toUpperCase()}
-                </h1>
-              )}
+              <button
+                onClick={changeLogoHandler}
+                className="absolute bottom-0 z-10 h-[100%] w-[100%] rounded-br bg-mth-blue-500 text-sm opacity-0 transition-opacity duration-300 ease-in hover:opacity-100"
+              >
+                {t('change')}
+              </button>
+              <h1 className="self-center text-4xl font-bold text-mth-grey-blue-500">
+                {currentOrg?.organizationName.slice(0, 1).toUpperCase()}
+              </h1>
             </div>
             <div className="relative mb-1 flex flex-col content-center justify-between lg:mb-3">
               {editName ? (
