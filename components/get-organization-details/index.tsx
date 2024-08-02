@@ -34,18 +34,16 @@ import { cn } from '@/lib/utils'
 import { OrganisationDetailsCard } from '../organization-details-card'
 
 export const GetOrganizationDetails = ({ id }: { id: string }) => {
-  const [startTransition, isPending] = useTransition();
+  const [isPending, startTransition] = useTransition()
   const { width } = useWindowSize(200)
 
   const t = useTranslations('page.organization.details')
   const tErrors = useTranslations('apierrors')
 
-  const { data: session, status } = useSession()
+  const { data: session } = useSession()
 
   const [valueState, setValue] = useState(10)
   const [allTeams, setAllTeams] = useState<TeamList | undefined>(undefined)
-
-  const [isFetchingData, setIsFetchingData] = useState(false)
 
   const rowsPerPage = 1
   const [currentPage, setCurrentPage] = useState(rowsPerPage)
@@ -86,42 +84,30 @@ export const GetOrganizationDetails = ({ id }: { id: string }) => {
 
   const currentOrg = useMemo(() => {
     return session?.user.organizations.find(
-       (org: Organisation) => org.organizationId === id,
-     )
-}, [session?.user?.activeOrg])
-
+      (org: Organisation) => org.organizationId === id,
+    )
+  }, [session?.user?.activeOrg])
 
   useEffect(() => {
     if (session?.user?.activeOrg) {
-      setNameValue(
-        currentOrg.organizationName,
-      )
-      // fetchTeams();
+      setNameValue(currentOrg.organizationName)
       startTransition(() => {
-        fetchTeams();
-     });
+        fetchTeams()
+      })
     }
   }, [session?.user.activeOrg])
 
-
   function fetchTeams() {
-    if (!session) return
-    setIsFetchingData(true)
+    getAllTeams(id).then((data) => {
+      if (Object.keys(data).find((key) => key === 'teams')) {
+        setAllTeams(data as TeamList)
+      } else {
+        setAllTeams(undefined)
 
-    getAllTeams(id)
-      .then((data) => {
-        if (Object.keys(data).find((key) => key === 'teams')) {
-          setAllTeams(data as TeamList)
-        } else {
-          setAllTeams(undefined)
-
-          //@ts-expect-error: unknown error type
-          toast.error(tErrors(data.error))
-        }
-      })
-      .finally(() => {
-        setIsFetchingData(false)
-      })
+        //@ts-expect-error: unknown error type
+        toast.error(tErrors(data.error))
+      }
+    })
   }
 
   useEffect(() => {
@@ -165,8 +151,7 @@ export const GetOrganizationDetails = ({ id }: { id: string }) => {
 
   filteredTeams = filteredTeams.slice(firstTeam, valueState * currentPage)
 
-  // if (!session || isFetchingData)
-  if (isPending) {
+  if (isPending || !session) {
     return <Loader size={44} className="m-auto flex h-[50vh] items-center" />
   }
 
@@ -175,9 +160,7 @@ export const GetOrganizationDetails = ({ id }: { id: string }) => {
       <Card className="flex w-full flex-col border-none bg-transparent shadow-none">
         <CardHeader className="relative mb-[20px] flex w-full lg:mb-3">
           <div className="mb-[20px] flex h-[97px] justify-center gap-[40px]">
-            <div
-              className="relative top-[0px] flex h-[97px] w-[97px] content-center justify-center overflow-hidden rounded-full border-[3px] border-white bg-mth-blue-100"
-            >
+            <div className="relative top-[0px] flex h-[97px] w-[97px] content-center justify-center overflow-hidden rounded-full border-[3px] border-white bg-mth-blue-100">
               <button
                 onClick={changeLogoHandler}
                 className="absolute bottom-0 z-10 h-[100%] w-[100%] rounded-br bg-mth-blue-500 text-sm opacity-0 transition-opacity duration-300 ease-in hover:opacity-100"
