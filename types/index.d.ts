@@ -41,9 +41,15 @@ declare interface IUser {
   creationDate?: Date
   phoneNumber?: string
   teams?: IUserTeam[]
+  error?: string
 }
 
 declare interface IUserTeam {
   teamId: string
   name: string
+}
+
+declare interface UserList {
+  total: number
+  teams: IUser[]
 }

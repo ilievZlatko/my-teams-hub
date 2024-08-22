@@ -39,7 +39,7 @@ const EditUserForm: React.FC = () => {
     getUserProfile()
       .then((response) => {
         if ('error' in response) {
-          setError(response.error)
+          setError(response.error as string | null)
           toast.error(response.error)
         } else {
           setUser(response)

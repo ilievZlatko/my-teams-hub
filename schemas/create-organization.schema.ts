@@ -4,7 +4,7 @@ export const CreateOrganizationSchema = z.object({
   name: z.string().min(1, {
     message: 'schema_msg_name_required',
   }),
-  description: z.string({
+  description: z.string().min(1, {
     message: 'schema_msg_desc_required',
   }),
 })

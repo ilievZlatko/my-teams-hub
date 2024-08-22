@@ -2,12 +2,20 @@
 
 import routes from '@/api-routes'
 import { auth } from '@/config/auth'
-import { CreateOrganizationType } from '@/schemas/create-organization.schema'
+import {
+  CreateOrganizationSchema,
+  CreateOrganizationType,
+} from '@/schemas/create-organization.schema'
 import { revalidateTag } from 'next/cache'
 
 export async function createOrg(
   data: CreateOrganizationType,
 ): Promise<Organisation | { error: string }> {
+  const validatedFields = CreateOrganizationSchema.safeParse(data)
+
+  if (!validatedFields.success) {
+    return { error: 'invalid_fields_msg' }
+  }
   try {
     const session = await auth()
     const headers = new Headers()
@@ -16,11 +24,17 @@ export async function createOrg(
     headers.append('Authorization', `Bearer ${session?.token?.access_token}`)
 
     const url = `${process.env.API_BASE_URL}${routes.createOrgUrl.post}`
+
     const res = await fetch(url, {
       method: 'POST',
       headers,
       body: JSON.stringify(data),
     })
+
+    if (res.status === 400) {
+      return { error: 'organization_already_exists' }
+    }
+
     const newOrg = await res.json()
     revalidateTag('organizations')
     return newOrg.data

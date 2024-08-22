@@ -83,6 +83,7 @@
         "search_placeholder": "Search...",
         "no_results": "No results found",
         "create_team_btn": "Create Team",
+        "create": "Create",
         "edit": "Edit",
         "delete": "Delete",
         "show": "Show",
@@ -94,8 +95,13 @@
         "action": "Action"
       },
       "create": {
-        "title": "Create Team",
-        "saveBtn": "Save"
+        "title": "Add New Team",
+        "name_label": "Name",
+        "name_placeholder": "Marketing Team",
+        "desc_label": "Description",
+        "desc_placeholder": "Describe shortly . . .",
+        "schema_msg_name_required": "Team name is required!",
+        "schema_msg_desc_required": "Please, provide a short description!"
       },
       "edit": {
         "title": "Edit Team",
@@ -128,6 +134,7 @@
         "search_placeholder": "Search...",
         "no_results": "No results found",
         "create_org_btn": "Create Organization",
+        "create": "Create",
         "edit": "Edit",
         "delete": "Delete",
         "show": "Show",
@@ -141,6 +148,22 @@
       }
     },
     "user": {
+      "index": {
+        "search_placeholder": "Search...",
+        "edit": "Edit",
+        "delete": "Delete",
+        "show": "Show",
+        "no_members_yet": "No Members Yet",
+        "team_id": "Team ID",
+        "members": "Members",
+        "name": "Name",
+        "creation_date": "Date of Creation",
+        "action": "Action",
+        "team": "Team",
+        "status": "Status",
+        "create_user_btn": "Create User",
+        "see-profile": "See profile"
+      },
       "edit": {
         "title": "Edit User",
         "user_first_name_label": "First name",

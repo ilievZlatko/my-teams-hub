@@ -83,6 +83,7 @@
         "search_placeholder": "Търсене...",
         "no_results": "Няма намерени резултати",
         "create_team_btn": "Създай Екип",
+        "create": "Създай",
         "edit": "Редактирай",
         "delete": "Изтрий",
         "show": "Покажи",
@@ -94,8 +95,13 @@
         "action": "Действие"
       },
       "create": {
-        "title": "Създаване на Екип",
-        "saveBtn": "Запази"
+        "title": "Създай Нов Екип",
+        "name_label": "Име",
+        "name_placeholder": "Маркетингов Екип",
+        "desc_label": "Описание",
+        "desc_placeholder": "Опишете накратко . . .",
+        "schema_msg_name_required": "Името на екипа е задължително!",
+        "schema_msg_desc_required": "Моля, напишете кратко описание на организацията!"
       },
       "edit": {
         "title": "Редакция на Екип",
@@ -128,6 +134,7 @@
         "search_placeholder": "Търсене...",
         "no_results": "Няма намерени резултати",
         "create_org_btn": "Създай Организация",
+        "create": "Създай",
         "edit": "Редактирай",
         "delete": "Изтрий",
         "show": "Покажи",
@@ -141,6 +148,22 @@
       }
     },
     "user": {
+      "index": {
+        "search_placeholder": "Търсене...",
+        "edit": "Редактирай",
+        "delete": "Изтрий",
+        "show": "Покажи",
+        "no_members_yet": "Няма членове",
+        "team_id": "ИД Номер",
+        "members": "Членове",
+        "name": "Име",
+        "creation_date": "Дата на създаване",
+        "action": "Действие",
+        "team": "Отбор",
+        "status": "Статус",
+        "create_user_btn": "Създай потребител",
+        "see-profile": "Виж профил"
+      },
       "edit": {
         "title": "Редакция на Профила",
         "user_first_name_label": "Име",

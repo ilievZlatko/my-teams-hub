@@ -53,6 +53,8 @@ const config = {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))',
         },
+        customGreenBg: '#e6f1e2',
+        customGreenText: '#278300',
         'mth-dark': {
           50: '#ebecec',
           100: '#c2c3c3',
