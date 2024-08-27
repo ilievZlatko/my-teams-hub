@@ -143,8 +143,22 @@
         "description": "Описание",
         "creation_date": "Дата на създаване",
         "see_teams": "Виж Екипите",
+<<<<<<< HEAD
         "action": "Действие",
         "dialog_modal": "Сигурен ли си че искаш да изтриеш"
+=======
+        "action": "Действие"
+      },
+      "details": {
+        "title": "Team Details",
+        "change": "Промени", 
+        "view_more": "Виж повече",
+        "search_placeholder": "Търсене...",
+        "no_results": "Няма намерени резултати",
+        "show": "Покажи",
+        "edit": "Редактирай",
+        "save": "Запази"
+>>>>>>> 13307e5e55e7ad70324284ba4e67164807e630db
       }
     },
     "user": {

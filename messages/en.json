@@ -143,8 +143,22 @@
         "description": "Description",
         "creation_date": "Date of Creation",
         "see_teams": "See Teams",
+<<<<<<< HEAD
         "action": "Action",
         "dialog_modal": "Are you sure you want to delete"
+=======
+        "action": "Action"
+      },
+      "details": {
+        "title": "Team Details",
+        "change": "Change",
+        "view_more": "View more",
+        "search_placeholder": "Search...",
+        "no_results": "No results found",
+        "show": "Show",
+        "edit": "Edit",
+        "save": "Save"
+>>>>>>> 13307e5e55e7ad70324284ba4e67164807e630db
       }
     },
     "user": {
