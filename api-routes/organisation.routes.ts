@@ -5,4 +5,8 @@ export const orgRoutes = {
   createOrgUrl: {
     post: '/api/v1/organizations',
   },
+  organisation: {
+    delete: (organizationId: string) =>
+      `/api/v1/organizations/${organizationId}`,
+  },
 }
